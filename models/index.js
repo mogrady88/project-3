@@ -2,5 +2,6 @@ module.exports = {
   Post: require("./post"),
   Project: require("./project"),
   Task: require("./task"),
-  User: require("./user")
+  User: require("./user"),
+  Forum: require("./forum")
 };
