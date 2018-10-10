@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Nav from "../../components/Nav";
 import Row from "react-materialize/lib/Row";
 import Col from "react-materialize/lib/Col";
+import SignInCard from "../../components/SignInCard";
 
 class Login extends Component {
   state = {};
@@ -18,20 +19,7 @@ class Login extends Component {
   };
 
   render() {
-    return (
-      <div>
-        <Nav isPublic={true} />
-        <Row>
-          <Col s={6} className="grid1">
-            THis is the login page
-          </Col>
-          <Col s={6} className="grid2">
-            I can do React on a website!
-          </Col>
-        </Row>
-        <div className="container">yolo</div>
-      </div>
-    );
+    return <SignInCard />;
   }
 }
 
