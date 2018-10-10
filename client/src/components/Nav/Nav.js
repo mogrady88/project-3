@@ -12,7 +12,7 @@ class Nav extends React.Component {
       return (
         <Navbar className="Nav" brand="logo" right>
           <NavItem href="/">About</NavItem>
-          <NavItem href="/private">Admin Login</NavItem>
+          <NavItem href="/login">Admin Login</NavItem>
         </Navbar>
       );
     } else {
