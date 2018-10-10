@@ -1,10 +1,6 @@
 import React, { Component } from "react";
-import DeleteBtn from "../../components/DeleteBtn";
-import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
 import { Link } from "react-router-dom";
-import { List, ListItem } from "../../components/List";
-import { Input, TextArea, FormBtn } from "../../components/Form";
 import Nav from "../../components/Nav";
 import Row from "react-materialize/lib/Row";
 import Col from "react-materialize/lib/Col";
