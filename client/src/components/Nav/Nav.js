@@ -1,10 +1,11 @@
 import React from "react";
 import { Navbar, NavItem } from "react-materialize";
+import "./Nav.css";
 
 class Nav extends React.Component {
   render() {
     return (
-      <Navbar brand="logo" right>
+      <Navbar className="publicNav" brand="logo" right>
         <NavItem onClick={() => console.log("test click")}>
           Getting started
         </NavItem>
