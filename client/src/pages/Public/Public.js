@@ -24,7 +24,7 @@ class Public extends Component {
   render() {
     return (
       <div>
-        <Nav />
+        <Nav isPublic={true} />
         <Row>
           <Col s={6} className="grid1">
             AHHHHHH

@@ -3,15 +3,25 @@ import { Navbar, NavItem } from "react-materialize";
 import "./Nav.css";
 
 class Nav extends React.Component {
+  componentDidMount() {
+    console.log(this.props.isPublic);
+  }
+
   render() {
-    return (
-      <Navbar className="publicNav" brand="logo" right>
-        <NavItem onClick={() => console.log("test click")}>
-          Getting started
-        </NavItem>
-        <NavItem href="components.html">Components</NavItem>
-      </Navbar>
-    );
+    if (this.props.isPublic) {
+      return (
+        <Navbar className="Nav" brand="logo" right>
+          <NavItem href="/">About</NavItem>
+          <NavItem href="/private">Admin Login</NavItem>
+        </Navbar>
+      );
+    } else {
+      return (
+        <Navbar className="Nav" brand="logo" right>
+          <NavItem href="/">Public View</NavItem>
+        </Navbar>
+      );
+    }
   }
 }
 
