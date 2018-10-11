@@ -1,4 +1,6 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
+import axios from "axios";
 import { Row, Col, Card, Tabs, Tab, Input, Button } from "react-materialize";
 import "./SignInCard.css";
 
@@ -9,11 +11,28 @@ class SignInCard extends React.Component {
         <Row>
           <Col m={4} offset="m4">
             <Card className="signIn" title="Administrator Sign-In">
-              <p>I will put a form here.</p>
-              <h5>Username: lkhlkhlkh7</h5>
-              <p>Password: *************</p>
-              <br />
-              <Button>Sign In</Button>
+              <form>
+                <label htmlFor="username">Username:</label>
+                <input
+                  type="text"
+                  id="username"
+                  name="username"
+                  placeholder="Username"
+                  value={this.state.username}
+                  onChange={this.handleChange}
+                />
+                <label htmlFor="password">Password:</label>
+                <input
+                  placeholder="password"
+                  type="password"
+                  name="password"
+                  value={this.state.password}
+                  onChange={this.handleChange}
+                />
+                <Button onClick={this.handleSubmit} type="submit">
+                  Sign In
+                </Button>
+              </form>
             </Card>
           </Col>
         </Row>
