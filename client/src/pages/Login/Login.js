@@ -28,8 +28,18 @@ class Login extends Component {
     event.preventDefault();
     console.log("handleSubmit");
 
+    // axios
+    //   .get("/api/users/")
+    //   .then(response => {
+    //     console.log("Users:", response);
+    //   })
+    //   .catch(error => {
+    //     console.log("login error: ");
+    //     console.log(error);
+    //   });
+
     axios
-      .post("/user/login", {
+      .post("/api/users/login", {
         username: this.state.username,
         password: this.state.password
       })
