@@ -66,7 +66,7 @@ class Public extends Component {
     console.log(this.state.task);
     if (this.state.task.title) {
       console.log("hit");
-      ProjectsAPI.saveProject({
+      TasksAPI.saveTask({
         title: this.state.task.title,
         description: this.state.task.description,
         funds: parseInt(this.state.task.funds)
