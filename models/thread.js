@@ -14,6 +14,6 @@ const threadSchema = new Schema({
   ]
 });
 
-const Thread = mongoose.Model("Thread", threadSchema);
+const Thread = mongoose.model("Thread", threadSchema);
 
 module.exports = Thread;

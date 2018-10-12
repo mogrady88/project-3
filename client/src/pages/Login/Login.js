@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import API from "../../utils/API";
+// import API from "../../utils/API";
 import { Link } from "react-router-dom";
 import { Row, Col, Card, Tabs, Tab, Input, Button } from "react-materialize";
 import { Redirect } from "react-router-dom";
@@ -177,18 +177,11 @@ class Login extends Component {
                     value={this.state.password}
                     onChange={this.handleChange}
                   />
-                  <Button
-                    updateUser={this.props.updateUser}
-                    onClick={this.handleLogin}
-                    type="submit"
-                  >
+                  <Button onClick={this.handleLogin} type="submit">
+                    {console.log("Props", this.props)}
                     Login
                   </Button>
-                  <Button
-                    updateUser={this.props.updateUser}
-                    onClick={this.handleSignUp}
-                    type="submit"
-                  >
+                  <Button onClick={this.handleSignUp} type="submit">
                     Sign up
                   </Button>
                 </form>

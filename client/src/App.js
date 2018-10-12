@@ -58,8 +58,10 @@ class App extends React.Component {
             <Route
               exact
               path="/login"
-              component={Login}
-              render={props => <Button {...props.updateUser} />}
+              // component={Login}
+              render={props => (
+                <Login updateUser={this.updateUser} {...props} />
+              )}
             />
             <Route exact path="/private" component={Private} />
             <Route component={NoMatch} />
