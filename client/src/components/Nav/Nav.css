@@ -1,3 +1,14 @@
-.publicNav {
+.Nav {
   margin-bottom: 20px;
+  background-color: #252525;
 }
+
+.Nav a {
+  color: #ffffff;
+}
+
+.Nav a:hover {
+  background-color: #444444;
+  color: #fdd947;
+}
+/*# sourceMappingURL=Nav.css.map */

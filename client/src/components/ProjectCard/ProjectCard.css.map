@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "ProjectCard.scss",
+        "../../utils/_variables.scss"
+    ],
+    "names": [],
+    "file": "ProjectCard.css"
+}

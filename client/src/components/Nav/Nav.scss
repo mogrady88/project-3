@@ -1,0 +1,13 @@
+@import "../../utils/variables";
+
+.Nav {
+  margin-bottom: 20px;
+  background-color: map-get($colors, fifth);
+  a {
+    color: map-get($colors, fourth);
+  }
+  a:hover {
+    background-color: map-get($colors, second);
+    color: map-get($colors, first);
+  }
+}
