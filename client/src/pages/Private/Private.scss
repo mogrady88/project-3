@@ -1,0 +1,14 @@
+@import "../../utils/variables";
+
+.row .col.s3 {
+  background-color: map-get($colors, fifth);
+}
+
+.row .col.s9 {
+  // margin: 0.5rem 0 1rem 0;
+  background-color: map-get($colors, third);
+
+  .projectContainer {
+    margin: 0.75rem 0 1rem 0;
+  }
+}
