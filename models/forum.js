@@ -12,6 +12,6 @@ const forumSchema = new Schema ({
     }]
 });
 
-const Forum = mongoose.Model("Forum", forumSchema);
+const Forum = mongoose.model("Forum", forumSchema);
 
 module.exports = Forum;
