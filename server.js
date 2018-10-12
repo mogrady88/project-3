@@ -29,19 +29,19 @@ app.use(bodyParser.json());
 // Sessions
 app.use(
   session({
-    secret: "fraggle-rock", //pick a random string to make the hash that is generated secure
+    secret: "party-gandalf", //pick a random string to make the hash that is generated secure
     store: new MongoStore({ mongooseConnection: dbConnection }),
     resave: false, //required
     saveUninitialized: false //required
   })
 );
 
-// Add routes, both API and view
-app.use(routes);
-
 // Passport
 app.use(passport.initialize());
 app.use(passport.session()); // calls the deserializeUser
+
+// Add routes, both API and view
+app.use(routes);
 
 // Connect to the Mongo DB
 // mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/dialectic_DB");
