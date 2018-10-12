@@ -1,4 +1,12 @@
-.projectMetaLeft {
-  border-right: 5px;
-  border-color: white;
+.row .col.s3 {
+  background-color: #252525;
 }
+
+.row .col.s9 {
+  background-color: #d5d5d3;
+}
+
+.row .col.s9 .projectContainer {
+  margin: 0.75rem 0 1rem 0;
+}
+/*# sourceMappingURL=Private.css.map */
