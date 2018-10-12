@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Public from "./pages/Public";
 import Login from "./pages/Login";
 import Private from "./pages/Private";
+import TestCRUD from "./pages/TestCRUD";
 import NoMatch from "./pages/NoMatch";
 import PostDetail from "./pages/PostDetail";
 
@@ -65,6 +66,7 @@ class App extends React.Component {
               )}
             />
             <Route exact path="/private" component={Private} />
+            <Route exact path="/test" component={TestCRUD} />
             <Route component={NoMatch} />
           </Switch>
         </Router>
