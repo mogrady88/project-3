@@ -9,7 +9,7 @@ class ProjectCard extends React.Component {
         <h5>{this.props.name}</h5>
         <p>Status: {this.props.status}</p>
         <p>{this.props.summary}</p>
-        <div class="card-action">
+        <div className="card-action">
           <a href="#">View Project</a>
         </div>
       </Card>
