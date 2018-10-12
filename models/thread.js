@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const forumSchema = new Schema ({
+const threadSchema = new Schema ({
     thread: { type: String, required: true },
-    updatedAt: { type: Date, default: Date.now },
+    createdAt: { type: Date, default: Date.now },
     author: { type: String, required: true },
     comments: [{
         text: { type: String, required: true },
@@ -12,6 +12,6 @@ const forumSchema = new Schema ({
     }]
 });
 
-const Forum = mongoose.model("Forum", forumSchema);
+const Thread = mongoose.Model("Thread", threadSchema);
 
-module.exports = Forum;
+module.exports = Thread;
