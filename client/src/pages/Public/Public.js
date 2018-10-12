@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import API from "../../utils/API";
 import { Link } from "react-router-dom";
 import Nav from "../../components/Nav";
 import Row from "react-materialize/lib/Row";
