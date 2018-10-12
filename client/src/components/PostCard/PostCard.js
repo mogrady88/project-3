@@ -1,6 +1,7 @@
 import React from "react";
 import { Row, Col, Card, Input, Button } from "react-materialize";
 import "./PostCard.css";
+import { Link } from "react-router-dom";
 
 class PostCard extends React.Component {
   render() {
@@ -18,7 +19,9 @@ class PostCard extends React.Component {
             <p>{this.props.summary}</p>
           </Col>
           <Col s={4}>
+          <Link to={"/posts/" + this.props._id}>
             <Button>{this.props.isPublic ? "View Post" : "Edit Post"}</Button>
+          </Link>
           </Col>
         </Row>
       </Card>
