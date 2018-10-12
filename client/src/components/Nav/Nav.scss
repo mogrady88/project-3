@@ -1,7 +1,6 @@
 @import "../../utils/variables";
 
 .Nav {
-  margin-bottom: 20px;
   background-color: map-get($colors, fifth);
   a {
     color: map-get($colors, fourth);
@@ -10,4 +9,17 @@
     background-color: map-get($colors, second);
     color: map-get($colors, first);
   }
+}
+.z-depth-1,
+nav,
+.card-panel,
+.card,
+.toast,
+.btn,
+.btn-large,
+.btn-floating,
+.dropdown-content,
+.collapsible,
+.side-nav {
+  box-shadow: none;
 }

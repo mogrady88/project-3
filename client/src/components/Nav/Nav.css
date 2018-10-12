@@ -1,5 +1,4 @@
 .Nav {
-  margin-bottom: 20px;
   background-color: #252525;
 }
 
@@ -10,5 +9,20 @@
 .Nav a:hover {
   background-color: #444444;
   color: #fdd947;
+}
+
+.z-depth-1,
+nav,
+.card-panel,
+.card,
+.toast,
+.btn,
+.btn-large,
+.btn-floating,
+.dropdown-content,
+.collapsible,
+.side-nav {
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 /*# sourceMappingURL=Nav.css.map */
