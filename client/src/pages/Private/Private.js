@@ -31,7 +31,6 @@ class Private extends Component {
         <Nav isPublic={false} />
         <Row>
           <Col s={3}>
-            <h5>Projects</h5>
             <ProjectCard
               name="Project Name"
               status="Complete"
@@ -54,7 +53,6 @@ class Private extends Component {
             />
           </Col>
           <Col s={9}>
-            <h5>Current Project View</h5>
             <ProjectContainer
               project={this.state.project}
               summary={this.state.summary}

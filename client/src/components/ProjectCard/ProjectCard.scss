@@ -1,1 +1,30 @@
 @import "../../utils/variables";
+
+.card {
+  background-color: map-get($colors, second);
+  color: map-get($colors, fourth);
+
+  .card-content {
+    padding: 0;
+
+    h5 {
+      padding: 10px 20px 0px 20px;
+      color: map-get($colors, first);
+    }
+    p {
+      padding: 10px 0px 10px 20px;
+    }
+  }
+
+  .card-action {
+    margin: 0;
+    padding: 20px;
+
+    a:not(.btn):not(.btn-large):not(.btn-large):not(.btn-floating) {
+      color: map-get($colors, first);
+      margin-right: 24px;
+      transition: color 0.3s ease;
+      text-transform: uppercase;
+    }
+  }
+}
