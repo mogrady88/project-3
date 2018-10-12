@@ -6,6 +6,7 @@ import Public from "./pages/Public";
 import Login from "./pages/Login";
 import Private from "./pages/Private";
 import NoMatch from "./pages/NoMatch";
+import PostDetail from "./pages/PostDetail";
 
 class App extends React.Component {
   constructor() {
