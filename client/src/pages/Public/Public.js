@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import API from "../../utils/API";
+import API from "../../utils/postsAPI";
 import { Link } from "react-router-dom";
 import Nav from "../../components/Nav";
 import Row from "react-materialize/lib/Row";
@@ -8,18 +8,20 @@ import PostCard from '../../components/PostCard'
 
 class Public extends Component {
   state = {
-    posts : [{
-    _id: "test",
-    title: "Coolio!!!!!",
-    summary: "The Detailed Story of How Cool We Are",
-    content: "Hey Guess What We're collectively cool.",
-    tags: ["Dogs, Me, CoolStuff"],
-    isPublished: true,
-    createdAt: "10/11/2018"
-  }
-]};
+    posts : []
+  };
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.loadPosts();
+  };
+
+  loadPosts = () => {
+    API.getPosts()
+      .then(res =>
+        this.setState({ posts: res.data })
+      )
+      .catch(err => console.log(err));
+  };
 
   handleInputChange = event => {
     const { name, value } = event.target;
