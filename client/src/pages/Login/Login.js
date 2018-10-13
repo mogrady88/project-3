@@ -28,14 +28,6 @@ class Login extends Component {
   handleSignUp(event) {
     event.preventDefault();
     console.log("handleSubmit");
-    // UsersAPI.getUsers().then(response => {
-    //   console.log(response);
-    // });
-    //request to server to add a new username/password
-    // axios.post("/api/users/signup", {
-    //   username: this.state.username,
-    //   password: this.state.password
-    // });
     UsersAPI.signupUser({
       username: this.state.username,
       password: this.state.password
@@ -59,7 +51,7 @@ class Login extends Component {
   }
   handleLogin(event) {
     event.preventDefault();
-    console.log("handleSubmit");
+    console.log("handleLogin");
 
     UsersAPI.loginUser({
       username: this.state.username,

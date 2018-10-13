@@ -6,6 +6,17 @@ const passport = require("../../passport/");
 // Matches with "/api/users"
 router.route("/").get(usersController.findAll);
 
+// Matches with "/api/users/current"
+router.route("/current").get((req, res, next) => {
+  console.log("===== user!!======");
+  console.log(req.user);
+  if (req.user) {
+    res.json({ user: req.user });
+  } else {
+    res.json({ user: null });
+  }
+});
+
 //User sign up on /api/users/signup
 router.route("/signup").post(usersController.create);
 

@@ -19,6 +19,7 @@ class Nav extends React.Component {
       return (
         <Navbar className="Nav" brand="logo" right>
           <NavItem href="/">Public View</NavItem>
+          <h4>Logged in as {window.currentUser}</h4>
         </Navbar>
       );
     }

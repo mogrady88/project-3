@@ -6,8 +6,8 @@ export default {
     return axios.get("/api/users");
   },
   // Gets the book with the given id
-  getBook: function(id) {
-    return axios.get("/api/books/" + id);
+  getCurrentUser: function(id) {
+    return axios.get("/api/users/current");
   },
   // Deletes the book with the given id
   loginUser: function(userData) {

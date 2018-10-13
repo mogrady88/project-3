@@ -1,7 +1,13 @@
 import React from "react";
 import axios from "axios";
 import { Row, Col, Card, Tabs, Tab, Input, Button } from "react-materialize";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+  Link
+} from "react-router-dom";
 import Public from "./pages/Public";
 import Login from "./pages/Login";
 import Private from "./pages/Private";
@@ -9,6 +15,7 @@ import TestCRUD from "./pages/TestCRUD";
 import NoMatch from "./pages/NoMatch";
 import PostDetail from "./pages/PostDetail";
 import PrivateRoute from "./pages/PrivateRoute";
+import UsersAPI from "./utils/usersAPI";
 
 class App extends React.Component {
   constructor() {
@@ -32,7 +39,7 @@ class App extends React.Component {
   }
 
   getUser() {
-    axios.get("/api/users/").then(response => {
+    UsersAPI.getCurrentUser().then(response => {
       console.log("Get user response: ");
       console.log(response.data);
       if (response.data.user) {
@@ -42,6 +49,17 @@ class App extends React.Component {
           loggedIn: true,
           username: response.data.user.username
         });
+        console.log("There is a user, setting loggedIn: ", this.state.loggedIn);
+        window.currentUser = this.state.username;
+        console.log("window.currentUser:", window.currentUser);
+        if (this.state.loggedIn) {
+          console.log(
+            `Current user is ${window.currentUser}. LoggedIn is ${
+              this.state.loggedIn
+            }. Redirecting to Private view.`
+          );
+          return <Redirect to="/private" />;
+        }
       } else {
         console.log("Get user: no user");
         this.setState({
@@ -61,7 +79,6 @@ class App extends React.Component {
             <Route
               exact
               path="/login"
-              // component={Login}
               render={props => (
                 <Login updateUser={this.updateUser} {...props} />
               )}
