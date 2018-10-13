@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import Private from "./pages/Private";
 import NoMatch from "./pages/NoMatch";
 import PostDetail from "./pages/PostDetail";
+import PrivateRoute from "./pages/PrivateRoute";
 
 class App extends React.Component {
   constructor() {
@@ -64,7 +65,7 @@ class App extends React.Component {
                 <Login updateUser={this.updateUser} {...props} />
               )}
             />
-            <Route exact path="/private" component={Private} />
+            <PrivateRoute path="/private" component={Private} />
             <Route component={NoMatch} />
           </Switch>
         </Router>

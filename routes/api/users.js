@@ -42,7 +42,7 @@ router
 
 //User sign up on /api/users/signup
 router.route("/signup").post((req, res) => {
-  console.log("user signup");
+  console.log("user signup with", req.body);
 
   const { username, password } = req.body;
   // ADD VALIDATION
@@ -54,10 +54,11 @@ router.route("/signup").post((req, res) => {
         error: `Sorry, already a user with the username: ${username}`
       });
     } else {
-      const newUser = new User({
+      const newUser = {
         username: username,
         password: password
-      });
+      };
+      console.log(newUser);
       usersController.create(newUser);
       // .then((err, savedUser) => {
       //   if (err) return res.json(err);
