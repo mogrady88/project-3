@@ -4,6 +4,12 @@ import Row from "react-materialize/lib/Row";
 import Col from "react-materialize/lib/Col";
 import ProjectCard from "../../components/ProjectCard";
 import ProjectContainer from "../../components/ProjectContainer";
+import Tasks from "../../pages/Tasks";
+import Threads from "../../pages/Threads";
+import Posts from "../../pages/Posts";
+import { Navbar, NavItem } from "react-materialize";
+import { Route, Switch } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import "./Private.css";
 
 class Private extends Component {
@@ -26,6 +32,7 @@ class Private extends Component {
   };
 
   render() {
+    console.log(this.props.match);
     return (
       <div>
         <Nav isPublic={false} />
@@ -58,7 +65,18 @@ class Private extends Component {
               summary={this.state.summary}
               totalFunds={this.state.totalFunds}
               usedFunds={this.state.usedFunds}
-            />
+            >
+            <Navbar>
+              <Link to={`/private/tasks`} ><NavItem>Tasks</NavItem></Link>
+              <Link to={`/private/threads`} ><NavItem>Threads</NavItem></Link>
+              <Link to={`/private/posts`} ><NavItem>Posts</NavItem></Link>
+            </Navbar>
+                <Switch>
+                  <Route exact path={`/private/tasks`} component={Tasks} />
+                  <Route exact path={`/private/threads`} component={Threads} />
+                  <Route exact path={`/private/posts`} component={Posts} />
+                </Switch>
+            </ProjectContainer>
           </Col>
         </Row>
       </div>
@@ -66,4 +84,4 @@ class Private extends Component {
   }
 }
 
-export default Private;
+export default withRouter(Private);
