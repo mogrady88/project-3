@@ -13,10 +13,22 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   create: function(req, res) {
-    console.log(req.body);
-    db.User.create(req.body)
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+    console.log("usersController:", req.body);
+
+    // ADD VALIDATION
+    db.User.findOne({ username: req.body.username }, (err, user) => {
+      if (err) {
+        console.log("User.js post error: ", err);
+      } else if (user) {
+        res.json({
+          error: `Sorry, already a user with the username: ${req.body.username}`
+        });
+      } else {
+        db.User.create(req.body)
+          .then(dbModel => res.json(dbModel))
+          .catch(err => res.status(422).json(err));
+      }
+    });
   },
   update: function(req, res) {
     db.User.findOneAndUpdate({ _id: req.params.id }, req.body)

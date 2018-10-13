@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Row, Col, Card, Tabs, Tab, Input, Button } from "react-materialize";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
-import SignInCard from "../../components/SignInCard";
+import UsersAPI from "../../utils/usersAPI";
 
 class Login extends Component {
   constructor() {
@@ -28,13 +28,18 @@ class Login extends Component {
   handleSignUp(event) {
     event.preventDefault();
     console.log("handleSubmit");
-
+    // UsersAPI.getUsers().then(response => {
+    //   console.log(response);
+    // });
     //request to server to add a new username/password
-    axios
-      .post("/api/users/signup", {
-        username: this.state.username,
-        password: this.state.password
-      })
+    // axios.post("/api/users/signup", {
+    //   username: this.state.username,
+    //   password: this.state.password
+    // });
+    UsersAPI.signupUser({
+      username: this.state.username,
+      password: this.state.password
+    })
       .then(response => {
         console.log(response);
         if (!response.data.errmsg) {
@@ -56,11 +61,10 @@ class Login extends Component {
     event.preventDefault();
     console.log("handleSubmit");
 
-    axios
-      .post("/api/users/login", {
-        username: this.state.username,
-        password: this.state.password
-      })
+    UsersAPI.loginUser({
+      username: this.state.username,
+      password: this.state.password
+    })
       .then(response => {
         console.log("login response: ");
         console.log(response);
