@@ -17,7 +17,7 @@ export default {
   saveTask: function(taskData) {
     return axios.post("/api/tasks", taskData);
   },
-  updateTask: function(id, taskUpdateData){
-    return axios.put("/api/updatetask" + id, taskUpdateData);
+  updateTask: function(id, taskUpdateData) {
+    return axios.put("/api/tasks/" + id, taskUpdateData);
   }
 };
