@@ -3,5 +3,6 @@ module.exports = {
   Project: require("./project"),
   Task: require("./task"),
   User: require("./user"),
-  Thread: require("./thread")
+  Thread: require("./thread"),
+  Comment: require("./comment")
 };

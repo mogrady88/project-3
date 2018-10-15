@@ -111,6 +111,8 @@ class App extends React.Component {
               loggedIn={this.state.loggedIn}
               handleLogout={this.handleLogout}
             />
+
+            <Route path="/posts/:id" component={PostDetail} />
             <Route exact path="/test" component={TestCRUD} />
             <Route component={NoMatch} />
           </Switch>
