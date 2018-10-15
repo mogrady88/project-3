@@ -26,11 +26,12 @@ class App extends React.Component {
     };
 
     this.getUser = this.getUser.bind(this);
-    this.componentDidMount = this.componentDidMount.bind(this);
+    this.componentWillMount = this.componentWillMount.bind(this);
     this.updateUser = this.updateUser.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.getUser();
   }
 
@@ -44,18 +45,19 @@ class App extends React.Component {
       console.log(response.data);
       if (response.data.user) {
         console.log("Get User: There is a user saved in the server session: ");
-
         this.setState({
           loggedIn: true,
           username: response.data.user.username
         });
-        console.log("There is a user, setting loggedIn: ", this.state.loggedIn);
+        window.loggedIn = true;
+
+        console.log("There is a user, setting loggedIn: ", window.loggedIn);
         window.currentUser = this.state.username;
         console.log("window.currentUser:", window.currentUser);
         if (this.state.loggedIn) {
           console.log(
-            `Current user is ${window.currentUser}. LoggedIn is ${
-              this.state.loggedIn
+            `Current user is ${this.state.username}. LoggedIn is ${
+              window.loggedIn
             }. Redirecting to Private view.`
           );
           return <Redirect to="/private" />;
@@ -68,6 +70,25 @@ class App extends React.Component {
         });
       }
     });
+  }
+
+  handleLogout(event) {
+    event.preventDefault();
+    console.log("logging out");
+    UsersAPI.logoutUser({ user: this.state.username })
+      .then(response => {
+        console.log(response.data);
+        if (response.status === 200) {
+          this.updateUser({
+            loggedIn: false,
+            username: null
+          });
+          window.currentUser = this.state.username;
+        }
+      })
+      .catch(error => {
+        console.log("Logout error", error);
+      });
   }
 
   render() {
@@ -83,7 +104,13 @@ class App extends React.Component {
                 <Login updateUser={this.updateUser} {...props} />
               )}
             />
-            <PrivateRoute path="/private" component={Private} />
+            <PrivateRoute
+              path="/private"
+              component={Private}
+              getUser={this.getUser}
+              loggedIn={this.state.loggedIn}
+              handleLogout={this.handleLogout}
+            />
             <Route exact path="/test" component={TestCRUD} />
             <Route component={NoMatch} />
           </Switch>

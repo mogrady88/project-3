@@ -1,14 +1,25 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
+import Private from "../Private/Private";
 
-const PrivateRoute = ({ component: Component, path: url }) => {
-  const loggedIn = window.loggedIn; // user is authenticated
+const PrivateRoute = ({
+  render: Component,
+  path: url,
+  loggedIn,
+  handleLogout
+}) => {
+  // const loggedIn = this.props.loggedIn; // user is/is not authenticated
+  console.log("PrivateRoute.js says loggedIn is " + loggedIn);
 
   return (
     <Route
       path={url}
       render={props =>
-        loggedIn === false ? <Component {...props} /> : <Redirect to="/login" />
+        loggedIn === true ? (
+          <Private handleLogout={handleLogout} {...props} />
+        ) : (
+          <Redirect to="/login" />
+        )
       }
     />
   );

@@ -28,7 +28,7 @@ class Private extends Component {
   render() {
     return (
       <div>
-        <Nav isPublic={false} />
+        <Nav isPublic={false} handleLogout={this.props.handleLogout} />
         <Row>
           <Col s={3}>
             <ProjectCard

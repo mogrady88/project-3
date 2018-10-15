@@ -67,10 +67,13 @@ class Login extends Component {
             loggedIn: true,
             username: response.data.username
           });
+          window.currentUser = this.state.username;
+          console.log("Login.js Setting currentUser:", window.currentUser);
           // update the state to redirect to private view
           this.setState({
             redirectTo: "/private"
           });
+          console.log("Login.js State:", this.state);
         }
       })
       .catch(error => {
