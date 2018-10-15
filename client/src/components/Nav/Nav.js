@@ -18,7 +18,7 @@ class Nav extends React.Component {
     if (this.props.isPublic) {
       return (
         <Navbar className="Nav" brand="logo" right>
-          <NavItem href="/">About</NavItem>
+          <NavItem href="/">Home</NavItem>
           <NavItem href="/login">Admin Login</NavItem>
         </Navbar>
       );

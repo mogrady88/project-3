@@ -26,12 +26,12 @@ class App extends React.Component {
     };
 
     this.getUser = this.getUser.bind(this);
-    this.componentWillMount = this.componentWillMount.bind(this);
+    this.componentDidMount = this.componentDidMount.bind(this);
     this.updateUser = this.updateUser.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.getUser();
   }
 
@@ -60,7 +60,6 @@ class App extends React.Component {
               window.loggedIn
             }. Redirecting to Private view.`
           );
-          return <Redirect to="/private" />;
         }
       } else {
         console.log("Get user: no user");
@@ -94,6 +93,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
+        {/* {this.getUser} */}
         <Router>
           <Switch>
             <Route exact path="/" component={Public} />

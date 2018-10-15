@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Row, Col, Card, Tabs, Tab, Input, Button } from "react-materialize";
 import { Redirect } from "react-router-dom";
+import Nav from "../../components/Nav";
 import axios from "axios";
 import UsersAPI from "../../utils/usersAPI";
 
@@ -34,14 +35,16 @@ class Login extends Component {
     })
       .then(response => {
         console.log(response);
-        if (!response.data.errmsg) {
+        if (!response.data.error) {
           console.log("successful signup");
+          alert("Successful signup");
           this.setState({
             //redirect to login page
             // redirectTo: "/login"
           });
         } else {
           console.log("username already taken");
+          alert(response.data.error);
         }
       })
       .catch(error => {
@@ -73,12 +76,15 @@ class Login extends Component {
           this.setState({
             redirectTo: "/private"
           });
-          console.log("Login.js State:", this.state);
+          console.log(
+            "Login.js this.state.redirectTo: " + this.state.redirectTo
+          );
         }
       })
       .catch(error => {
         console.log("login error: ");
         console.log(error);
+        alert("Incorrect username or password");
       });
   }
 
@@ -88,6 +94,7 @@ class Login extends Component {
     } else {
       return (
         <div className="Container">
+          <Nav isPublic={true} />
           <Row>
             <Col m={4} offset="m4">
               <Card className="signIn" title="Administrator Login">
