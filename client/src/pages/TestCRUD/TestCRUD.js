@@ -4,8 +4,7 @@ import TasksAPI from "../../utils/tasksAPI";
 import ThreadsAPI from "../../utils/threadsAPI";
 import CommentsAPI from "../../utils/commentsAPI";
 import PostsAPI from "../../utils/postsAPI";
-import Row from "react-materialize/lib/Row";
-import Col from "react-materialize/lib/Col";
+import { Row, Col, Input } from "react-materialize";
 
 class Public extends Component {
   state = {
@@ -21,16 +20,19 @@ class Public extends Component {
     task: {
       title: "",
       description: "",
-      funds: ""
+      funds: "",
+      project: ""
     },
     thread: {
       title: "",
       author: "",
-      initialComment: ""
+      initialComment: "",
+      project: ""
     },
     comment: {
       text: "",
-      author: ""
+      author: "",
+      thread: ""
     }
   };
 
@@ -70,6 +72,7 @@ class Public extends Component {
       .catch(err => console.log(err));
   };
 
+  // Project Functions
   handleProjectInputChange = event => {
     const { name, value } = event.target;
     this.setState({
@@ -97,6 +100,7 @@ class Public extends Component {
     }
   };
 
+  // Task Functions
   handleTaskInputChange = event => {
     const { name, value } = event.target;
     this.setState({
@@ -109,12 +113,15 @@ class Public extends Component {
 
   handleTaskFormSubmit = event => {
     event.preventDefault();
-    if (this.state.task.title) {
-      TasksAPI.saveTask({
-        title: this.state.task.title,
-        description: this.state.task.description,
-        funds: parseInt(this.state.task.funds)
-      })
+    if (this.state.task.title && this.state.task.project) {
+      TasksAPI.saveTask([
+        {
+          title: this.state.task.title,
+          description: this.state.task.description,
+          funds: parseInt(this.state.task.funds)
+        },
+        { project: this.state.task.project }
+      ])
         .then(res => {
           console.log(res);
           this.loadTasks();
@@ -123,6 +130,7 @@ class Public extends Component {
     }
   };
 
+  // Thread Functions
   handleThreadInputChange = event => {
     const { name, value } = event.target;
     this.setState({
@@ -138,7 +146,8 @@ class Public extends Component {
     if (
       this.state.thread.title &&
       this.state.thread.author &&
-      this.state.thread.initialComment
+      this.state.thread.initialComment &&
+      this.state.thread.project
     ) {
       ThreadsAPI.saveThread([
         {
@@ -148,6 +157,44 @@ class Public extends Component {
         {
           text: this.state.thread.initialComment,
           author: this.state.thread.author
+        },
+        {
+          project: this.state.thread.project
+        }
+      ])
+        .then(res => {
+          console.log(res);
+          this.loadThreads();
+        })
+        .catch(err => console.log(err));
+    }
+  };
+
+  // Comment Functions
+  handleCommentInputChange = event => {
+    const { name, value } = event.target;
+    this.setState({
+      comment: {
+        ...this.state.comment,
+        [name]: value
+      }
+    });
+  };
+
+  handleCommentFormSubmit = event => {
+    event.preventDefault();
+    if (
+      this.state.comment.author &&
+      this.state.comment.text &&
+      this.state.comment.thread
+    ) {
+      CommentsAPI.saveComment([
+        {
+          author: this.state.comment.author,
+          text: this.state.comment.text
+        },
+        {
+          thread: this.state.comment.thread
         }
       ])
         .then(res => {
@@ -163,7 +210,7 @@ class Public extends Component {
       <div>
         <Row>
           <Col s={3}>
-            Project Submit
+            <h5>Project Submit</h5>
             <form>
               <div className="form-group">
                 <input
@@ -215,7 +262,7 @@ class Public extends Component {
             </form>
           </Col>
           <Col s={3}>
-            Task Submit
+            <h5>Task Submit</h5>
             <form>
               <div className="form-group">
                 <input
@@ -244,6 +291,22 @@ class Public extends Component {
                   placeholder="Funds (optional)"
                 />
               </div>
+              <div className="form-group">
+                <Input
+                  s={12}
+                  type="select"
+                  label="Project Select"
+                  value={this.state.task.project}
+                  onChange={this.handleTaskInputChange}
+                  name="project"
+                >
+                  {this.state.projects.map(project => (
+                    <option value={project._id} key={project._id}>
+                      {project.title}
+                    </option>
+                  ))}
+                </Input>
+              </div>
               <button
                 disabled={!this.state.task.title}
                 onClick={this.handleTaskFormSubmit}
@@ -255,7 +318,7 @@ class Public extends Component {
             </form>
           </Col>
           <Col s={3}>
-            Thread Submit
+            <h5>Thread Submit</h5>
             <form>
               <div className="form-group">
                 <input
@@ -285,6 +348,22 @@ class Public extends Component {
                   placeholder="Initial Comment (required)"
                 />
               </div>
+              <div className="form-group">
+                <Input
+                  s={12}
+                  type="select"
+                  label="Project Select"
+                  value={this.state.thread.project}
+                  onChange={this.handleThreadInputChange}
+                  name="project"
+                >
+                  {this.state.projects.map(project => (
+                    <option value={project._id} key={project._id}>
+                      {project.title}
+                    </option>
+                  ))}
+                </Input>
+              </div>
               <button
                 disabled={
                   !(
@@ -301,7 +380,56 @@ class Public extends Component {
               </button>
             </form>
           </Col>
-          <Col s={3}>Comment Submit</Col>
+          <Col s={3}>
+            <h5>Comment Submit</h5>
+            <form>
+              <div className="form-group">
+                <input
+                  className="form-control"
+                  value={this.state.comment.author}
+                  onChange={this.handleCommentInputChange}
+                  name="author"
+                  placeholder="Author (required)"
+                />
+              </div>
+              <div className="form-group">
+                <textarea
+                  className="form-control"
+                  rows="20"
+                  value={this.state.comment.text}
+                  onChange={this.handleCommentInputChange}
+                  name="text"
+                  placeholder="Comment (required)"
+                />
+              </div>
+              <div className="form-group">
+                <Input
+                  s={12}
+                  type="select"
+                  label="Thread Select"
+                  value={this.state.comment.thread}
+                  onChange={this.handleCommentInputChange}
+                  name="thread"
+                >
+                  {this.state.threads.map(thread => (
+                    <option value={thread._id} key={thread._id}>
+                      {thread.title}
+                    </option>
+                  ))}
+                </Input>
+              </div>
+              <button
+                disabled={
+                  !(this.state.comment.author && this.state.comment.text)
+                }
+                onClick={this.handleCommentFormSubmit}
+                style={{ float: "right", marginBottom: 10 }}
+                className="btn btn-success"
+              >
+                Submit Comment
+              </button>
+            </form>
+          </Col>
         </Row>
       </div>
     );

@@ -13,8 +13,21 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   create: function(req, res) {
-    db.Comment.create(req.body)
-      .then(dbModel => res.json(dbModel))
+    db.Comment.create(req.body[0])
+      .then(comment => {
+        db.Thread.findOneAndUpdate(
+          { _id: req.body[1].thread },
+          {
+            $push: { comments: comment._id }
+          },
+          { new: true }
+        )
+          .populate("comments")
+          .then(dbModel => res.json(dbModel))
+          .catch(function(err) {
+            res.json(err);
+          });
+      })
       .catch(err => res.status(422).json(err));
   },
   update: function(req, res) {

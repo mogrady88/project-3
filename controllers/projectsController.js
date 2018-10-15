@@ -3,12 +3,16 @@ const db = require("../models");
 module.exports = {
   findAll: function(req, res) {
     db.Project.find(req.query)
+      .populate("tasks")
+      .populate("threads")
       .sort({ date: -1 })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
   findById: function(req, res) {
     db.Project.findById(req.params.id)
+      .populate("tasks")
+      .populate("threads")
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
