@@ -282,7 +282,7 @@ class Public extends Component {
       <div>
         <Row>
           <Col s={4}>
-            <h5>Project Submit</h5>
+            <h5>Create Project</h5>
             <form>
               <div className="form-group">
                 <input
@@ -333,7 +333,7 @@ class Public extends Component {
             </form>
           </Col>
           <Col s={4}>
-            <h5>Task Submit</h5>
+            <h5>Create Task</h5>
             <form>
               <div className="form-group">
                 <input
@@ -389,7 +389,7 @@ class Public extends Component {
             </form>
           </Col>
           <Col s={4}>
-            <h5>Post Submit</h5>
+            <h5>Create Post</h5>
             <form>
               <div className="form-group">
                 <input
@@ -505,7 +505,7 @@ class Public extends Component {
         </Row>
         <Row>
           <Col s={6}>
-            <h5>Thread Submit</h5>
+            <h5>Create Thread</h5>
             <form>
               <div className="form-group">
                 <input
@@ -567,7 +567,7 @@ class Public extends Component {
             </form>
           </Col>
           <Col s={6}>
-            <h5>Comment Submit</h5>
+            <h5>Create Comment</h5>
             <form>
               <div className="form-group">
                 <input
