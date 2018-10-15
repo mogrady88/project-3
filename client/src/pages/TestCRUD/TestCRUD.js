@@ -10,6 +10,7 @@ class Public extends Component {
   state = {
     projects: [],
     tasks: [],
+    posts: [],
     threads: [],
     project: {
       title: "",
@@ -21,6 +22,16 @@ class Public extends Component {
       title: "",
       description: "",
       funds: "",
+      project: ""
+    },
+    post: {
+      title: "",
+      summary: "",
+      content: "",
+      author: "",
+      tags: [],
+      currentTag: "",
+      isPublished: false,
       project: ""
     },
     thread: {
@@ -39,6 +50,7 @@ class Public extends Component {
   componentDidMount() {
     this.loadProjects();
     this.loadTasks();
+    this.loadPosts();
     this.loadThreads();
   }
 
@@ -57,6 +69,16 @@ class Public extends Component {
       .then(res =>
         this.setState({
           tasks: res.data
+        })
+      )
+      .catch(err => console.log(err));
+  };
+
+  loadPosts = () => {
+    PostsAPI.getPosts()
+      .then(res =>
+        this.setState({
+          posts: res.data
         })
       )
       .catch(err => console.log(err));
@@ -125,6 +147,56 @@ class Public extends Component {
         .then(res => {
           console.log(res);
           this.loadTasks();
+        })
+        .catch(err => console.log(err));
+    }
+  };
+
+  // Post Functions
+  handlePostInputChange = event => {
+    const { name, value } = event.target;
+    this.setState({
+      post: {
+        ...this.state.post,
+        [name]: value
+      }
+    });
+  };
+
+  handlePostTagSubmit = event => {
+    event.preventDefault();
+    if (this.state.post.currentTag) {
+      this.setState({
+        post: {
+          ...this.state.post,
+          tags: [...this.state.post.tags, this.state.post.currentTag]
+        }
+      });
+    }
+  };
+
+  handlePostFormSubmit = event => {
+    event.preventDefault();
+    if (
+      this.state.post.title &&
+      this.state.post.summary &&
+      this.state.post.content &&
+      this.state.post.author
+    ) {
+      PostsAPI.savePost([
+        {
+          title: this.state.post.title,
+          summary: this.state.post.summary,
+          content: this.state.post.content,
+          author: this.state.post.author,
+          tags: this.state.post.tags,
+          isPublished: this.state.post.isPublished
+        },
+        { project: this.state.post.project }
+      ])
+        .then(res => {
+          console.log(res);
+          this.loadPosts();
         })
         .catch(err => console.log(err));
     }
@@ -209,7 +281,7 @@ class Public extends Component {
     return (
       <div>
         <Row>
-          <Col s={3}>
+          <Col s={4}>
             <h5>Project Submit</h5>
             <form>
               <div className="form-group">
@@ -233,7 +305,6 @@ class Public extends Component {
               <div className="form-group">
                 <textarea
                   className="form-control"
-                  rows="20"
                   value={this.state.project.summary}
                   onChange={this.handleProjectInputChange}
                   name="summary"
@@ -261,7 +332,7 @@ class Public extends Component {
               </button>
             </form>
           </Col>
-          <Col s={3}>
+          <Col s={4}>
             <h5>Task Submit</h5>
             <form>
               <div className="form-group">
@@ -274,7 +345,7 @@ class Public extends Component {
                 />
               </div>
               <div className="form-group">
-                <input
+                <textarea
                   className="form-control"
                   value={this.state.task.description}
                   onChange={this.handleTaskInputChange}
@@ -317,7 +388,123 @@ class Public extends Component {
               </button>
             </form>
           </Col>
-          <Col s={3}>
+          <Col s={4}>
+            <h5>Post Submit</h5>
+            <form>
+              <div className="form-group">
+                <input
+                  className="form-control"
+                  value={this.state.post.title}
+                  onChange={this.handlePostInputChange}
+                  name="title"
+                  placeholder="Title (required)"
+                />
+              </div>
+              <div className="form-group">
+                <input
+                  className="form-control"
+                  value={this.state.post.author}
+                  onChange={this.handlePostInputChange}
+                  name="author"
+                  placeholder="Author (required)"
+                />
+              </div>
+              <div className="form-group">
+                <textarea
+                  className="form-control"
+                  value={this.state.post.summary}
+                  onChange={this.handlePostInputChange}
+                  name="summary"
+                  placeholder="Summary (required)"
+                />
+              </div>
+              <div className="form-group">
+                <textarea
+                  className="form-control"
+                  value={this.state.post.content}
+                  onChange={this.handlePostInputChange}
+                  name="content"
+                  placeholder="Content (required)"
+                />
+              </div>
+              <div>Tags: {this.state.post.tags.join(", ")}</div>
+              <Row>
+                <Col s={8}>
+                  <input
+                    className="form-control"
+                    value={this.state.post.currentTag}
+                    onChange={this.handlePostInputChange}
+                    name="currentTag"
+                    placeholder="Add tag (optional)"
+                  />
+                </Col>
+                <Col s={4}>
+                  <button
+                    disabled={!this.state.post.currentTag}
+                    onClick={this.handlePostTagSubmit}
+                    style={{ float: "right", marginBottom: 10 }}
+                    className="btn btn-success"
+                  >
+                    Submit Tag
+                  </button>
+                </Col>
+              </Row>
+              <div className="form-group">
+                <Row>
+                  <Input
+                    name="isPublished"
+                    type="radio"
+                    value={true}
+                    checked={this.state.post.isPublished === true}
+                    onChange={this.handlePostInputChange}
+                    label="Published"
+                  />
+                  <Input
+                    name="isPublished"
+                    type="radio"
+                    value={false}
+                    checked={this.state.post.isPublished === false}
+                    onChange={this.handlePostInputChange}
+                    label="Not Published"
+                  />
+                </Row>
+              </div>
+              <div className="form-group">
+                <Input
+                  s={12}
+                  type="select"
+                  label="Project Select"
+                  value={this.state.task.project}
+                  onChange={this.handlePostInputChange}
+                  name="project"
+                >
+                  {this.state.projects.map(project => (
+                    <option value={project._id} key={project._id}>
+                      {project.title}
+                    </option>
+                  ))}
+                </Input>
+              </div>
+              <button
+                disabled={
+                  !(
+                    this.state.post.title &&
+                    this.state.post.summary &&
+                    this.state.post.content &&
+                    this.state.post.author
+                  )
+                }
+                onClick={this.handlePostFormSubmit}
+                style={{ float: "right", marginBottom: 10 }}
+                className="btn btn-success"
+              >
+                Submit Post
+              </button>
+            </form>
+          </Col>
+        </Row>
+        <Row>
+          <Col s={6}>
             <h5>Thread Submit</h5>
             <form>
               <div className="form-group">
@@ -341,7 +528,6 @@ class Public extends Component {
               <div className="form-group">
                 <textarea
                   className="form-control"
-                  rows="20"
                   value={this.state.thread.initialComment}
                   onChange={this.handleThreadInputChange}
                   name="initialComment"
@@ -380,7 +566,7 @@ class Public extends Component {
               </button>
             </form>
           </Col>
-          <Col s={3}>
+          <Col s={6}>
             <h5>Comment Submit</h5>
             <form>
               <div className="form-group">
@@ -395,7 +581,6 @@ class Public extends Component {
               <div className="form-group">
                 <textarea
                   className="form-control"
-                  rows="20"
                   value={this.state.comment.text}
                   onChange={this.handleCommentInputChange}
                   name="text"

@@ -23,10 +23,8 @@ module.exports = {
           },
           { new: true }
         )
-          .populate("tasks")
-          .populate("threads")
           .then(project => {
-            res.json(project);
+            res.json(task);
           })
           .catch(err => res.status(422).json(err));
       })

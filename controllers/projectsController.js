@@ -5,6 +5,7 @@ module.exports = {
     db.Project.find(req.query)
       .populate("tasks")
       .populate("threads")
+      .populate("posts")
       .sort({ date: -1 })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
@@ -13,6 +14,7 @@ module.exports = {
     db.Project.findById(req.params.id)
       .populate("tasks")
       .populate("threads")
+      .populate("posts")
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
