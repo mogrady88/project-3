@@ -17,20 +17,30 @@ module.exports = {
   create: function(req, res) {
     db.Thread.create(req.body[0])
       .then(thread => {
-        db.Comment.create(req.body[1])
-          .then(comment => {
-            db.Thread.findOneAndUpdate(
-              { _id: thread._id },
-              {
-                $push: { comments: comment._id }
-              },
-              { new: true }
-            )
-              .populate("comments")
-              .then(dbModel => res.json(dbModel))
-              .catch(function(err) {
-                res.json(err);
-              });
+        db.Project.findOneAndUpdate(
+          { _id: req.body[2].project },
+          {
+            $push: { threads: thread._id }
+          },
+          { new: true }
+        )
+          .then(project => {
+            db.Comment.create(req.body[1])
+              .then(comment => {
+                db.Thread.findOneAndUpdate(
+                  { _id: thread._id },
+                  {
+                    $push: { comments: comment._id }
+                  },
+                  { new: true }
+                )
+                  .populate("comments")
+                  .then(dbModel => res.json(dbModel))
+                  .catch(function(err) {
+                    res.json(err);
+                  });
+              })
+              .catch(err => res.status(422).json(err));
           })
           .catch(err => res.status(422).json(err));
       })
