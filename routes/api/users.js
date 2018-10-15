@@ -5,70 +5,20 @@ const passport = require("../../passport/");
 
 // Matches with "/api/users"
 router.route("/").get(usersController.findAll);
-// .post(usersController.create);
 
-// Matches with "/api/users/:id"
-router
-  .route("/:id")
-  .get(usersController.findById)
-  .put(usersController.update)
-  .delete(usersController.remove);
-
-//New User validation
-// router.post("/", (req, res) => {
-//   console.log("user signup");
-
-// const { username, password } = req.body;
-// ADD VALIDATION
-//   User.findOne({ username: username }, (err, user) => {
-//     if (err) {
-//       console.log("User.js post error: ", err);
-//     } else if (user) {
-//       res.json({
-//         error: `Sorry, already a user with the username: ${username}`
-//       });
-//     } else {
-//       const newUser = new User({
-//         username: username,
-//         password: password
-//       });
-//       newUser.save((err, savedUser) => {
-//         if (err) return res.json(err);
-//         res.json(savedUser);
-//       });
-//     }
-//   });
-// });
+// Matches with "/api/users/current"
+router.route("/current").get((req, res, next) => {
+  console.log("===== user!!======");
+  console.log(req.user);
+  if (req.user) {
+    res.json({ user: req.user });
+  } else {
+    res.json({ user: null });
+  }
+});
 
 //User sign up on /api/users/signup
-router.route("/signup").post((req, res) => {
-  console.log("user signup");
-
-  const { username, password } = req.body;
-  // ADD VALIDATION
-  User.findOne({ username: username }, (err, user) => {
-    if (err) {
-      console.log("User.js post error: ", err);
-    } else if (user) {
-      res.json({
-        error: `Sorry, already a user with the username: ${username}`
-      });
-    } else {
-      const newUser = new User({
-        username: username,
-        password: password
-      });
-      usersController.create(newUser);
-      // .then((err, savedUser) => {
-      //   if (err) return res.json(err);
-      //   res.json(savedUser);
-      // newUser.save((err, savedUser) => {
-      //   if (err) return res.json(err);
-      //   res.json(savedUser);
-      // });
-    }
-  });
-});
+router.route("/signup").post(usersController.create);
 
 //User login on /api/users/login
 router.route("/login").post(
@@ -96,5 +46,12 @@ router.route("/logout").post((req, res) => {
     res.send({ msg: "no user to log out" });
   }
 });
+
+// Matches with "/api/users/:id"
+router
+  .route("/:id")
+  .get(usersController.findById)
+  .put(usersController.update)
+  .delete(usersController.remove);
 
 module.exports = router;

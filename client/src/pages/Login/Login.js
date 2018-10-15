@@ -3,8 +3,9 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Row, Col, Card, Tabs, Tab, Input, Button } from "react-materialize";
 import { Redirect } from "react-router-dom";
+import Nav from "../../components/Nav";
 import axios from "axios";
-import SignInCard from "../../components/SignInCard";
+import UsersAPI from "../../utils/usersAPI";
 
 class Login extends Component {
   constructor() {
@@ -28,58 +29,22 @@ class Login extends Component {
   handleSignUp(event) {
     event.preventDefault();
     console.log("handleSubmit");
-
-    // axios
-    //   .get("/api/users/")
-    //   .then(response => {
-    //     console.log("Users:", response);
-    //   })
-    //   .catch(error => {
-    //     console.log("login error: ");
-    //     console.log(error);
-    //   });
-
-    // axios
-    //   .post("/api/users/login", {
-    //     username: this.state.username,
-    //     password: this.state.password
-    //   })
-    //   .then(response => {
-    //     console.log("login response: ");
-    //     console.log(response);
-    //     if (response.status === 200) {
-    //       // update App.js state
-    //       this.props.updateUser({
-    //         loggedIn: true,
-    //         username: response.data.username
-    //       });
-    //       // update the state to redirect to private view
-    //       this.setState({
-    //         redirectTo: "/private"
-    //       });
-    //     }
-    //   })
-    //   .catch(error => {
-    //     console.log("login error: ");
-    //     console.log(error);
-    //   });
-
-    //request to server to add a new username/password
-    axios
-      .post("/api/users/signup", {
-        username: this.state.username,
-        password: this.state.password
-      })
+    UsersAPI.signupUser({
+      username: this.state.username,
+      password: this.state.password
+    })
       .then(response => {
         console.log(response);
-        if (!response.data.errmsg) {
+        if (!response.data.error) {
           console.log("successful signup");
+          alert("Successful signup");
           this.setState({
             //redirect to login page
             // redirectTo: "/login"
           });
         } else {
           console.log("username already taken");
+          alert(response.data.error);
         }
       })
       .catch(error => {
@@ -89,65 +54,38 @@ class Login extends Component {
   }
   handleLogin(event) {
     event.preventDefault();
-    console.log("handleSubmit");
+    console.log("handleLogin");
 
-    // axios
-    //   .get("/api/users/")
-    //   .then(response => {
-    //     console.log("Users:", response);
-    //   })
-    //   .catch(error => {
-    //     console.log("login error: ");
-    //     console.log(error);
-    //   });
-
-    axios
-      .post("/api/users/login", {
-        username: this.state.username,
-        password: this.state.password
-      })
+    UsersAPI.loginUser({
+      username: this.state.username,
+      password: this.state.password
+    })
       .then(response => {
         console.log("login response: ");
         console.log(response);
         if (response.status === 200) {
+          window.loggedIn = true;
           // update App.js state
           this.props.updateUser({
             loggedIn: true,
             username: response.data.username
           });
+          window.currentUser = this.state.username;
+          console.log("Login.js Setting currentUser:", window.currentUser);
           // update the state to redirect to private view
           this.setState({
             redirectTo: "/private"
           });
+          console.log(
+            "Login.js this.state.redirectTo: " + this.state.redirectTo
+          );
         }
       })
       .catch(error => {
         console.log("login error: ");
         console.log(error);
+        alert("Incorrect username or password");
       });
-
-    //request to server to add a new username/password
-    // axios
-    //   .post("/api/users/signup", {
-    //     username: this.state.username,
-    //     password: this.state.password
-    //   })
-    //   .then(response => {
-    //     console.log(response);
-    //     if (!response.data.errmsg) {
-    //       console.log("successful signup");
-    //       this.setState({
-    //         //redirect to login page
-    //         // redirectTo: "/login"
-    //       });
-    //     } else {
-    //       console.log("username already taken");
-    //     }
-    //   })
-    //   .catch(error => {
-    //     console.log("signup error: ");
-    //     console.log(error);
-    //   });
   }
 
   render() {
@@ -156,6 +94,7 @@ class Login extends Component {
     } else {
       return (
         <div className="Container">
+          <Nav isPublic={true} />
           <Row>
             <Col m={4} offset="m4">
               <Card className="signIn" title="Administrator Login">
