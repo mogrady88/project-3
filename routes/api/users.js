@@ -6,6 +6,9 @@ const passport = require("../../passport/");
 // Matches with "/api/users"
 router.route("/").get(usersController.findAll);
 
+// Matches with "/api/users/check"
+router.route("/check").get(usersController.findAll);
+
 // Matches with "/api/users/current"
 router.route("/current").get((req, res, next) => {
   console.log("===== user!!======");

@@ -13,11 +13,26 @@ class Login extends Component {
     this.state = {
       username: "",
       password: "",
-      redirectTo: null
+      redirectTo: null,
+      userExists: false
     };
     this.handleSignUp = this.handleSignUp.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.componentWillMount = this.componentWillMount.bind(this);
+  }
+
+  componentWillMount() {
+    UsersAPI.checkForUsers().then(response => {
+      if (response.data.length === 0) {
+        console.log("Checking if user exists: ", response);
+        console.log("Does a user exist? ", this.state.userExists);
+      } else {
+        console.log("Checking if user exists: ", response);
+        this.setState({ userExists: true });
+        console.log("Does a user exist? ", this.state.userExists);
+      }
+    });
   }
 
   handleChange(event) {
@@ -120,9 +135,13 @@ class Login extends Component {
                     {console.log("Props", this.props)}
                     Login
                   </Button>
-                  <Button onClick={this.handleSignUp} type="submit">
-                    Sign up
-                  </Button>
+                  {!this.state.userExists ? (
+                    <Button onClick={this.handleSignUp} type="submit">
+                      Sign up
+                    </Button>
+                  ) : (
+                    ""
+                  )}
                 </form>
               </Card>
             </Col>
