@@ -1,9 +1,9 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import Private from "../Private/Private";
+import decode from "jwt-decode";
 
 const PrivateRoute = ({
-  render: Component,
+  component: Component,
   path: url,
   loggedIn,
   handleLogout
@@ -16,7 +16,7 @@ const PrivateRoute = ({
       path={url}
       render={props =>
         loggedIn === true ? (
-          <Private handleLogout={handleLogout} {...props} />
+          <Component handleLogout={handleLogout} {...props} />
         ) : (
           <Redirect to="/login" />
         )
