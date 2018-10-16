@@ -12,6 +12,7 @@ const projectSchema = new Schema({
   date: { type: Date, default: Date.now },
   //Date type?
   tasks: [{ type: Schema.Types.ObjectId, ref: "Task" }],
+  threads: [{ type: Schema.Types.ObjectId, ref: "Thread" }],
   posts: [{ type: Schema.Types.ObjectId, ref: "Post" }]
 });
 
