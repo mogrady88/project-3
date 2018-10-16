@@ -116,7 +116,6 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        {/* {this.getUser} */}
         <Router>
           <Switch>
             <Route exact path="/" component={Public} />

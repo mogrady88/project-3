@@ -21,7 +21,6 @@ class Nav extends React.Component {
   }
 
   render() {
-    const loggedIn = this.props.loggedIn;
     if (this.props.isPublic) {
       return (
         <Navbar className="Nav" brand="logo" right>
@@ -37,6 +36,7 @@ class Nav extends React.Component {
             Logged in as <strong>{window.currentUser}</strong>
           </p>
           <Button onClick={this.props.handleLogout}>Log out</Button>
+          <Button onClick={this.props.showHideUserCreate}>Add new user</Button>
         </Navbar>
       );
     }
