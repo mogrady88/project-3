@@ -29,7 +29,7 @@ class Login extends Component {
 
   handleSignUp(event) {
     event.preventDefault();
-    console.log("handleSubmit");
+    console.log("handleSignUp");
     UsersAPI.signupUser({
       username: this.state.username,
       password: this.state.password
@@ -38,7 +38,7 @@ class Login extends Component {
         console.log(response);
         if (!response.data.error) {
           console.log("successful signup");
-          alert("Successful signup");
+          alert(`Successful signup for new user: ${response.data.username}.`);
           this.setState({
             //redirect to login page
             // redirectTo: "/login"
