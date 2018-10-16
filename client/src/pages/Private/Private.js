@@ -68,8 +68,12 @@ class Private extends Component {
           console.log("successful signup");
           alert(`Successful signup for new user: ${response.data.username}.`);
           this.setState({
-            //redirect to login page
-            // redirectTo: "/login"
+            username: "",
+            password: "",
+            addUser: false
+          });
+          this.setState({
+            addUser: true
           });
         } else {
           console.log("username already taken");

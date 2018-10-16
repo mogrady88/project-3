@@ -20,9 +20,14 @@ class Login extends Component {
     this.handleLogin = this.handleLogin.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.componentWillMount = this.componentWillMount.bind(this);
+    this.checkForUsers = this.checkForUsers.bind(this);
   }
 
   componentWillMount() {
+    this.checkForUsers();
+  }
+
+  checkForUsers() {
     UsersAPI.checkForUsers().then(response => {
       if (response.data.length === 0) {
         console.log("Checking if user exists: ", response);
@@ -54,9 +59,10 @@ class Login extends Component {
           console.log("successful signup");
           alert(`Successful signup for new user: ${response.data.username}.`);
           this.setState({
-            //redirect to login page
-            // redirectTo: "/login"
+            username: "",
+            password: ""
           });
+          this.checkForUsers();
         } else {
           console.log("username already taken");
           alert(response.data.error);
@@ -76,6 +82,7 @@ class Login extends Component {
       password: this.state.password
     })
       .then(response => {
+        document.getElementById("loginForm").reset();
         console.log("login response: ");
         console.log(response);
         if (response.status === 200) {
@@ -113,7 +120,7 @@ class Login extends Component {
           <Row>
             <Col m={4} offset="m4">
               <Card className="signIn" title="Administrator Login">
-                <form>
+                <form id="loginForm">
                   <label htmlFor="username">Username:</label>
                   <input
                     type="text"
