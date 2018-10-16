@@ -14,8 +14,31 @@ import Private from "./pages/Private";
 import TestCRUD from "./pages/TestCRUD";
 import NoMatch from "./pages/NoMatch";
 import PostDetail from "./pages/PostDetail";
-import PrivateRoute from "./pages/PrivateRoute";
+// import PrivateRoute from "./pages/PrivateRoute";
 import UsersAPI from "./utils/usersAPI";
+
+const PrivateRoute = ({
+  component: Component,
+  path: url,
+  loggedIn,
+  handleLogout
+}) => {
+  // const loggedIn = this.props.loggedIn; // user is/is not authenticated
+  console.log("PrivateRoute.js says loggedIn is " + loggedIn);
+
+  return (
+    <Route
+      path={url}
+      render={props =>
+        loggedIn === true ? (
+          <Component handleLogout={handleLogout} {...props} />
+        ) : (
+          <Redirect to="/login" />
+        )
+      }
+    />
+  );
+};
 
 class App extends React.Component {
   constructor() {
@@ -33,10 +56,6 @@ class App extends React.Component {
 
   componentDidMount() {
     this.getUser();
-  }
-
-  updateUser(userObject) {
-    this.setState(userObject);
   }
 
   getUser() {
@@ -69,6 +88,10 @@ class App extends React.Component {
         });
       }
     });
+  }
+
+  updateUser(userObject) {
+    this.setState(userObject);
   }
 
   handleLogout(event) {

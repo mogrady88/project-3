@@ -1,4 +1,11 @@
 import React from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+  Link
+} from "react-router-dom";
 import UsersAPI from "../../utils/usersAPI";
 import { Navbar, NavItem, Button } from "react-materialize";
 import "./Nav.css";
@@ -18,14 +25,14 @@ class Nav extends React.Component {
     if (this.props.isPublic) {
       return (
         <Navbar className="Nav" brand="logo" right>
-          <NavItem href="/">Home</NavItem>
-          <NavItem href="/login">Admin Login</NavItem>
+          <Link to="/">Home</Link>
+          <Link to="/private">Admin Login</Link>
         </Navbar>
       );
     } else {
       return (
         <Navbar className="Nav" brand="logo" right>
-          <NavItem href="/">Public View</NavItem>
+          <Link to="/">Public View</Link>
           <p>
             Logged in as <strong>{window.currentUser}</strong>
           </p>
