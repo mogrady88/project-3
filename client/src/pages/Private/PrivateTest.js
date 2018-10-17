@@ -123,6 +123,7 @@ class Private extends Component {
           handleLogout={this.props.handleLogout}
         />
         <Row>
+<<<<<<< HEAD
           <Col s={3}>
             {this.state.projects.map(project => (
               <ProjectCard
@@ -134,8 +135,31 @@ class Private extends Component {
                 loadCurrentProject={this.loadCurrentProject}
               />
             ))}
+=======
+          <Col s={3} className="sidebar">
+            <ProjectCard
+              name="Project Name"
+              status="Complete"
+              summary="Project Summary."
+            />
+            <ProjectCard
+              name="Super Awesome Project"
+              status="Incomplete"
+              summary="Vivamus ultricies diam ullamcorper velit sagittis, et mollis nibh eleifend."
+            />
+            <ProjectCard
+              name="Other Project"
+              status="Incomplete"
+              summary="Sed faucibus pretium eros, non fermentum dolor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas."
+            />
+            <ProjectCard
+              name="Last Project"
+              status="Incomplete"
+              summary="Sed faucibus pretium eros, non fermentum dolor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vivamus ultricies diam ullamcorper velit sagittis, et mollis nibh eleifend."
+            />
+>>>>>>> master
           </Col>
-          <Col s={9}>
+          <Col s={9} className="projectView">
             {!this.state.addUser ? (
               <ProjectContainer
                 project={this.state.project}

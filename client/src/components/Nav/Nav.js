@@ -35,6 +35,7 @@ class Nav extends React.Component {
           <p>
             Logged in as <strong>{window.currentUser}</strong>
           </p>
+
           <Button onClick={this.props.handleLogout}>Log out</Button>
           <Button onClick={this.props.showHideUserCreate}>Add new user</Button>
         </Navbar>

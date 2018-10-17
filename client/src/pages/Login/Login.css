@@ -1,0 +1,36 @@
+.signIn {
+  padding: 20px;
+  margin: 20px;
+  background-color: #252525 !important;
+}
+
+.signIn .card-content {
+  margin: 5px 20px 5px 20px !important;
+}
+
+.signIn .card-content .card-title {
+  color: #fdd947 !important;
+  text-align: center;
+}
+
+#btn1 {
+  background-color: #444444;
+  color: #fdd947;
+}
+
+#btn2 {
+  float: right;
+  background-color: #444444;
+  color: #fdd947;
+}
+
+#btn1:hover {
+  color: #252525;
+  background-color: #fdd947;
+}
+
+#btn2:hover {
+  color: #252525;
+  background-color: #fdd947;
+}
+/*# sourceMappingURL=Login.css.map */
