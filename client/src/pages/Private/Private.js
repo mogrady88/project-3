@@ -13,11 +13,14 @@ import { Route, Switch } from "react-router-dom";
 import { Link, withRouter } from "react-router-dom";
 import "./Private.css";
 import UsersAPI from "../../utils/usersAPI";
+import ProjectsAPI from "../../utils/projectsAPI";
 
 class Private extends Component {
   constructor() {
     super();
     this.state = {
+      projects: [],
+      currentProject: {},
       projectLoaded: false,
       project: "Project Name",
       summary:
@@ -34,7 +37,31 @@ class Private extends Component {
     this.handleSignUp = this.handleSignUp.bind(this);
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.loadProjects();
+  }
+
+  loadProjects = () => {
+    ProjectsAPI.getProjects()
+      .then(res =>
+        this.setState({
+          projects: res.data
+        })
+      )
+      .catch(err => console.log(err));
+  };
+
+  loadCurrentProject = id => {
+    ProjectsAPI.getProject(id)
+      .then(res => {
+        console.log(this.state.projects);
+        this.setState({
+          currentProject: res.data
+        });
+        console.log(this.state.currentProject);
+      })
+      .catch(err => console.log(err));
+  };
 
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -97,26 +124,16 @@ class Private extends Component {
         />
         <Row>
           <Col s={3}>
-            <ProjectCard
-              name="Project Name"
-              status="Complete"
-              summary="Project Summary."
-            />
-            <ProjectCard
-              name="Super Awesome Project"
-              status="Incomplete"
-              summary="Vivamus ultricies diam ullamcorper velit sagittis, et mollis nibh eleifend."
-            />
-            <ProjectCard
-              name="Other Project"
-              status="Incomplete"
-              summary="Sed faucibus pretium eros, non fermentum dolor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas."
-            />
-            <ProjectCard
-              name="Last Project"
-              status="Incomplete"
-              summary="Sed faucibus pretium eros, non fermentum dolor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vivamus ultricies diam ullamcorper velit sagittis, et mollis nibh eleifend."
-            />
+            {this.state.projects.map(project => (
+              <ProjectCard
+                key={project._id}
+                id={project._id}
+                name={project.title}
+                status={project.status}
+                summary={project.summary}
+                loadCurrentProject={this.loadCurrentProject}
+              />
+            ))}
           </Col>
           <Col s={9}>
             {!this.state.addUser ? (
