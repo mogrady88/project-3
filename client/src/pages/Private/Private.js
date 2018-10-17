@@ -4,9 +4,9 @@ import Row from "react-materialize/lib/Row";
 import Col from "react-materialize/lib/Col";
 import ProjectCard from "../../components/ProjectCard";
 import ProjectContainer from "../../components/ProjectContainer";
-import Tasks from "../../pages/Tasks";
-import Threads from "../../pages/Threads";
-import Posts from "../../pages/Posts";
+import Tasks from "../Tasks";
+import Threads from "../Threads";
+import Posts from "../Posts";
 import NewUserCard from "../../components/NewUserCard";
 import { Navbar, NavItem } from "react-materialize";
 import { Route, Switch } from "react-router-dom";
@@ -123,7 +123,6 @@ class Private extends Component {
           handleLogout={this.props.handleLogout}
         />
         <Row>
-<<<<<<< HEAD
           <Col s={3}>
             {this.state.projects.map(project => (
               <ProjectCard
@@ -135,29 +134,6 @@ class Private extends Component {
                 loadCurrentProject={this.loadCurrentProject}
               />
             ))}
-=======
-          <Col s={3} className="sidebar">
-            <ProjectCard
-              name="Project Name"
-              status="Complete"
-              summary="Project Summary."
-            />
-            <ProjectCard
-              name="Super Awesome Project"
-              status="Incomplete"
-              summary="Vivamus ultricies diam ullamcorper velit sagittis, et mollis nibh eleifend."
-            />
-            <ProjectCard
-              name="Other Project"
-              status="Incomplete"
-              summary="Sed faucibus pretium eros, non fermentum dolor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas."
-            />
-            <ProjectCard
-              name="Last Project"
-              status="Incomplete"
-              summary="Sed faucibus pretium eros, non fermentum dolor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vivamus ultricies diam ullamcorper velit sagittis, et mollis nibh eleifend."
-            />
->>>>>>> master
           </Col>
           <Col s={9} className="projectView">
             {!this.state.addUser ? (
