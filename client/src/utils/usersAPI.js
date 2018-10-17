@@ -1,6 +1,9 @@
 import axios from "axios";
 
 export default {
+  checkForUsers: function() {
+    return axios.get("/api/users/check");
+  },
   getCurrentUser: function() {
     return axios.get("/api/users/current");
   },

@@ -48,7 +48,7 @@ class NewUserCard extends React.Component {
                   onChange={this.props.handleInputChange}
                 />
                 <Button onClick={this.props.handleSignUp} type="submit">
-                  Sign In
+                  Create user
                 </Button>
               </form>
             </Card>
