@@ -18,6 +18,6 @@ export default {
     return axios.post("/api/threads", threadData);
   },
   updateThread: function(id, threadData) {
-    return axios.put("/api/tasks/" + id, threadData);
+    return axios.put("/api/threads/" + id, threadData);
   }
 };
