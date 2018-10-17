@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Nav from "../../components/Nav";
 import Row from "react-materialize/lib/Row";
 import Col from "react-materialize/lib/Col";
-import ThreadCard from "../../components/ThreadCard"
+import ThreadCard from "../../components/privateComponents/ThreadCard";
 import ProjectCard from "../../components/ProjectCard";
 import ProjectContainer from "../../components/ProjectContainer";
 import API from "../../utils/postsAPI";
@@ -25,38 +25,38 @@ class Threads extends Component {
   render() {
     return (
       <div>
-      <Row>
-              <Col s={12}>
-                <ThreadCard
-                  title="Who is bringing the salsa?"
-                  author="Tyler Maxwell"
-                  replies={17}
-                  updatedBy="Matt O'Grady"
-                  updatedAt="Sep 27, 2018"
-                />
-                <ThreadCard
-                  title="Who is bringing the salsa?"
-                  author="Tyler Maxwell"
-                  replies={17}
-                  updatedBy="Matt O'Grady"
-                  updatedAt="Sep 27, 2018"
-                />
-                <ThreadCard
-                  title="Who is bringing the salsa?"
-                  author="Tyler Maxwell"
-                  replies={17}
-                  updatedBy="Matt O'Grady"
-                  updatedAt="Sep 27, 2018"
-                />
-                <ThreadCard
-                  title="Who is bringing the salsa?"
-                  author="Tyler Maxwell"
-                  replies={17}
-                  updatedBy="Matt O'Grady"
-                  updatedAt="Sep 27, 2018"
-                />
-              </Col>
-            </Row>
+        <Row>
+          <Col s={12}>
+            <ThreadCard
+              title="Who is bringing the salsa?"
+              author="Tyler Maxwell"
+              replies={17}
+              updatedBy="Matt O'Grady"
+              updatedAt="Sep 27, 2018"
+            />
+            <ThreadCard
+              title="Who is bringing the salsa?"
+              author="Tyler Maxwell"
+              replies={17}
+              updatedBy="Matt O'Grady"
+              updatedAt="Sep 27, 2018"
+            />
+            <ThreadCard
+              title="Who is bringing the salsa?"
+              author="Tyler Maxwell"
+              replies={17}
+              updatedBy="Matt O'Grady"
+              updatedAt="Sep 27, 2018"
+            />
+            <ThreadCard
+              title="Who is bringing the salsa?"
+              author="Tyler Maxwell"
+              replies={17}
+              updatedBy="Matt O'Grady"
+              updatedAt="Sep 27, 2018"
+            />
+          </Col>
+        </Row>
       </div>
     );
   }

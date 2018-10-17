@@ -1,33 +1,41 @@
+// React Imports
 import React, { Component } from "react";
+import { Route, Switch, Link, withRouter } from "react-router-dom";
+// Grid Imports
+import Row from "../../components/grid/Row";
+import Col from "../../components/grid/Col";
+// Component Imports
 import Nav from "../../components/Nav";
-import Row from "react-materialize/lib/Row";
-import Col from "react-materialize/lib/Col";
-import ProjectCard from "../../components/ProjectCard";
-import ProjectContainer from "../../components/ProjectContainer";
-import Tasks from "../Tasks";
-import Threads from "../Threads";
-import Posts from "../Posts";
-import NewUserCard from "../../components/NewUserCard";
-import { Navbar, NavItem } from "react-materialize";
-import { Route, Switch } from "react-router-dom";
-import { Link, withRouter } from "react-router-dom";
-import "./Private.css";
+import Default from "../PrivateDefault";
+import UsersSidebar from "../../components/privateComponents/UsersSidebar";
+import NewUserCard from "../../components/privateComponents/NewUserCard";
+import Projects from "../../pages/privatePages/Projects";
+import ProjectsSidebar from "../../components/privateComponents/ProjectsSidebar";
+import ProjectContainer from "../../components/privateComponents/ProjectContainer";
+// import Tasks from "../Tasks";
+// import Threads from "../Threads";
+// import Posts from "../Posts";
+//API Imports
 import UsersAPI from "../../utils/usersAPI";
 import ProjectsAPI from "../../utils/projectsAPI";
+// CSS Imports
+import "./Private.css";
 
 class Private extends Component {
   constructor() {
     super();
     this.state = {
+      metadata: {
+        currentPage: "default",
+        projectIsLoaded: false
+      },
       projects: [],
       currentProject: {},
-      projectLoaded: false,
       project: "Project Name",
       summary:
         "Project summary text. Cras felis mauris, cursus ac lorem iaculis, rutrum facilisis nisl. Quisque quis odio sem. Nulla vehicula lectus eu ullamcorper mattis. Nulla in quam erat. Duis et consequat sem. Sed quis dictum urna. Phasellus metus urna, congue at hendrerit nec, sagittis eget sapien.",
       totalFunds: 5000,
       usedFunds: 2000,
-      addUser: false,
       newUsername: "",
       newPassword: ""
     };
@@ -40,6 +48,25 @@ class Private extends Component {
   componentDidMount() {
     this.loadProjects();
   }
+
+  loadPage = page => {
+    if (page === "projects") {
+      this.setState({
+        metadata: {
+          ...this.state.metadata,
+          currentPage: "projects"
+        }
+      });
+      this.loadProjects();
+    } else if (page === "users") {
+      this.setState({
+        metadata: {
+          ...this.state.metadata,
+          currentPage: "users"
+        }
+      });
+    }
+  };
 
   loadProjects = () => {
     ProjectsAPI.getProjects()
@@ -54,11 +81,28 @@ class Private extends Component {
   loadCurrentProject = id => {
     ProjectsAPI.getProject(id)
       .then(res => {
-        console.log(this.state.projects);
         this.setState({
           currentProject: res.data
         });
         console.log(this.state.currentProject);
+        let usedFunds = 0;
+        if (this.state.currentProject.tasks.length > 0) {
+          this.state.currentProject.tasks.map(
+            task => (usedFunds += task.funds)
+          );
+        }
+        this.setState({
+          currentProject: {
+            ...this.state.currentProject,
+            usedFunds: usedFunds
+          }
+        });
+        this.setState({
+          metadata: {
+            ...this.state.metadata,
+            projectIsLoaded: true
+          }
+        });
       })
       .catch(err => console.log(err));
   };
@@ -119,24 +163,26 @@ class Private extends Component {
       <div>
         <Nav
           isPublic={false}
-          showHideUserCreate={this.showHideUserCreate}
+          loadPage={this.loadPage}
           handleLogout={this.props.handleLogout}
         />
         <Row>
-          <Col s={3}>
-            {this.state.projects.map(project => (
-              <ProjectCard
-                key={project._id}
-                id={project._id}
-                name={project.title}
-                status={project.status}
-                summary={project.summary}
-                loadCurrentProject={this.loadCurrentProject}
-              />
-            ))}
-          </Col>
-          <Col s={9} className="projectView">
-            {!this.state.addUser ? (
+          {this.state.metadata.currentPage === "default" ? (
+            <Default />
+          ) : this.state.metadata.currentPage === "users" ? (
+            <UsersSidebar />
+          ) : this.state.metadata.currentPage === "projects" ? (
+            <Projects
+              projects={this.state.projects}
+              loadCurrentProject={this.loadCurrentProject}
+              projectIsLoaded={this.state.metadata.projectIsLoaded}
+              currentProject={this.state.currentProject}
+            />
+          ) : (
+            <Default />
+          )}
+          {/* <Col s={9} className="projectView">
+            {!this.state.metadata.addUser ? (
               <ProjectContainer
                 project={this.state.project}
                 summary={this.state.summary}
@@ -162,7 +208,7 @@ class Private extends Component {
               </ProjectContainer>
             ) : (
               <NewUserCard
-                addUser={this.state.addUser}
+                addUser={this.state.metadata.addUser}
                 showHideUserCreate={this.showHideUserCreate}
                 newUsername={this.state.newUsername}
                 newPassword={this.state.newPassword}
@@ -170,7 +216,7 @@ class Private extends Component {
                 handleSignUp={this.handleSignUp}
               />
             )}
-          </Col>
+          </Col> */}
         </Row>
       </div>
     );
