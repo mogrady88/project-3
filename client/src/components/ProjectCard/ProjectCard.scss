@@ -1,23 +1,26 @@
 @import "../../utils/variables";
 
 .card {
+  margin: 1rem 0 1rem 0;
+  padding: 10px;
   background-color: map-get($colors, second);
   color: map-get($colors, fourth);
 
   .card-content {
     padding: 0;
+    margin: 0;
 
     h5 {
       padding: 10px 20px 0px 20px;
       color: map-get($colors, first);
     }
     p {
-      padding: 10px 0px 10px 20px;
+      padding: 5px 0px 5px 20px;
     }
   }
 
   .card-action {
-    margin: 0;
+    margin-top: 5px;
     padding: 20px;
 
     a:not(.btn):not(.btn-large):not(.btn-large):not(.btn-floating) {
