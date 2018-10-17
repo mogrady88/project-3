@@ -3,6 +3,7 @@ import { Card, CardTitle } from "react-materialize";
 import "./ProjectCard.css";
 
 class ProjectCard extends React.Component {
+
   render() {
     return (
       <Card>
