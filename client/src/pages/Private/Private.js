@@ -92,7 +92,7 @@ class Private extends Component {
           handleLogout={this.props.handleLogout}
         />
         <Row>
-          <Col s={3}>
+          <Col s={3} className="sidebar">
             <ProjectCard
               name="Project Name"
               status="Complete"
@@ -114,7 +114,7 @@ class Private extends Component {
               summary="Sed faucibus pretium eros, non fermentum dolor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vivamus ultricies diam ullamcorper velit sagittis, et mollis nibh eleifend."
             />
           </Col>
-          <Col s={9}>
+          <Col s={9} className="projectView">
             {!this.state.addUser ? (
               <ProjectContainer
                 project={this.state.project}

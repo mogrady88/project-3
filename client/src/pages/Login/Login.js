@@ -117,19 +117,11 @@ class Login extends Component {
                     value={this.state.password}
                     onChange={this.handleChange}
                   />
-                  <Button
-                    className="btn1"
-                    onClick={this.handleLogin}
-                    type="submit"
-                  >
+                  <Button id="btn1" onClick={this.handleLogin} type="submit">
                     {console.log("Props", this.props)}
                     Login
                   </Button>
-                  <Button
-                    className="btn2"
-                    onClick={this.handleSignUp}
-                    type="submit"
-                  >
+                  <Button id="btn2" onClick={this.handleSignUp} type="submit">
                     Sign up
                   </Button>
                 </form>

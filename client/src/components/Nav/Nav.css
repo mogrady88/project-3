@@ -1,14 +1,37 @@
 .Nav {
+  line-height: 64px;
+  display: inline-block;
   background-color: #252525;
 }
 
-.Nav a {
+.Nav .right p {
+  float: left;
+  margin: 0 10px 0 0;
+  line-height: 64px;
+}
+
+.Nav .right a {
+  float: left;
+  text-align: center;
   color: #ffffff;
 }
 
-.Nav a:hover {
+.Nav .right a:hover {
   background-color: #444444;
   color: #fdd947;
+}
+
+.Nav .btn {
+  margin: 0 10px 0 0;
+  font-size: 10px;
+  text-align: center;
+  background-color: #444444;
+  color: #fdd947;
+}
+
+.Nav .btn:hover {
+  color: #252525;
+  background-color: #fdd947;
 }
 
 .z-depth-1,
