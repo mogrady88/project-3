@@ -58,13 +58,13 @@ class App extends React.Component {
     this.getUser();
   }
 
-  getUser() {
-    UsersAPI.getCurrentUser().then(response => {
+  async getUser() {
+    UsersAPI.getCurrentUser().then(async response => {
       console.log("Get user response: ");
       console.log(response.data);
       if (response.data.user) {
         console.log("Get User: There is a user saved in the server session: ");
-        this.setState({
+        var loggingIn = await this.setState({
           loggedIn: true,
           username: response.data.user.username
         });
@@ -133,7 +133,6 @@ class App extends React.Component {
               loggedIn={this.state.loggedIn}
               handleLogout={this.handleLogout}
             />
-
             <Route path="/posts/:id" component={PostDetail} />
             <Route exact path="/test" component={TestCRUD} />
             <Route component={NoMatch} />

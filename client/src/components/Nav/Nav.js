@@ -25,7 +25,11 @@ class Nav extends React.Component {
       return (
         <Navbar className="Nav" brand="logo" right>
           <Link to="/">Home</Link>
-          <Link to="/private">Admin Login</Link>
+          {/* {this.props.loggedIn ? ( */}
+          <Link to="/private">Private view</Link>
+          {/* ) : ( */}
+          <Link to="/login">Admin Login</Link>
+          {/* )} */}
         </Navbar>
       );
     } else {

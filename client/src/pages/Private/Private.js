@@ -94,6 +94,7 @@ class Private extends Component {
           isPublic={false}
           showHideUserCreate={this.showHideUserCreate}
           handleLogout={this.props.handleLogout}
+          loggedIn={this.props.loggedIn}
         />
         <Row>
           <Col s={3}>
