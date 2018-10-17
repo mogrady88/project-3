@@ -16,5 +16,8 @@ export default {
   // Saves a project to the database
   saveProject: function(projectData) {
     return axios.post("/api/projects", projectData);
+  },
+  updateProject: function(id, projectData) {
+    return axios.put("/api/projects/" + id, projectData);
   }
 };
