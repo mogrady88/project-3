@@ -1,0 +1,36 @@
+@import "../../utils/variables";
+
+.signIn {
+  padding: 20px;
+  margin: 20px;
+  background-color: map-get($colors, fifth) !important;
+
+  .card-content {
+    margin: 5px 20px 5px 20px !important;
+
+    .card-title {
+      color: map-get($colors, first) !important;
+      text-align: center;
+    }
+  }
+}
+
+#btn1 {
+  background-color: map-get($colors, second);
+  color: map-get($colors, first);
+}
+
+#btn2 {
+  float: right;
+  background-color: map-get($colors, second);
+  color: map-get($colors, first);
+}
+
+#btn1:hover {
+  color: map-get($colors, fifth);
+  background-color: map-get($colors, first);
+}
+#btn2:hover {
+  color: map-get($colors, fifth);
+  background-color: map-get($colors, first);
+}

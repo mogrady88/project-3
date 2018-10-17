@@ -8,7 +8,7 @@ import "./ProjectContainer.css";
 class ProjectContainer extends React.Component {
   render() {
     return (
-      <div className="projectContainer blue-grey darken-1 white-text">
+      <div className="projectContainer ">
         <Row className="projectMeta">
           <Col s={8} className="projectMetaLeft">
             <h5>{this.props.project}</h5>

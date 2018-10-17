@@ -1,12 +1,13 @@
-.row .col.s3 {
+.sidebar {
   background-color: #252525;
 }
 
-.row .col.s9 {
+.projectView {
   background-color: #d5d5d3;
 }
 
-.row .col.s9 .projectContainer {
-  margin: 0.75rem 0 1rem 0;
+.projectView .projectContainer {
+  margin: 1rem 0 1rem 0;
+  background-color: #ffffff;
 }
 /*# sourceMappingURL=Private.css.map */

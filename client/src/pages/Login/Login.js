@@ -6,6 +6,7 @@ import { Redirect } from "react-router-dom";
 import Nav from "../../components/Nav";
 import axios from "axios";
 import UsersAPI from "../../utils/usersAPI";
+import "./Login.css";
 
 class Login extends Component {
   constructor() {
@@ -132,23 +133,19 @@ class Login extends Component {
                   />
                   <label htmlFor="password">Password:</label>
                   <input
-                    placeholder="password"
+                    placeholder="Password"
                     type="password"
                     name="password"
                     value={this.state.password}
                     onChange={this.handleChange}
                   />
-                  <Button onClick={this.handleLogin} type="submit">
+                  <Button id="btn1" onClick={this.handleLogin} type="submit">
                     {console.log("Props", this.props)}
                     Login
                   </Button>
-                  {!this.state.userExists ? (
-                    <Button onClick={this.handleSignUp} type="submit">
-                      Sign up
-                    </Button>
-                  ) : (
-                    ""
-                  )}
+                  <Button id="btn2" onClick={this.handleSignUp} type="submit">
+                    Sign up
+                  </Button>
                 </form>
               </Card>
             </Col>
