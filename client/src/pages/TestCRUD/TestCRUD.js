@@ -5,6 +5,7 @@ import ThreadsAPI from "../../utils/threadsAPI";
 import CommentsAPI from "../../utils/commentsAPI";
 import PostsAPI from "../../utils/postsAPI";
 import { Row, Col, Input } from "react-materialize";
+import TextEditor from "../../components/TextEditor";
 
 class Public extends Component {
   state = {
@@ -614,6 +615,8 @@ class Public extends Component {
                 Submit Comment
               </button>
             </form>
+
+            <TextEditor />
           </Col>
         </Row>
       </div>

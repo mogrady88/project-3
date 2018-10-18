@@ -40,7 +40,7 @@ class Public extends Component {
               {this.state.posts.map((post) => <PostCard {...post} isPublic={true} />)}
             </Col>
             <Col s={3} className="grid2">
-              asdf
+            
             </Col>
           </Row>
         </div>

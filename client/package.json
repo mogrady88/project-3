@@ -5,6 +5,10 @@
   "proxy": "http://localhost:3001/",
   "dependencies": {
     "axios": "^0.16.2",
+    "draft-js": "^0.10.5",
+    "draft-js-inline-toolbar-plugin": "^3.0.0",
+    "draft-js-plugins-editor": "^2.1.1",
+    "draft-js-side-toolbar-plugin": "^3.0.1",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-materialize": "^2.4.6",
