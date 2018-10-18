@@ -8,10 +8,12 @@ class ThreadCard extends React.Component {
       <Card className="blue-grey lighten-1" textClassName="white-text">
         <Row>
           <Col s={6}>
-            <h5>
-              <a href="#" className="threadLink">
-                {this.props.title}
-              </a>
+            <h5
+              onClick={() =>
+                this.props.loadProjectSubpage("comments", this.props.index)
+              }
+            >
+              {this.props.title}
             </h5>
             <p>Created by: {this.props.author}</p>
           </Col>
