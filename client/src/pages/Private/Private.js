@@ -7,14 +7,11 @@ import Col from "../../components/grid/Col";
 // Component Imports
 import Nav from "../../components/Nav";
 import Default from "../PrivateDefault";
-import UsersSidebar from "../../components/privateComponents/UsersSidebar";
+import Users from "../privatePages/Users";
 import NewUserCard from "../../components/privateComponents/NewUserCard";
 import Projects from "../../pages/privatePages/Projects";
 import ProjectsSidebar from "../../components/privateComponents/ProjectsSidebar";
 import ProjectContainer from "../../components/privateComponents/ProjectContainer";
-// import Tasks from "../Tasks";
-// import Threads from "../Threads";
-// import Posts from "../Posts";
 //API Imports
 import UsersAPI from "../../utils/usersAPI";
 import ProjectsAPI from "../../utils/projectsAPI";
@@ -27,7 +24,10 @@ class Private extends Component {
     this.state = {
       metadata: {
         currentPage: "default",
-        projectIsLoaded: false
+        projectIsLoaded: false,
+        projectSubpage: "tasks",
+        userSubpage: "view",
+        currentThreadIndex: 0
       },
       projects: [],
       currentProject: {},
@@ -39,7 +39,6 @@ class Private extends Component {
       newUsername: "",
       newPassword: ""
     };
-    this.showHideUserCreate = this.showHideUserCreate.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSignUp = this.handleSignUp.bind(this);
@@ -63,6 +62,57 @@ class Private extends Component {
         metadata: {
           ...this.state.metadata,
           currentPage: "users"
+        }
+      });
+    }
+  };
+
+  loadUserSubpage = page => {
+    if (page === "view") {
+      this.setState({
+        metadata: {
+          ...this.state.metadata,
+          userSubpage: "view"
+        }
+      });
+    } else if (page === "add") {
+      this.setState({
+        metadata: {
+          ...this.state.metadata,
+          userSubpage: "add"
+        }
+      });
+    }
+  };
+
+  loadProjectSubpage = (page, threadIndex) => {
+    if (page === "tasks") {
+      this.setState({
+        metadata: {
+          ...this.state.metadata,
+          projectSubpage: "tasks"
+        }
+      });
+    } else if (page === "threads") {
+      this.setState({
+        metadata: {
+          ...this.state.metadata,
+          projectSubpage: "threads"
+        }
+      });
+    } else if (page === "posts") {
+      this.setState({
+        metadata: {
+          ...this.state.metadata,
+          projectSubpage: "posts"
+        }
+      });
+    } else if (page === "comments") {
+      this.setState({
+        metadata: {
+          ...this.state.metadata,
+          projectSubpage: "comments",
+          currentThreadIndex: threadIndex
         }
       });
     }
@@ -100,7 +150,9 @@ class Private extends Component {
         this.setState({
           metadata: {
             ...this.state.metadata,
-            projectIsLoaded: true
+            projectIsLoaded: true,
+            projectSubpage: "tasks",
+            currentThreadIndex: 0
           }
         });
       })
@@ -114,24 +166,12 @@ class Private extends Component {
     });
   };
 
-  showHideUserCreate() {
-    if (!this.state.addUser) {
-      this.setState({
-        addUser: true
-      });
-    } else {
-      this.setState({
-        addUser: false
-      });
-    }
-  }
-
   handleSignUp(event) {
     event.preventDefault();
     console.log("handleSignUp");
     UsersAPI.signupUser({
-      username: this.state.username,
-      password: this.state.password
+      username: this.state.newUsername,
+      password: this.state.newPassword
     })
       .then(response => {
         console.log(response);
@@ -170,13 +210,23 @@ class Private extends Component {
           {this.state.metadata.currentPage === "default" ? (
             <Default />
           ) : this.state.metadata.currentPage === "users" ? (
-            <UsersSidebar />
+            <Users
+              loadUserSubpage={this.loadUserSubpage}
+              subpage={this.state.metadata.userSubpage}
+              newUsername={this.state.newUsername}
+              newPassword={this.state.newPassword}
+              handleInputChange={this.handleInputChange}
+              handleSignUp={this.handleSignUp}
+            />
           ) : this.state.metadata.currentPage === "projects" ? (
             <Projects
               projects={this.state.projects}
-              loadCurrentProject={this.loadCurrentProject}
               projectIsLoaded={this.state.metadata.projectIsLoaded}
+              loadCurrentProject={this.loadCurrentProject}
+              loadProjectSubpage={this.loadProjectSubpage}
               currentProject={this.state.currentProject}
+              subpage={this.state.metadata.projectSubpage}
+              currentThreadIndex={this.state.metadata.currentThreadIndex}
             />
           ) : (
             <Default />

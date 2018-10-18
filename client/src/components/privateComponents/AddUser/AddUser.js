@@ -1,15 +1,14 @@
 import React from "react";
 import Col from "../../grid/Col";
-import "./NewUserCard.css";
 
-const NewUserCard = props => (
+const ProjectContainer = props => (
   <Col size="9">
     <form>
       <label htmlFor="username">Username:</label>
       <input
         type="text"
         id="username"
-        name="username"
+        name="newUsername"
         placeholder="Username"
         value={props.newUsername}
         onChange={props.handleInputChange}
@@ -18,7 +17,7 @@ const NewUserCard = props => (
       <input
         placeholder="password"
         type="password"
-        name="password"
+        name="newPassword"
         value={props.newPassword}
         onChange={props.handleInputChange}
       />
@@ -29,4 +28,4 @@ const NewUserCard = props => (
   </Col>
 );
 
-export default NewUserCard;
+export default ProjectContainer;

@@ -5,6 +5,7 @@ import Col from "../../grid/Col";
 import Tasks from "../../../pages/Tasks";
 import Threads from "../../../pages/Threads";
 import Posts from "../../../pages/Posts";
+import Comments from "../../../pages/Comments";
 import "./ProjectContainer.css";
 
 const ProjectContainer = props => (
@@ -27,22 +28,49 @@ const ProjectContainer = props => (
       <div class="nav-wrapper">
         <ul id="nav-mobile" class="hide-on-med-and-down">
           <li>
-            <Link to={`/private/tasks`}>Tasks</Link>
+            <button onClick={() => props.loadProjectSubpage("tasks", 0)}>
+              Tasks
+            </button>
           </li>
           <li>
-            <Link to={`/private/discussion`}>Discussion</Link>
+            <button onClick={() => props.loadProjectSubpage("threads", 0)}>
+              Discussion
+            </button>
           </li>
           <li>
-            <Link to={`/private/posts`}>Posts</Link>
+            <button onClick={() => props.loadProjectSubpage("posts", 0)}>
+              Posts
+            </button>
           </li>
         </ul>
       </div>
     </nav>
-    <Switch>
+    {props.subpage === "tasks" ? (
+      <Tasks tasks={props.currentProject.tasks} />
+    ) : props.subpage === "threads" ? (
+      <Threads
+        threads={props.currentProject.threads}
+        loadProjectSubpage={props.loadProjectSubpage}
+      />
+    ) : props.subpage === "posts" ? (
+      <Posts posts={props.currentProject.posts} />
+    ) : props.subpage === "comments" ? (
+      <Comments
+        thread={props.currentProject.threads[props.currentThreadIndex]}
+      />
+    ) : (
+      <Tasks />
+    )}
+    {/* <Switch>
       <Route exact path={`/private/tasks`} component={Tasks} />
       <Route exact path={`/private/threads`} component={Threads} />
-      <Route exact path={`/private/posts`} component={Posts} />
-    </Switch>
+      <Route
+        exact
+        path={`/private/posts`}
+        component={Posts}
+        posts={props.currentProject.posts}
+      />
+    </Switch> */}
   </Col>
 );
 

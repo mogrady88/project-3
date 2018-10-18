@@ -10,7 +10,13 @@ module.exports = {
   findById: function(req, res) {
     db.Project.findById(req.params.id)
       .populate("tasks")
-      .populate("threads")
+      .populate({
+        path: "threads",
+        populate: {
+          path: "comments",
+          model: "Comment"
+        }
+      })
       .populate("posts")
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));

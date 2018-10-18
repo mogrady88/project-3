@@ -5,10 +5,10 @@ import "./UsersSidebar.css";
 const UsersSidebar = props => (
   <Col size="3">
     <div>
-      <button>View users</button>
+      <button onClick={() => props.loadUserSubpage("view")}>View users</button>
     </div>
     <div>
-      <button>Add user</button>
+      <button onClick={() => props.loadUserSubpage("add")}>Add user</button>
     </div>
   </Col>
 );

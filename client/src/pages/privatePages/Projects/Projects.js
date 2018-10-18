@@ -10,7 +10,12 @@ const Projects = props => (
       loadCurrentProject={props.loadCurrentProject}
     />
     {props.projectIsLoaded ? (
-      <ProjectContainer currentProject={props.currentProject} />
+      <ProjectContainer
+        currentProject={props.currentProject}
+        loadProjectSubpage={props.loadProjectSubpage}
+        subpage={props.subpage}
+        currentThreadIndex={props.currentThreadIndex}
+      />
     ) : (
       "Project is not loaded"
     )}
