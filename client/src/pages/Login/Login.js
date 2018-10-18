@@ -6,6 +6,7 @@ import { Redirect } from "react-router-dom";
 import Nav from "../../components/Nav";
 import axios from "axios";
 import UsersAPI from "../../utils/usersAPI";
+import "./Login.css";
 
 class Login extends Component {
   constructor() {
@@ -13,11 +14,31 @@ class Login extends Component {
     this.state = {
       username: "",
       password: "",
-      redirectTo: null
+      redirectTo: null,
+      userExists: false
     };
     this.handleSignUp = this.handleSignUp.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.componentWillMount = this.componentWillMount.bind(this);
+    this.checkForUsers = this.checkForUsers.bind(this);
+  }
+
+  componentWillMount() {
+    this.checkForUsers();
+  }
+
+  checkForUsers() {
+    UsersAPI.checkForUsers().then(response => {
+      if (response.data.length === 0) {
+        console.log("Checking if user exists: ", response);
+        console.log("Does a user exist? ", this.state.userExists);
+      } else {
+        console.log("Checking if user exists: ", response);
+        this.setState({ userExists: true });
+        console.log("Does a user exist? ", this.state.userExists);
+      }
+    });
   }
 
   handleChange(event) {
@@ -39,9 +60,10 @@ class Login extends Component {
           console.log("successful signup");
           alert(`Successful signup for new user: ${response.data.username}.`);
           this.setState({
-            //redirect to login page
-            // redirectTo: "/login"
+            username: "",
+            password: ""
           });
+          this.checkForUsers();
         } else {
           console.log("username already taken");
           alert(response.data.error);
@@ -61,6 +83,7 @@ class Login extends Component {
       password: this.state.password
     })
       .then(response => {
+        document.getElementById("loginForm").reset();
         console.log("login response: ");
         console.log(response);
         if (response.status === 200) {
@@ -98,7 +121,7 @@ class Login extends Component {
           <Row>
             <Col m={4} offset="m4">
               <Card className="signIn" title="Administrator Login">
-                <form>
+                <form id="loginForm">
                   <label htmlFor="username">Username:</label>
                   <input
                     type="text"
@@ -110,17 +133,17 @@ class Login extends Component {
                   />
                   <label htmlFor="password">Password:</label>
                   <input
-                    placeholder="password"
+                    placeholder="Password"
                     type="password"
                     name="password"
                     value={this.state.password}
                     onChange={this.handleChange}
                   />
-                  <Button onClick={this.handleLogin} type="submit">
+                  <Button id="btn1" onClick={this.handleLogin} type="submit">
                     {console.log("Props", this.props)}
                     Login
                   </Button>
-                  <Button onClick={this.handleSignUp} type="submit">
+                  <Button id="btn2" onClick={this.handleSignUp} type="submit">
                     Sign up
                   </Button>
                 </form>

@@ -1,40 +1,163 @@
+// React Imports
 import React, { Component } from "react";
+import { Route, Switch, Link, withRouter } from "react-router-dom";
+// Grid Imports
+import Row from "../../components/grid/Row";
+import Col from "../../components/grid/Col";
+// Component Imports
 import Nav from "../../components/Nav";
-import Row from "react-materialize/lib/Row";
-import Col from "react-materialize/lib/Col";
-import ProjectCard from "../../components/ProjectCard";
-import ProjectContainer from "../../components/ProjectContainer";
-import Tasks from "../../pages/Tasks";
-import Threads from "../../pages/Threads";
-import Posts from "../../pages/Posts";
-import NewUserCard from "../../components/NewUserCard";
-import { Navbar, NavItem } from "react-materialize";
-import { Route, Switch } from "react-router-dom";
-import { Link, withRouter } from "react-router-dom";
-import "./Private.css";
+import Default from "../PrivateDefault";
+import Users from "../privatePages/Users";
+import NewUserCard from "../../components/privateComponents/NewUserCard";
+import Projects from "../../pages/privatePages/Projects";
+import ProjectsSidebar from "../../components/privateComponents/ProjectsSidebar";
+import ProjectContainer from "../../components/privateComponents/ProjectContainer";
+//API Imports
 import UsersAPI from "../../utils/usersAPI";
+import ProjectsAPI from "../../utils/projectsAPI";
+// CSS Imports
+import "./Private.css";
 
 class Private extends Component {
   constructor() {
     super();
     this.state = {
-      projectLoaded: false,
+      metadata: {
+        currentPage: "default",
+        projectIsLoaded: false,
+        projectSubpage: "tasks",
+        userSubpage: "view",
+        currentThreadIndex: 0
+      },
+      projects: [],
+      currentProject: {},
       project: "Project Name",
       summary:
         "Project summary text. Cras felis mauris, cursus ac lorem iaculis, rutrum facilisis nisl. Quisque quis odio sem. Nulla vehicula lectus eu ullamcorper mattis. Nulla in quam erat. Duis et consequat sem. Sed quis dictum urna. Phasellus metus urna, congue at hendrerit nec, sagittis eget sapien.",
       totalFunds: 5000,
       usedFunds: 2000,
-      addUser: false,
       newUsername: "",
       newPassword: ""
     };
-    this.showHideUserCreate = this.showHideUserCreate.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSignUp = this.handleSignUp.bind(this);
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.loadProjects();
+  }
+
+  loadPage = page => {
+    if (page === "projects") {
+      this.setState({
+        metadata: {
+          ...this.state.metadata,
+          currentPage: "projects"
+        }
+      });
+      this.loadProjects();
+    } else if (page === "users") {
+      this.setState({
+        metadata: {
+          ...this.state.metadata,
+          currentPage: "users"
+        }
+      });
+    }
+  };
+
+  loadUserSubpage = page => {
+    if (page === "view") {
+      this.setState({
+        metadata: {
+          ...this.state.metadata,
+          userSubpage: "view"
+        }
+      });
+    } else if (page === "add") {
+      this.setState({
+        metadata: {
+          ...this.state.metadata,
+          userSubpage: "add"
+        }
+      });
+    }
+  };
+
+  loadProjectSubpage = (page, threadIndex) => {
+    if (page === "tasks") {
+      this.setState({
+        metadata: {
+          ...this.state.metadata,
+          projectSubpage: "tasks"
+        }
+      });
+    } else if (page === "threads") {
+      this.setState({
+        metadata: {
+          ...this.state.metadata,
+          projectSubpage: "threads"
+        }
+      });
+    } else if (page === "posts") {
+      this.setState({
+        metadata: {
+          ...this.state.metadata,
+          projectSubpage: "posts"
+        }
+      });
+    } else if (page === "comments") {
+      this.setState({
+        metadata: {
+          ...this.state.metadata,
+          projectSubpage: "comments",
+          currentThreadIndex: threadIndex
+        }
+      });
+    }
+  };
+
+  loadProjects = () => {
+    ProjectsAPI.getProjects()
+      .then(res =>
+        this.setState({
+          projects: res.data
+        })
+      )
+      .catch(err => console.log(err));
+  };
+
+  loadCurrentProject = id => {
+    ProjectsAPI.getProject(id)
+      .then(res => {
+        this.setState({
+          currentProject: res.data
+        });
+        console.log(this.state.currentProject);
+        let usedFunds = 0;
+        if (this.state.currentProject.tasks.length > 0) {
+          this.state.currentProject.tasks.map(
+            task => (usedFunds += task.funds)
+          );
+        }
+        this.setState({
+          currentProject: {
+            ...this.state.currentProject,
+            usedFunds: usedFunds
+          }
+        });
+        this.setState({
+          metadata: {
+            ...this.state.metadata,
+            projectIsLoaded: true,
+            projectSubpage: "tasks",
+            currentThreadIndex: 0
+          }
+        });
+      })
+      .catch(err => console.log(err));
+  };
 
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -43,24 +166,12 @@ class Private extends Component {
     });
   };
 
-  showHideUserCreate() {
-    if (!this.state.addUser) {
-      this.setState({
-        addUser: true
-      });
-    } else {
-      this.setState({
-        addUser: false
-      });
-    }
-  }
-
   handleSignUp(event) {
     event.preventDefault();
     console.log("handleSignUp");
     UsersAPI.signupUser({
-      username: this.state.username,
-      password: this.state.password
+      username: this.state.newUsername,
+      password: this.state.newPassword
     })
       .then(response => {
         console.log(response);
@@ -68,8 +179,12 @@ class Private extends Component {
           console.log("successful signup");
           alert(`Successful signup for new user: ${response.data.username}.`);
           this.setState({
-            //redirect to login page
-            // redirectTo: "/login"
+            username: "",
+            password: "",
+            addUser: false
+          });
+          this.setState({
+            addUser: true
           });
         } else {
           console.log("username already taken");
@@ -88,34 +203,36 @@ class Private extends Component {
       <div>
         <Nav
           isPublic={false}
-          showHideUserCreate={this.showHideUserCreate}
+          loadPage={this.loadPage}
           handleLogout={this.props.handleLogout}
         />
         <Row>
-          <Col s={3}>
-            <ProjectCard
-              name="Project Name"
-              status="Complete"
-              summary="Project Summary."
+          {this.state.metadata.currentPage === "default" ? (
+            <Default />
+          ) : this.state.metadata.currentPage === "users" ? (
+            <Users
+              loadUserSubpage={this.loadUserSubpage}
+              subpage={this.state.metadata.userSubpage}
+              newUsername={this.state.newUsername}
+              newPassword={this.state.newPassword}
+              handleInputChange={this.handleInputChange}
+              handleSignUp={this.handleSignUp}
             />
-            <ProjectCard
-              name="Super Awesome Project"
-              status="Incomplete"
-              summary="Vivamus ultricies diam ullamcorper velit sagittis, et mollis nibh eleifend."
+          ) : this.state.metadata.currentPage === "projects" ? (
+            <Projects
+              projects={this.state.projects}
+              projectIsLoaded={this.state.metadata.projectIsLoaded}
+              loadCurrentProject={this.loadCurrentProject}
+              loadProjectSubpage={this.loadProjectSubpage}
+              currentProject={this.state.currentProject}
+              subpage={this.state.metadata.projectSubpage}
+              currentThreadIndex={this.state.metadata.currentThreadIndex}
             />
-            <ProjectCard
-              name="Other Project"
-              status="Incomplete"
-              summary="Sed faucibus pretium eros, non fermentum dolor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas."
-            />
-            <ProjectCard
-              name="Last Project"
-              status="Incomplete"
-              summary="Sed faucibus pretium eros, non fermentum dolor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vivamus ultricies diam ullamcorper velit sagittis, et mollis nibh eleifend."
-            />
-          </Col>
-          <Col s={9}>
-            {!this.state.addUser ? (
+          ) : (
+            <Default />
+          )}
+          {/* <Col s={9} className="projectView">
+            {!this.state.metadata.addUser ? (
               <ProjectContainer
                 project={this.state.project}
                 summary={this.state.summary}
@@ -141,7 +258,7 @@ class Private extends Component {
               </ProjectContainer>
             ) : (
               <NewUserCard
-                addUser={this.state.addUser}
+                addUser={this.state.metadata.addUser}
                 showHideUserCreate={this.showHideUserCreate}
                 newUsername={this.state.newUsername}
                 newPassword={this.state.newPassword}
@@ -149,7 +266,7 @@ class Private extends Component {
                 handleSignUp={this.handleSignUp}
               />
             )}
-          </Col>
+          </Col> */}
         </Row>
       </div>
     );

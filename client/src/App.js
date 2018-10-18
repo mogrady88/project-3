@@ -17,6 +17,8 @@ import PostDetail from "./pages/PostDetail";
 // import PrivateRoute from "./pages/PrivateRoute";
 import UsersAPI from "./utils/usersAPI";
 import TextEdit from "./components/TextEditor"
+import EditCRUD from "./pages/EditCRUD";
+import EditUser from "./pages/EditUser";
 
 const PrivateRoute = ({
   component: Component,
@@ -138,6 +140,8 @@ class App extends React.Component {
             <Route path="/posts/:id" component={PostDetail} />
             <Route exact path="/test" component={TestCRUD} />
             <Route exact path="/test2" component={TextEdit} />
+            <Route exact path="/edit" component={EditCRUD} />
+            <Route exact path="/edit-user" component={EditUser} />
             <Route component={NoMatch} />
             
           </Switch>
