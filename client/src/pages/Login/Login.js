@@ -143,9 +143,13 @@ class Login extends Component {
                     {console.log("Props", this.props)}
                     Login
                   </Button>
-                  <Button id="btn2" onClick={this.handleSignUp} type="submit">
-                    Sign up
-                  </Button>
+                  {this.state.userExists ? (
+                    " "
+                  ) : (
+                    <Button id="btn2" onClick={this.handleSignUp} type="submit">
+                      Sign up
+                    </Button>
+                  )}
                 </form>
               </Card>
             </Col>
