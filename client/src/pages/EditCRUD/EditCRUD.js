@@ -54,19 +54,108 @@ class Public extends Component {
     this.loadThreads();
   }
 
-  //PROJECT APIS
-  loadProjects = () => {
-    ProjectsAPI.getProjects()
-      .then(res => {
-        this.setState({ projects: res.data });
-        console.log(this.state.projects);
-      })
+  //TASK APIS
+  loadTasks = () => {
+    TasksAPI.getTasks()
+      .then(res =>
+        this.setState({
+          tasks: res.data
+        })
+      )
       .catch(err => console.log(err));
   };
-  loadProject = id => {
-    ProjectsAPI.getProject(id)
+  loadTask = id => {
+    TasksAPI.getTask(id)
+      .then(res =>
+        this.setState({
+          task: res.data
+        })
+      )
+      .catch(err => console.log(err));
+  };
+
+  //POST APIS
+  loadPosts = () => {
+    PostsAPI.getPosts()
+      .then(res =>
+        this.setState({
+          posts: res.data
+        })
+      )
+      .catch(err => console.log(err));
+  };
+
+  loadPost = id => {
+    PostsAPI.getPost(id)
+      .then(res =>
+        this.setState({
+          post: res.data
+        })
+      )
+      .catch(err => console.log(err));
+  };
+
+  //THREAD APIS
+  loadThreads = () => {
+    ThreadsAPI.getThreads()
+      .then(res =>
+        this.setState({
+          threads: res.data
+        })
+      )
+      .catch(err => console.log(err));
+  };
+  loadThread = id => {
+    ThreadsAPI.getThread(id)
+      .then(res =>
+        this.setState({
+          thread: res.data
+        })
+      )
+      .catch(err => console.log(err));
+  };
+
+  //UPDATE APIS
+  updateProject = (id, data) => {
+    ProjectsAPI.updateProject(id, data)
       .then(res => this.setState({ project: res.data }))
       .catch(err => console.log(err));
+  };
+  updatePost = (id, data) => {
+    PostsAPI.updatePost(id, data)
+      .then(res => this.setState({ post: res.data }))
+      .catch(err => console.log(err));
+  };
+  updateTask = (id, data) => {
+    TasksAPI.updateTask(id, data)
+      .then(res => this.setState({ task: res.data }))
+      .catch(err => console.log(err));
+  };
+  updateThread = (id, data) => {
+    ThreadsAPI.updateThread(id, data)
+      .then(res => this.setState({ thread: res.data }))
+      .catch(err => console.log(err));
+  };
+
+  handleProjectInput = event => {
+    event.preventDefault();
+    this.loadProject(event.target.value);
+    console.log(this.state.project);
+  };
+  handleThreadInput = event => {
+    event.preventDefault();
+    this.loadThread(event.target.value);
+    console.log(this.state.thread);
+  };
+  handlePostInput = event => {
+    event.preventDefault();
+    this.loadPost(event.target.value);
+    console.log(this.state.post);
+  };
+  handleTaskInput = event => {
+    event.preventDefault();
+    this.loadTask(event.target.value);
+    console.log(this.state.task);
   };
 
   //TASK APIS
