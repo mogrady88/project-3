@@ -1,68 +1,36 @@
-import React, { Component } from "react";
-import Nav from "../../components/Nav";
-import ProjectCard from "../../components/ProjectCard";
-import ProjectContainer from "../../components/ProjectContainer";
-import { Row, Col, Input, Button } from "react-materialize";
-import Task from "../../components/Task";
-import API from "../../utils/postsAPI";
-import { Link } from "react-router-dom";
+import React from "react";
+import Row from "../../components/grid/Row";
+import Col from "../../components/grid/Col";
+import Task from "../../components/privateComponents/Task";
+import Select from "react-select";
 
-class Tasks extends Component {
-  state = {
-    post: {}
-  };
+const options = [
+  { value: "all", label: "All" },
+  { value: "complete", label: "Complete" },
+  { value: "incomplete", label: "Incomplete" },
+  { value: "assigned", label: "Assigned" },
+  { value: "unassigned", label: "Unassigned" }
+];
 
-  // When this component mounts, grab the Post with the _id of this.props.match.params.id
-  // e.g. localhost:3000/posts/599dcb67f0f16317844583fc
-
-  componentDidMount() {
-    API.getPost(this.props.match.params.id)
-      .then(res => this.setState({ post: res.data }))
-      .catch(err => console.log(err));
-  }
-
-  render() {
-    return (
-      <div>
-       <Row>
-              <Col s={8}>
-                <Input s={12} type="select" defaultValue="1">
-                  <option value="1">All</option>
-                  <option value="2">Complete</option>
-                  <option value="3">Incomplete</option>
-                  <option value="4">Assigned</option>
-                  <option value="5">Unassigned</option>
-                </Input>
-              </Col>
-              <Col s={4}>
-                <Button>Create Task</Button>
-              </Col>
-            </Row>
-            <Row>
-              <Col s={12}>
-                <Task
-                  title="Task1"
-                  summary="Cras felis mauris, cursus ac lorem iaculis, rutrum facilisis nisl. Quisque quis odio sem. Nulla vehicula lectus eu ullamcorper mattis. Nulla in quam erat. Duis et consequat sem. Sed quis dictum urna. Phasellus metus urna, congue at hendrerit nec, sagittis eget sapien."
-                  status="Incomplete"
-                  funds={500}
-                />
-                <Task
-                  title="Task2"
-                  summary="Cras felis mauris, cursus ac lorem iaculis, rutrum facilisis nisl. Quisque quis odio sem. Nulla vehicula lectus eu ullamcorper mattis. Nulla in quam erat. Duis et consequat sem. Sed quis dictum urna. Phasellus metus urna, congue at hendrerit nec, sagittis eget sapien."
-                  status="Incomplete"
-                  funds={1250}
-                />
-                <Task
-                  title="Task3"
-                  summary="Cras felis mauris, cursus ac lorem iaculis, rutrum facilisis nisl. Quisque quis odio sem. Nulla vehicula lectus eu ullamcorper mattis. Nulla in quam erat. Duis et consequat sem. Sed quis dictum urna. Phasellus metus urna, congue at hendrerit nec, sagittis eget sapien."
-                  status="Incomplete"
-                  funds={750}
-                />
-              </Col>
-            </Row>
-      </div>
-    );
-  }
-}
+const Tasks = props => (
+  <div>
+    <Row>
+      <Col size="4">
+        <Select options={options} />
+      </Col>
+      <Col size="4">
+        <button>Create Task</button>
+      </Col>
+    </Row>
+    {props.tasks.map(task => (
+      <Task
+        title={task.title}
+        summary={task.description}
+        status={task.isComplete ? "Complete" : "Incomplete"}
+        funds={task.funds}
+      />
+    ))}
+  </div>
+);
 
 export default Tasks;

@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import Nav from "../../components/Nav";
 import Row from "react-materialize/lib/Row";
 import Col from "react-materialize/lib/Col";
-import ProjectCard from "../../components/ProjectCard";
-import ProjectContainer from "../../components/ProjectContainer";
+import ProjectCard from "../../components/privateComponents/ProjectCard";
+import ProjectContainer from "../../components/privateComponents/ProjectContainer";
 import API from "../../utils/postsAPI";
 import { Link } from "react-router-dom";
 
@@ -24,34 +24,28 @@ class Private extends Component {
   render() {
     return (
       <div>
-      <Nav isPublic={true} />
-      <div className="container">
-        <Row>
-          <Col s={12}>
-              <h1>
-                {this.state.post.title}
-              </h1>
-              <h6>
-                {this.state.post.summary}
-              </h6>
+        <Nav isPublic={true} />
+        <div className="container">
+          <Row>
+            <Col s={12}>
+              <h1>{this.state.post.title}</h1>
+              <h6>{this.state.post.summary}</h6>
               <hr />
-          </Col>
-        </Row>
-        <Row>
-          <Col s={10}>
-            <article>
-              <p>
-                {this.state.post.content}
-              </p>
-            </article>
-          </Col>
-        </Row>
-        <Row>
-          <Col size="md-2">
-            <Link to="/">← Back to Posts</Link>
-          </Col>
-        </Row>
-      </div>
+            </Col>
+          </Row>
+          <Row>
+            <Col s={10}>
+              <article>
+                <p>{this.state.post.content}</p>
+              </article>
+            </Col>
+          </Row>
+          <Row>
+            <Col size="md-2">
+              <Link to="/">← Back to Posts</Link>
+            </Col>
+          </Row>
+        </div>
       </div>
     );
   }
