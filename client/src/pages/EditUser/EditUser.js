@@ -89,7 +89,7 @@ handleEmailChange = (event) => {
                 <div>
 
                 {this.state.users.map(user => (
-                <UserList user={...user} />
+                <UserList user={user} />
                 ))}
                 {/* <Col s={2}>
                 <label for="username"><b>Username</b></label>

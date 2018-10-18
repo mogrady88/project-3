@@ -154,22 +154,22 @@ class Public extends Component {
     }
 
     handleProjectInput = (event) => {
-        event.preventDefault;
+        event.preventDefault();
         this.loadProject(event.target.value);
         console.log(this.state.project);
     }
     handleThreadInput = (event) => {
-        event.preventDefault;
+        event.preventDefault();
         this.loadThread(event.target.value);
         console.log(this.state.thread);
     }
     handlePostInput = (event) => {
-        event.preventDefault;
+        event.preventDefault();
         this.loadPost(event.target.value);
         console.log(this.state.post);
     }
     handleTaskInput = (event) => {
-        event.preventDefault;
+        event.preventDefault();
         this.loadTask(event.target.value);
         console.log(this.state.task);
     }
