@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "mappings": "",
+  "sources": ["ProjectContainer.scss", "../../utils/_variables.scss"],
+  "names": [],
+  "file": "ProjectViewer.css"
+}
