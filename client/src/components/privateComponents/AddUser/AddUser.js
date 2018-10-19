@@ -1,7 +1,7 @@
 import React from "react";
 import Col from "../../grid/Col";
 
-const ProjectContainer = props => (
+const AddUser = props => (
   <Col size="9">
     <form>
       <label htmlFor="username">Username:</label>
@@ -16,16 +16,21 @@ const ProjectContainer = props => (
       <label htmlFor="password">Password:</label>
       <input
         placeholder="password"
+        id="password"
         type="password"
         name="newPassword"
         value={props.newPassword}
         onChange={props.handleInputChange}
       />
-      <button onClick={props.handleSignUp} type="submit">
+      <button
+        disabled={!(props.newUsername && props.newPassword)}
+        onClick={props.handleSignUp}
+        type="submit"
+      >
         Create user
       </button>
     </form>
   </Col>
 );
 
-export default ProjectContainer;
+export default AddUser;

@@ -19,5 +19,8 @@ export default {
   },
   logoutUser: function(userData) {
     return axios.post("/api/users/logout", userData);
+  },
+  updateUser: function(userData) {
+    return axios.post("/api/users/:id", userData);
   }
 };

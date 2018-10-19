@@ -186,16 +186,16 @@ class Private extends Component {
           console.log("successful signup");
           alert(`Successful signup for new user: ${response.data.username}.`);
           this.setState({
-            username: "",
-            password: "",
-            addUser: false
-          });
-          this.setState({
-            addUser: true
+            newUsername: "",
+            newPassword: ""
           });
         } else {
           console.log("username already taken");
           alert(response.data.error);
+          this.setState({
+            newUsername: "",
+            newPassword: ""
+          });
         }
       })
       .catch(error => {
@@ -212,6 +212,7 @@ class Private extends Component {
           isPublic={false}
           loadPage={this.loadPage}
           handleLogout={this.props.handleLogout}
+          loggedIn={this.props.loggedIn}
         />
         <Row>
           {this.state.metadata.currentPage === "default" ? (
