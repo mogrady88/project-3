@@ -615,8 +615,6 @@ class Public extends Component {
                 Submit Comment
               </button>
             </form>
-
-            <TextEditor />
           </Col>
         </Row>
       </div>
