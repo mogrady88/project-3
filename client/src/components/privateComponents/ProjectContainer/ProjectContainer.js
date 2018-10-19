@@ -9,13 +9,13 @@ import Comments from "../../../pages/Comments";
 import "./ProjectContainer.css";
 
 const ProjectContainer = props => (
-  <Col size="9">
-    <Row className="projectMeta">
-      <Col size="8" className="projectMetaLeft">
+  <Col size="9" otherclasses="projectMeta">
+    <Row>
+      <Col size="8" otherclasses="projectMetaLeft">
         <h5>{props.currentProject.title}</h5>
         <p>{props.currentProject.summary}</p>
       </Col>
-      <Col size="4" className="projectMetaRight">
+      <Col size="4" otherclasses="projectMetaRight">
         <p>Funds: ${props.currentProject.funds}</p>
         <p>Used Funds: ${props.currentProject.usedFunds}</p>
         <p>
@@ -28,19 +28,15 @@ const ProjectContainer = props => (
       <div class="nav-wrapper">
         <ul id="nav-mobile" class="hide-on-med-and-down">
           <li>
-            <button onClick={() => props.loadProjectSubpage("tasks", 0)}>
-              Tasks
-            </button>
+            <a onClick={() => props.loadProjectSubpage("tasks", 0)}>Tasks</a>
           </li>
           <li>
-            <button onClick={() => props.loadProjectSubpage("threads", 0)}>
+            <a onClick={() => props.loadProjectSubpage("threads", 0)}>
               Discussion
-            </button>
+            </a>
           </li>
           <li>
-            <button onClick={() => props.loadProjectSubpage("posts", 0)}>
-              Posts
-            </button>
+            <a onClick={() => props.loadProjectSubpage("posts", 0)}>Posts</a>
           </li>
         </ul>
       </div>

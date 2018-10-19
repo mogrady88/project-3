@@ -1,9 +1,9 @@
 {
     "version": 3,
-    "mappings": "",
+    "mappings": "AAEA,AAAA,YAAY,CAAC;EACX,MAAM,EAAE,eAAe;EACvB,MAAM,EAAE,GAAG,CAAC,KAAK,CCHV,OAAO;EDId,gBAAgB,ECHR,OAAO;CDIhB",
     "sources": [
         "ProjectContainer.scss",
-        "../../utils/_variables.scss"
+        "../../../utils/_variables.scss"
     ],
     "names": [],
     "file": "ProjectContainer.css"

@@ -1,1 +1,6 @@
-/* No CSS *//*# sourceMappingURL=ProjectContainer.css.map */
+.projectMeta {
+  margin: 0.5rem auto 0 0;
+  border: 5px solid #a9bcc2;
+  background-color: #80aebd;
+}
+/*# sourceMappingURL=ProjectContainer.css.map */

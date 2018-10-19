@@ -1,37 +1,14 @@
-.Nav {
-  line-height: 64px;
-  display: inline-block;
-  background-color: #252525;
+#topNav {
+  background-color: #a9bcc2;
 }
 
-.Nav .right p {
-  float: left;
-  margin: 0 10px 0 0;
-  line-height: 64px;
+#topNav a {
+  color: #323433;
 }
 
-.Nav .right a {
-  float: left;
-  text-align: center;
-  color: #ffffff;
-}
-
-.Nav .right a:hover {
-  background-color: #444444;
-  color: #fdd947;
-}
-
-.Nav .btn {
-  margin: 0 10px 0 0;
-  font-size: 10px;
-  text-align: center;
-  background-color: #444444;
-  color: #fdd947;
-}
-
-.Nav .btn:hover {
-  color: #252525;
-  background-color: #fdd947;
+#topNav li a {
+  border-left: 3px solid #323433;
+  color: #323433;
 }
 
 .z-depth-1,

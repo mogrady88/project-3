@@ -9,7 +9,7 @@ import {
 import "./Nav.css";
 
 const Nav = props => (
-  <nav>
+  <nav id="topNav">
     {props.isPublic ? (
       <div class="nav-wrapper">
         <a href="#" class="brand-logo">
@@ -31,13 +31,13 @@ const Nav = props => (
         </a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <li>
-            <button onClick={() => props.loadPage("users")}>Users</button>
+            <a onClick={() => props.loadPage("users")}>Users</a>
           </li>
           <li>
-            <button onClick={() => props.loadPage("projects")}>Projects</button>
+            <a onClick={() => props.loadPage("projects")}>Projects</a>
           </li>
           <li>
-            <button onClick={props.handleLogout}>Log out</button>
+            <a onClick={props.handleLogout}>Log out</a>
           </li>
           <li>
             <Link to="/">Public View</Link>

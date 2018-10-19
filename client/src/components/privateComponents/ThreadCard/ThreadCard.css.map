@@ -3,7 +3,7 @@
     "mappings": "",
     "sources": [
         "ThreadCard.scss",
-        "../../utils/_variables.scss"
+        "../../../utils/_variables.scss"
     ],
     "names": [],
     "file": "ThreadCard.css"
