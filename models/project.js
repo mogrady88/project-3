@@ -3,6 +3,7 @@ var validate = require("mongoose-validator");
 const Schema = mongoose.Schema;
 
 const projectSchema = new Schema({
+  // _id: Schema.Types.ObjectId,
   title: { type: String, required: true },
   status: { type: String, required: true },
   summary: { type: String, required: false },

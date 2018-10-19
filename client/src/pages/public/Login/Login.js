@@ -144,7 +144,12 @@ class Login extends Component {
                   {this.state.userExists ? (
                     " "
                   ) : (
-                    <Button id="btn2" onClick={this.handleSignUp} type="submit">
+                    <Button
+                      id="btn2"
+                      disabled={!(this.state.username && this.state.password)}
+                      onClick={this.handleSignUp}
+                      type="submit"
+                    >
                       Sign up
                     </Button>
                   )}

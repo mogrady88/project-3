@@ -181,6 +181,10 @@ class PrivateMaster extends Component {
         } else {
           console.log("username already taken");
           alert(response.data.error);
+          this.setState({
+            newUsername: "",
+            newPassword: ""
+          });
         }
       })
       .catch(error => {
