@@ -5,10 +5,10 @@ import { Redirect } from "react-router-dom";
 import Nav from "../../components/Nav";
 import axios from "axios";
 import UsersAPI from "../../utils/usersAPI";
-import UserList from "../../components/EditUserTable/UserTable";
+import UserList from "../../components/EditUserList/UserList";
 // import "./Login.css";
 
-class Signup extends Component {
+class ViewUsers extends Component {
 
 state = {
         users: [{
@@ -69,57 +69,52 @@ handleEmailChange = (event) => {
     console.log(this.state)
 }
 
-// componentDidMount(){
-//     UsersAPI.getAllUsers()
-//     .then(res => this.setState({
-//         users: res.data
-//     })
-//     )
-//     .catch(err => console.log(err));
-//     console.log(this.state.users);
-//     }
+componentDidMount(){
+    UsersAPI.getAllUsers()
+    .then(res => {
+        this.setState({ users: res.data })
+    })
+    .catch(err => console.log(err));
+    }
+
+updateUserInfo(){
+    UsersAPI.
+}
+
+handleOnDelete = (event) => {
+    event.preventDefault();
+
+    }
+
+handleOnChange = (event) => {
+        event.preventDefault();
+        const { name, value } = event.target;
+        this.setState({[name]: value})
+    }
+
+handleOnClick = (event) => {
+    event.preventDefault();
+
+    }
 
 
     render(){
         return(
-            <div classname="container">
+            <div className="container">
             <Nav isPublic={true} />
             <Row>
                 <h4>Users</h4>
                 <div>
-
+                <Row>
+                    <Col s={2}><h5>Username</h5></Col>
+                    <Col s={2}><h5>Password</h5></Col>
+                    <Col s={2}><h5>Firstname</h5></Col>
+                    <Col s={2}><h5>Lastname</h5></Col>
+                    <Col s={2}><h5>Email</h5></Col>
+                </Row>
                 {this.state.users.map(user => (
-                <UserList user={user} />
+                <UserList user={user} onDelete={this.handleOnDelete} onChange={this.handleOnChange} onClick={this.handleOnClick}/>
                 ))}
-                {/* <Col s={2}>
-                <label for="username"><b>Username</b></label>
-                <input type="text" placeholder="Username" name="username" onChange={this.handleUsernameChange} value={this.state.username} />
-                </Col>
-
-                <Col s={2}>
-                <label for="password"><b>Password</b></label>
-                <input type="text" placeholder="Password" name="password" onChange={this.handlePasswordChange} value={this.state.password} />
-                </Col>
-
-                <Col s={2}>
-                <label for="first-name"><b>Firstname</b></label>
-                <input type="text" placeholder="Firstname" name="firstname" onChange={this.handleFirstnameChange} value={this.state.firstname} />
-                </Col>
-
-                <Col s={2}>
-                <label for="last-name"><b>Lastname</b></label>
-                <input type="text" placeholder="Lastname" name="lastname" onChange={this.handleLastnameChange} value={this.state.lastname} />
-                </Col>
-
-                <Col s={2}>
-                <label for="email"><b>Email</b></label>
-                <input type="text" placeholder="Email" name="email" onChange={this.handleEmailChange} value={this.state.email} />
-                </Col>
-
-                <div class="clearfix">
-                    <button type="button" class="cancelbtn">Cancel</button>
-                    <button type="submit" class="signupbtn">Set Changes</button>
-                </div> */}
                 </div>
             </Row>
             </div>
@@ -127,4 +122,4 @@ handleEmailChange = (event) => {
     }
 }
 
-export default Signup;
+export default ViewUsers;

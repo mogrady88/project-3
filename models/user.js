@@ -11,7 +11,8 @@ const userSchema = new Schema({
   email: { type: String, unique: true, required: false, default: null },
   firstName: { type: String, required: false, default: null },
   lastName: { type: String, required: false, default: null },
-  title: { type: String, required: false, default: null }
+  title: { type: String, required: false, default: null },
+  isActive: {type: Boolean, default: true }
 });
 
 // Define schema methods
