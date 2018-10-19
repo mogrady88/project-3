@@ -127,13 +127,13 @@ class Login extends Component {
                     type="text"
                     id="username"
                     name="username"
-                    placeholder="Username"
+                    placeholder="Username (required)"
                     value={this.state.username}
                     onChange={this.handleChange}
                   />
                   <label htmlFor="password">Password:</label>
                   <input
-                    placeholder="Password"
+                    placeholder="Password (required)"
                     type="password"
                     name="password"
                     value={this.state.password}

@@ -9,13 +9,13 @@ const AddUser = props => (
         type="text"
         id="username"
         name="newUsername"
-        placeholder="Username"
+        placeholder="Username (required)"
         value={props.newUsername}
         onChange={props.handleInputChange}
       />
       <label htmlFor="password">Password:</label>
       <input
-        placeholder="password"
+        placeholder="Password (required)"
         id="password"
         type="password"
         name="newPassword"
