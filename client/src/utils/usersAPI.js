@@ -1,6 +1,9 @@
 import axios from "axios";
 
 export default {
+  getAllUsers: function() {
+    return axios.get("/api/users");
+  },
   checkForUsers: function() {
     return axios.get("/api/users/check");
   },
@@ -16,5 +19,8 @@ export default {
   },
   logoutUser: function(userData) {
     return axios.post("/api/users/logout", userData);
+  },
+  updateUser: function(userData) {
+    return axios.post("/api/users/:id", userData);
   }
 };
