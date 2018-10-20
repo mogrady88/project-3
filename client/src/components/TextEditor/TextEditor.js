@@ -1,7 +1,12 @@
 import React from "react";
-import {EditorState, RichUtils } from "draft-js";
+import {EditorState, RichUtils, convertToRaw } from "draft-js";
 import Editor from 'draft-js-plugins-editor';
+import ProjectsAPI from "../../utils/projectsAPI";
+import PostsAPI from "../../utils/postsAPI";
 import createLinkifyPlugin from 'draft-js-linkify-plugin'
+import { Row, Col, Input } from "react-materialize";
+import "./TextEditor.css"
+
 const linkifyPlugin = createLinkifyPlugin();
 const plugins = [linkifyPlugin];
 
@@ -9,9 +14,71 @@ class PageContainer extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			editorState: EditorState.createEmpty()
-		};
+      editorState: EditorState.createEmpty(),
+      projects: [],
+      tasks: [],
+      posts: [],
+      threads: [],
+      project: {
+        title: "",
+        status: "",
+        summary: "",
+        funds: ""
+      },
+      task: {
+        title: "",
+        description: "",
+        funds: "",
+        project: ""
+      },
+      post: {
+        title: "",
+        summary: "",
+        content: "",
+        author: "",
+        tags: [],
+        currentTag: "",
+        isPublished: false,
+        project: ""
+      },
+      thread: {
+        title: "",
+        author: "",
+        initialComment: "",
+        project: ""
+      },
+      comment: {
+        text: "",
+        author: "",
+        thread: ""
+      }
+    };
 	}
+
+  componentDidMount() {
+    this.loadProjects();
+    this.loadPosts();
+  }
+
+  loadProjects = () => {
+    ProjectsAPI.getProjects()
+      .then(res =>
+        this.setState({
+          projects: res.data
+        })
+      )
+      .catch(err => console.log(err));
+  };
+
+  loadPosts = () => {
+    PostsAPI.getPosts()
+      .then(res =>
+        this.setState({
+          posts: res.data
+        })
+      )
+      .catch(err => console.log(err));
+  };
 
 	onChange = editorState => {
 		this.setState({
@@ -53,6 +120,8 @@ class PageContainer extends React.Component {
     )
   }
   onH2Click = () => {
+    const contentState = this.state.editorState.getCurrentContent();
+    console.log('content state', convertToRaw(contentState));
     this.onChange(
       RichUtils.toggleBlockType(this.state.editorState, "header-two")
     )
@@ -63,10 +132,64 @@ class PageContainer extends React.Component {
     )
   }
 
+// Post Functions
+  handlePostInputChange = event => {
+    const { name, value } = event.target;
+    this.setState({
+      post: {
+        ...this.state.post,
+        [name]: value
+      }
+    });
+  };
+
+  handlePostTagSubmit = event => {
+    event.preventDefault();
+    if (this.state.post.currentTag) {
+      this.setState({
+        post: {
+          ...this.state.post,
+          tags: [...this.state.post.tags, this.state.post.currentTag]
+        }
+      });
+    }
+  };
+
+  handlePostFormSubmit = event => {
+    event.preventDefault();
+
+    const contentState = this.state.editorState.getCurrentContent();
+
+    if (
+      this.state.post.title &&
+      this.state.post.summary &&
+      contentState.hasText() &&
+      this.state.post.author
+    ) {
+      const content = convertToRaw(contentState);
+
+      PostsAPI.savePost([
+        {
+          title: this.state.post.title,
+          summary: this.state.post.summary,
+          content: JSON.stringify(content),
+          author: this.state.post.author,
+          tags: this.state.post.tags,
+          isPublished: this.state.post.isPublished
+        },
+        { project: this.state.post.project }
+      ])
+        .then(res => {
+          console.log(res);
+          this.loadPosts();
+        })
+        .catch(err => console.log(err));
+    }
+  };
+
 	render() {
 		return (
-
-      <form>
+      <div>
               <div className="form-group">
                 <input
                   className="form-control"
@@ -94,14 +217,29 @@ class PageContainer extends React.Component {
                   placeholder="Summary (required)"
                 />
               </div>
-              <div className="form-group">
-                <textarea
-                  className="form-control"
-                  value={this.state.post.content}
-                  onChange={this.handlePostInputChange}
-                  name="content"
-                  placeholder="Content (required)"
-                />
+              Content:
+              <div className="editorContainer">
+                <div className="toolbar">
+                <button onClick={this.onUnderlineClick}>U</button>
+                <button onClick={this.onBoldClick}>
+                  <b>B</b>
+                </button>
+                <button onClick={this.onItalicClick}>
+                  <em>I</em>
+                </button>
+                <button onClick={this.onH1Click}>H1</button>
+                <button onClick={this.onH2Click}>H2</button>
+                <button onClick={this.onH3Click}>H3</button>
+                </div>
+                <div className="editors">
+                  <Editor
+                    editorState={this.state.editorState}
+                    handleKeyCommand={this.handleKeyCommand}
+                    onChange={this.onChange}
+                    plugins={plugins}
+                    ref={(element) => { this.editor = element; }}
+                  />
+                </div>
               </div>
               <div>Tags: {this.state.post.tags.join(", ")}</div>
               <Row>
@@ -166,7 +304,7 @@ class PageContainer extends React.Component {
                   !(
                     this.state.post.title &&
                     this.state.post.summary &&
-                    this.state.post.content &&
+                    this.state.editorState.getCurrentContent().hasText() &&
                     this.state.post.author
                   )
                 }
@@ -176,30 +314,7 @@ class PageContainer extends React.Component {
               >
                 Submit Post
               </button>
-            </form>
-
-
-			<div className="editorContainer">
-				<button onClick={this.onUnderlineClick}>U</button>
-				<button onClick={this.onBoldClick}>
-					<b>B</b>
-				</button>
-				<button onClick={this.onItalicClick}>
-					<em>I</em>
-				</button>
-        <button onClick={this.onH1Click}>H1</button>
-        <button onClick={this.onH2Click}>H2</button>
-        <button onClick={this.onH3Click}>H3</button>
-				<div className="editors">
-					<Editor
-						editorState={this.state.editorState}
-						handleKeyCommand={this.handleKeyCommand}
-            onChange={this.onChange}
-            plugins={plugins}
-            ref={(element) => { this.editor = element; }}
-					/>
-				</div>
-			</div>
+              </div>
 		);
 	}
 }

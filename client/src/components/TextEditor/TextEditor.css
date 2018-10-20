@@ -1,4 +1,4 @@
-.editor {
+.editorContainer {
   box-sizing: border-box;
   border: 1px solid #ddd;
   cursor: text;
@@ -9,26 +9,6 @@
   background: #fefefe;
 }
 
-.editor :global(.public-DraftEditor-content) {
+.editorContainer :global(.public-DraftEditor-content) {
   min-height: 140px;
-}
-
-.headlineButtonWrapper {
-  display: inline-block;
-}
-
-.headlineButton {
-  background: #fbfbfb;
-  color: #888;
-  font-size: 18px;
-  border: 0;
-  padding-top: 5px;
-  vertical-align: bottom;
-  height: 34px;
-  width: 36px;
-}
-
-.headlineButton:hover,
-.headlineButton:focus {
-  background: #f3f3f3;
 }
