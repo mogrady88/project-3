@@ -1,13 +1,23 @@
 @import "../../utils/variables";
 
 #topNav {
-  background-color: map-get($colors, first);
+  background-color: map-get($colors, third);
+  border-bottom: 5px solid map-get($colors, fourth);
+
+  .brand-logo {
+    font-size: 30px;
+    margin-left: 20px;
+  }
   a {
-    color: map-get($colors, third);
+    font-size: 15px;
+    color: map-get($colors, fourth);
   }
   li a {
-    border-left: 3px solid map-get($colors, third);
-    color: map-get($colors, third);
+    color: map-get($colors, fourth);
+  }
+  li a:hover {
+    background-color: transparent;
+    color: map-get($colors, second);
   }
 }
 

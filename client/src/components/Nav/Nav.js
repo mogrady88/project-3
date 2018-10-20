@@ -13,7 +13,7 @@ const Nav = props => (
     {props.isPublic ? (
       <div className="nav-wrapper">
         <a href="#" className="brand-logo">
-          Logo
+          Dialectic
         </a>
         <ul id="nav-mobile" className="right hide-on-med-and-down">
           <li>

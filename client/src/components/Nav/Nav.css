@@ -1,14 +1,25 @@
 #topNav {
-  background-color: #a9bcc2;
+  background-color: #323433;
+  border-bottom: 5px solid #fdf0b5;
+}
+
+#topNav .brand-logo {
+  font-size: 30px;
+  margin-left: 20px;
 }
 
 #topNav a {
-  color: #323433;
+  font-size: 15px;
+  color: #fdf0b5;
 }
 
 #topNav li a {
-  border-left: 3px solid #323433;
-  color: #323433;
+  color: #fdf0b5;
+}
+
+#topNav li a:hover {
+  background-color: transparent;
+  color: #80aebd;
 }
 
 .z-depth-1,

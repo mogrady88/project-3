@@ -4,7 +4,9 @@ import "./ProjectCard.css";
 const ProjectCard = props => (
   <div className="card">
     <div className="card-content projectCard ">
-      <span className="card-title">{props.name}</span>
+      <span className="card-title">
+        <strong>{props.name}</strong>
+      </span>
       <p>
         Status: <strong>{props.status}</strong>
       </p>

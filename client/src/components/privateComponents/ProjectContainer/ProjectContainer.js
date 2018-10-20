@@ -12,7 +12,9 @@ const ProjectContainer = props => (
   <Col size="9" otherclasses="projectMeta">
     <Row>
       <Col size="8" otherclasses="projectMetaLeft">
-        <h5>{props.currentProject.title}</h5>
+        <h5>
+          <strong>{props.currentProject.title}</strong>
+        </h5>
         <p>{props.currentProject.summary}</p>
       </Col>
       <Col size="4" otherclasses="projectMetaRight">
@@ -24,8 +26,8 @@ const ProjectContainer = props => (
         </p>
       </Col>
     </Row>
-    <nav>
-      <div class="nav-wrapper">
+    <nav id="projectNav">
+      <div>
         <ul id="nav-mobile" class="hide-on-med-and-down">
           <li>
             <a onClick={() => props.loadProjectSubpage("tasks", 0)}>Tasks</a>
