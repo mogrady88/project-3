@@ -44,6 +44,7 @@ const ProjectContainer = props => (
         </ul>
       </div>
     </nav>
+    <br />
     {props.subpage === "tasks" ? (
       <Tasks tasks={props.currentProject.tasks} />
     ) : props.subpage === "threads" ? (

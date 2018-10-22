@@ -1,7 +1,5 @@
 import React from "react";
-import PostCard from "../../../components/shared/PostCard";
-import API from "../../utils/postsAPI";
-import { Link } from "react-router-dom";
+import PostCard from "../../../components/private/PostCard";
 
 const Posts = props => (
   <div>

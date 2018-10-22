@@ -1,5 +1,5 @@
 import React from "react";
-import CommentCard from "../../components/privateComponents/CommentCard";
+import CommentCard from "../../../components/private/CommentCard";
 
 const Comments = props => (
   <div>

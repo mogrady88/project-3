@@ -1,7 +1,7 @@
 import React from "react";
-import Row from "../../components/grid/Row";
-import Col from "../../components/grid/Col";
-import Task from "../../components/privateComponents/Task";
+import Row from "../../../components/shared/grid/Row";
+import Col from "../../../components/shared/grid/Col";
+import Task from "../../../components/private/Task";
 import Select from "react-select";
 
 const options = [

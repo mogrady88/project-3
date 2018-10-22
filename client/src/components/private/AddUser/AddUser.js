@@ -1,5 +1,5 @@
 import React from "react";
-import Col from "../../grid/Col";
+import Col from "../../shared/grid/Col";
 
 const AddUser = props => (
   <Col size="9">

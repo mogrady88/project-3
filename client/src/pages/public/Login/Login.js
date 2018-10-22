@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 // import API from "../../utils/API";
-import { Row, Col, Card, Tabs, Tab, Input, Button } from "react-materialize";
+import Row from "../../../components/shared/grid/Row";
+import Col from "../../../components/shared/grid/Col";
 import { Redirect } from "react-router-dom";
 import Nav from "../../../components/shared/Nav";
 import UsersAPI from "../../../utils/usersAPI";
@@ -13,7 +14,7 @@ class Login extends Component {
       username: "",
       password: "",
       redirectTo: null,
-      userExists: false
+      userExists: true
     };
     this.handleSignUp = this.handleSignUp.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
@@ -30,6 +31,7 @@ class Login extends Component {
     UsersAPI.checkForUsers().then(response => {
       if (response.data.length === 0) {
         console.log("Checking if user exists: ", response);
+        this.setState({ userExists: false });
         console.log("Does a user exist? ", this.state.userExists);
       } else {
         console.log("Checking if user exists: ", response);
@@ -117,8 +119,10 @@ class Login extends Component {
         <div className="Container">
           <Nav isPublic={true} />
           <Row>
-            <Col m={4} offset="m4">
-              <Card className="signIn" title="Administrator Login">
+            <Col size="4" />
+            <Col size="4">
+              <div className="signIn">
+                <h4>Administrator Login</h4>
                 <form id="loginForm">
                   <label htmlFor="username">Username:</label>
                   <input
@@ -137,24 +141,24 @@ class Login extends Component {
                     value={this.state.password}
                     onChange={this.handleChange}
                   />
-                  <Button id="btn1" onClick={this.handleLogin} type="submit">
+                  <button id="btn1" onClick={this.handleLogin} type="submit">
                     {console.log("Props", this.props)}
                     Login
-                  </Button>
+                  </button>
                   {this.state.userExists ? (
                     " "
                   ) : (
-                    <Button
+                    <button
                       id="btn2"
                       disabled={!(this.state.username && this.state.password)}
                       onClick={this.handleSignUp}
                       type="submit"
                     >
                       Sign up
-                    </Button>
+                    </button>
                   )}
                 </form>
-              </Card>
+              </div>
             </Col>
           </Row>
         </div>

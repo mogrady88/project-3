@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Nav from "../../../components/shared/Nav";
-import Row from "react-materialize/lib/Row";
-import Col from "react-materialize/lib/Col";
+import Row from "../../../components/shared/grid/Row";
+import Col from "../../../components/shared/grid/Col";
 import API from "../../../utils/postsAPI";
 import { Link } from "react-router-dom";
 
@@ -25,21 +25,21 @@ class Private extends Component {
         <Nav isPublic={true} />
         <div className="container">
           <Row>
-            <Col s={12}>
+            <Col size="12">
               <h1>{this.state.post.title}</h1>
               <h6>{this.state.post.summary}</h6>
               <hr />
             </Col>
           </Row>
           <Row>
-            <Col s={10}>
+            <Col size="10">
               <article>
                 <p>{this.state.post.content}</p>
               </article>
             </Col>
           </Row>
           <Row>
-            <Col size="md-2">
+            <Col size="2">
               <Link to="/">← Back to Posts</Link>
             </Col>
           </Row>

@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import API from "../../../utils/postsAPI";
 import Nav from "../../../components/shared/Nav";
-import PostCard from "../../../components/shared/PostCard";
-import Row from "react-materialize/lib/Row";
-import Col from "react-materialize/lib/Col";
+import PostCard from "../../../components/public/PostCard";
+import Row from "../../../components/shared/grid/Row";
+import Col from "../../../components/shared/grid/Col";
 
 class Public extends Component {
   state = {
@@ -33,13 +33,10 @@ class Public extends Component {
         <Nav isPublic={true} />
         <div className="container">
           <Row>
-            <Col s={9} className="grid1">
+            <Col size="12" className="grid1">
               {this.state.posts.map(post => (
                 <PostCard {...post} isPublic={true} />
               ))}
-            </Col>
-            <Col s={3} className="grid2">
-              asdf
             </Col>
           </Row>
         </div>

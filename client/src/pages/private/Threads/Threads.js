@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import ThreadCard from "../../components/privateComponents/ThreadCard";
+import ThreadCard from "../../../components/private/ThreadCard";
 
 const Threads = props => (
   <div>
