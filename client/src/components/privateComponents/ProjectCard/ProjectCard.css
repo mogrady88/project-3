@@ -1,34 +1,26 @@
-.card {
+.card .projectCard {
+  border: 5px solid #a9bcc2;
+  background-color: #80aebd;
+}
+
+.card .projectCard p {
   margin: 1rem 0 1rem 0;
-  padding: 10px;
-  background-color: #444444;
-  color: #ffffff;
+  color: #323433;
 }
 
-.card .card-content {
-  padding: 0;
-  margin: 0;
+.card .projectCard .btn {
+  background-color: #fdf0b5;
+  color: #323433;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
-.card .card-content h5 {
-  padding: 10px 20px 0px 20px;
-  color: #fdd947;
-}
-
-.card .card-content p {
-  padding: 5px 0px 5px 20px;
-}
-
-.card .card-action {
-  margin-top: 5px;
-  padding: 20px;
-}
-
-.card .card-action a:not(.btn):not(.btn-large):not(.btn-large):not(.btn-floating) {
-  color: #fdd947;
-  margin-right: 24px;
-  -webkit-transition: color 0.3s ease;
-  transition: color 0.3s ease;
-  text-transform: uppercase;
+.card .projectCard .card-action {
+  border-top: 5px solid #a9bcc2;
+  margin: 1rem 0 0 0;
 }
 /*# sourceMappingURL=ProjectCard.css.map */

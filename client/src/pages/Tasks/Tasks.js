@@ -3,6 +3,7 @@ import Row from "../../components/grid/Row";
 import Col from "../../components/grid/Col";
 import Task from "../../components/privateComponents/Task";
 import Select from "react-select";
+import "./Tasks.css";
 
 const options = [
   { value: "all", label: "All" },
@@ -19,7 +20,7 @@ const Tasks = props => (
         <Select options={options} />
       </Col>
       <Col size="4">
-        <button>Create Task</button>
+        <a className="btn">Create Task</a>
       </Col>
     </Row>
     {props.tasks.map(task => (

@@ -3,7 +3,7 @@
     "mappings": "",
     "sources": [
         "Task.scss",
-        "../../utils/_variables.scss"
+        "../../../utils/_variables.scss"
     ],
     "names": [],
     "file": "Task.css"
