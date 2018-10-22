@@ -1,1 +1,12 @@
 @import "../../../utils/variables";
+
+.taskCard {
+  color: white;
+  border: 5px solid map-get($colors, third);
+  background-color: map-get($colors, first);
+
+  .card-title {
+    margin-left: 10px;
+    color: white;
+  }
+}

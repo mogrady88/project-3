@@ -3,34 +3,35 @@
 .signIn {
   padding: 20px;
   margin: 20px;
-  background-color: map-get($colors, fifth) !important;
+  background-color: map-get($colors, third);
+  border: 5px solid map-get($colors, fourth);
 
   .card-content {
     margin: 5px 20px 5px 20px !important;
 
     .card-title {
-      color: map-get($colors, first) !important;
+      color: map-get($colors, fourth) !important;
       text-align: center;
     }
   }
 }
 
 #btn1 {
-  background-color: map-get($colors, second);
-  color: map-get($colors, first);
+  background-color: map-get($colors, fourth);
+  color: map-get($colors, third);
 }
 
 #btn2 {
   float: right;
-  background-color: map-get($colors, second);
-  color: map-get($colors, first);
+  background-color: map-get($colors, fourth);
+  color: map-get($colors, third);
 }
 
 #btn1:hover {
-  color: map-get($colors, fifth);
-  background-color: map-get($colors, first);
+  color: map-get($colors, second);
+  // background-color: map-get($colors, first);
 }
 #btn2:hover {
-  color: map-get($colors, fifth);
-  background-color: map-get($colors, first);
+  color: map-get($colors, second);
+  // background-color: map-get($colors, first);
 }
