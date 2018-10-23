@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import Row from "../../components/grid/Row";
-import Col from "../../components/grid/Col";
+import Row from "../../components/shared/grid/Row";
+import Col from "../../components/shared/grid/Col";
 
 
 

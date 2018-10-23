@@ -4,8 +4,8 @@ import { Row, Col, Card, Tabs, Tab, Input, Button } from "react-materialize";
 import { Redirect } from "react-router-dom";
 import Nav from "../../../components/shared/Nav";
 import axios from "axios";
-import UsersAPI from "../../utils/usersAPI";
-import UserList from "../../components/EditUserList/UserList";
+import UsersAPI from "../../../utils/usersAPI";
+import UserList from "../../../components/EditUserList/UserList";
 // import "./Login.css";
 
 class ViewUsers extends Component {
@@ -40,9 +40,10 @@ loadUsers(){
 
 
 updateUserInfo(id, data){
+  console.log(id);
     UsersAPI.updateUser(id, data)
     .then(res => 
-        console.log("updated")
+        console.log(res.data)
     )
 }
 
@@ -52,6 +53,7 @@ handleOnDisable = (event) => {
     }
 
 handleOnChange = (event) => {
+  
         event.preventDefault();
         const { name, value } = event.target;
         this.setState({
@@ -64,7 +66,8 @@ handleOnChange = (event) => {
 
     handleOnClick = (event) => {
         event.preventDefault();
-        const userID = event.target.name;
+        const userID = event.target.value;
+        // console.log(userID);
         this.setState({
             user: {
                 id: userID
