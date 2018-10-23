@@ -6,14 +6,18 @@
   "dependencies": {
     "axios": "^0.16.2",
     "draft-js": "^0.10.5",
+    "draft-js-export-html": "^1.2.0",
+    "draft-js-import-html": "^1.2.1",
     "draft-js-inline-toolbar-plugin": "^3.0.0",
     "draft-js-linkify-plugin": "^2.0.1",
     "draft-js-plugins-editor": "^2.1.1",
     "draft-js-side-toolbar-plugin": "^3.0.1",
     "draft-js-static-toolbar-plugin": "^3.0.0",
+    "immutable": "^3.8.2",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-materialize": "^2.4.6",
+    "react-render-html": "^0.6.0",
     "react-router-dom": "^4.1.2",
     "react-scripts": "1.0.14",
     "react-select": "^2.1.0"

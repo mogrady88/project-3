@@ -2,23 +2,29 @@ import React, { Component } from "react";
 import Nav from "../../components/Nav";
 import Row from "react-materialize/lib/Row";
 import Col from "react-materialize/lib/Col";
-import ProjectCard from "../../components/privateComponents/ProjectCard";
-import ProjectContainer from "../../components/privateComponents/ProjectContainer";
 import API from "../../utils/postsAPI";
 import { Link } from "react-router-dom";
+import renderHTML from 'react-render-html';
 
 class Private extends Component {
-  state = {
-    post: {}
-  };
+  constructor(props) {
+    super(props);
+    this.state = { 
+      post: {}
+    };
+  }
 
   // When this component mounts, grab the Post with the _id of this.props.match.params.id
   // e.g. localhost:3000/posts/599dcb67f0f16317844583fc
 
-  componentDidMount() {
+  componentWillMount() {
     API.getPost(this.props.match.params.id)
-      .then(res => this.setState({ post: res.data }))
-      .catch(err => console.log(err));
+      .then(res => this.setState({ post: {
+        title: res.data.title,
+        summary: res.data.summary,
+        content: res.data.content
+      } })
+      ).catch(err => console.log(err));
   }
 
   render() {
@@ -36,7 +42,7 @@ class Private extends Component {
           <Row>
             <Col s={10}>
               <article>
-                <p>{this.state.post.content}</p>
+              {this.state.post.content ? renderHTML(this.state.post.content) : null}
               </article>
             </Col>
           </Row>

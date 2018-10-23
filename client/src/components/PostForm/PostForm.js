@@ -1,24 +1,23 @@
 import React from "react";
 import {EditorState, RichUtils, convertToRaw } from "draft-js";
 import Editor from 'draft-js-plugins-editor';
+import {stateToHTML} from 'draft-js-export-html';
 import ProjectsAPI from "../../utils/projectsAPI";
 import PostsAPI from "../../utils/postsAPI";
 import createLinkifyPlugin from 'draft-js-linkify-plugin'
 import { Row, Col, Input } from "react-materialize";
-import "./TextEditor.css"
+import "./PostForm.css"
 
 const linkifyPlugin = createLinkifyPlugin();
 const plugins = [linkifyPlugin];
 
-class PageContainer extends React.Component {
+class PostForm extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
       editorState: EditorState.createEmpty(),
       projects: [],
-      tasks: [],
       posts: [],
-      threads: [],
       project: {
         title: "",
         status: "",
@@ -40,17 +39,6 @@ class PageContainer extends React.Component {
         currentTag: "",
         isPublished: false,
         project: ""
-      },
-      thread: {
-        title: "",
-        author: "",
-        initialComment: "",
-        project: ""
-      },
-      comment: {
-        text: "",
-        author: "",
-        thread: ""
       }
     };
 	}
@@ -166,13 +154,13 @@ class PageContainer extends React.Component {
       contentState.hasText() &&
       this.state.post.author
     ) {
-      const content = convertToRaw(contentState);
+      const content = stateToHTML(contentState);
 
       PostsAPI.savePost([
         {
           title: this.state.post.title,
           summary: this.state.post.summary,
-          content: JSON.stringify(content),
+          content: content,
           author: this.state.post.author,
           tags: this.state.post.tags,
           isPublished: this.state.post.isPublished
@@ -319,4 +307,4 @@ class PageContainer extends React.Component {
 	}
 }
 
-export default PageContainer;
+export default PostForm;

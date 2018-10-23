@@ -16,7 +16,7 @@ import NoMatch from "./pages/NoMatch";
 import PostDetail from "./pages/PostDetail";
 // import PrivateRoute from "./pages/PrivateRoute";
 import UsersAPI from "./utils/usersAPI";
-import TextEdit from "./components/TextEditor"
+import TextEdit from "./components/PostForm"
 import EditCRUD from "./pages/EditCRUD";
 import EditUser from "./pages/EditUser";
 
