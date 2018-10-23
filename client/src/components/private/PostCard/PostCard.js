@@ -4,7 +4,7 @@ import Col from "../../shared/grid/Col";
 import "./PostCard.css";
 
 const PostCard = props => (
-  <div>
+  <div className="pCard">
     <h5>{props.title}</h5>
     <Row>
       <Col size="12">Tags: {props.tags.join(", ")}</Col>
@@ -14,7 +14,7 @@ const PostCard = props => (
         <p>{props.summary}</p>
       </Col>
       <Col size="4">
-        <button>Edit Post</button>
+        <button className="btn">Edit Post</button>
       </Col>
     </Row>
   </div>

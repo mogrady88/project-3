@@ -141,7 +141,7 @@ class Login extends Component {
                     value={this.state.password}
                     onChange={this.handleChange}
                   />
-                  <button id="btn1" onClick={this.handleLogin} type="submit">
+                  <button className="btn" id="btn1" onClick={this.handleLogin} type="submit">
                     {console.log("Props", this.props)}
                     Login
                   </button>
@@ -149,6 +149,7 @@ class Login extends Component {
                     " "
                   ) : (
                     <button
+                    className="btn"
                       id="btn2"
                       disabled={!(this.state.username && this.state.password)}
                       onClick={this.handleSignUp}

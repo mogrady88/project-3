@@ -2,7 +2,7 @@
 
 .card {
   .projectCard {
-    border: 5px solid map-get($colors, first);
+    border: 5px solid map-get($colors, third);
     background-color: map-get($colors, second);
 
     p {

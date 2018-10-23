@@ -5,18 +5,18 @@ import Col from "../../shared/grid/Col";
 import "./PostCard.css";
 
 const PostCard = props => (
-  <div>
-    <h5>{props.title}</h5>
+  <div className="postcard">
+    <h4>{props.title}</h4>
     <Row>
       <Col size="12">Tags: {props.tags.join(", ")}</Col>
     </Row>
     <Row>
-      <Col size="8">
+      <Col size="8" otherclasses="postcardLeft">
         <p>{props.summary}</p>
       </Col>
-      <Col size="4">
+      <Col size="4" otherclasses="postcardRight">
         <Link to={"/posts/" + props._id}>
-          <button>View Post</button>
+          <button className="btn">View Post</button>
         </Link>
       </Col>
     </Row>
