@@ -43,15 +43,11 @@ class App extends React.Component {
           loggedIn: true,
           username: response.data.user.username
         });
-        window.loggedIn = true;
-
-        console.log("There is a user, setting loggedIn: ", window.loggedIn);
-        window.currentUser = this.state.username;
-        console.log("window.currentUser:", window.currentUser);
+        console.log("There is a user, setting loggedIn: ", this.state.loggedIn);
         if (this.state.loggedIn) {
           console.log(
             `Current user is ${this.state.username}. LoggedIn is ${
-              window.loggedIn
+              this.state.loggedIn
             }. Redirecting to Private view.`
           );
         }
@@ -80,7 +76,6 @@ class App extends React.Component {
             loggedIn: false,
             username: null
           });
-          window.currentUser = this.state.username;
         }
       })
       .catch(error => {
