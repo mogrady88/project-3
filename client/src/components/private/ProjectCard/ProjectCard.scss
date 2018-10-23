@@ -1,0 +1,23 @@
+@import "../../../utils/variables";
+
+.card {
+  .projectCard {
+    border: 5px solid map-get($colors, first);
+    background-color: map-get($colors, second);
+
+    p {
+      margin: 1rem 0 1rem 0;
+      color: map-get($colors, third);
+    }
+    .btn {
+      background-color: map-get($colors, fourth);
+      color: map-get($colors, third);
+      display: flex;
+      justify-content: center;
+    }
+    .card-action {
+      border-top: 5px solid map-get($colors, first);
+      margin: 1rem 0 0 0;
+    }
+  }
+}

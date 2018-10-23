@@ -1,0 +1,26 @@
+.card .projectCard {
+  border: 5px solid #a9bcc2;
+  background-color: #80aebd;
+}
+
+.card .projectCard p {
+  margin: 1rem 0 1rem 0;
+  color: #323433;
+}
+
+.card .projectCard .btn {
+  background-color: #fdf0b5;
+  color: #323433;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.card .projectCard .card-action {
+  border-top: 5px solid #a9bcc2;
+  margin: 1rem 0 0 0;
+}
+/*# sourceMappingURL=ProjectCard.css.map */
