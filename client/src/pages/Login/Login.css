@@ -1,7 +1,7 @@
 .signIn {
   padding: 20px;
   margin: 20px;
-  background-color: #252525 !important;
+  background-color: #81979b !important;
 }
 
 .signIn .card-content {
@@ -9,28 +9,28 @@
 }
 
 .signIn .card-content .card-title {
-  color: #fdd947 !important;
+  color: #a9bcc2 !important;
   text-align: center;
 }
 
 #btn1 {
-  background-color: #444444;
-  color: #fdd947;
+  background-color: #80aebd;
+  color: #a9bcc2;
 }
 
 #btn2 {
   float: right;
-  background-color: #444444;
-  color: #fdd947;
+  background-color: #80aebd;
+  color: #a9bcc2;
 }
 
 #btn1:hover {
-  color: #252525;
-  background-color: #fdd947;
+  color: #81979b;
+  background-color: #a9bcc2;
 }
 
 #btn2:hover {
-  color: #252525;
-  background-color: #fdd947;
+  color: #81979b;
+  background-color: #a9bcc2;
 }
 /*# sourceMappingURL=Login.css.map */

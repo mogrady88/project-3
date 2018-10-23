@@ -1,33 +1,23 @@
-@import "../../utils/variables";
+@import "../../../utils/variables";
 
 .card {
-  margin: 1rem 0 1rem 0;
-  padding: 10px;
-  background-color: map-get($colors, second);
-  color: map-get($colors, fourth);
+  .projectCard {
+    border: 5px solid map-get($colors, first);
+    background-color: map-get($colors, second);
 
-  .card-content {
-    padding: 0;
-    margin: 0;
-
-    h5 {
-      padding: 10px 20px 0px 20px;
-      color: map-get($colors, first);
-    }
     p {
-      padding: 5px 0px 5px 20px;
+      margin: 1rem 0 1rem 0;
+      color: map-get($colors, third);
     }
-  }
-
-  .card-action {
-    margin-top: 5px;
-    padding: 20px;
-
-    a:not(.btn):not(.btn-large):not(.btn-large):not(.btn-floating) {
-      color: map-get($colors, first);
-      margin-right: 24px;
-      transition: color 0.3s ease;
-      text-transform: uppercase;
+    .btn {
+      background-color: map-get($colors, fourth);
+      color: map-get($colors, third);
+      display: flex;
+      justify-content: center;
+    }
+    .card-action {
+      border-top: 5px solid map-get($colors, first);
+      margin: 1rem 0 0 0;
     }
   }
 }
