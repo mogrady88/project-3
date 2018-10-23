@@ -1,47 +1,19 @@
+// Import React
 import React from "react";
-import axios from "axios";
-import { Row, Col, Card, Tabs, Tab, Input, Button } from "react-materialize";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect,
-  Link
-} from "react-router-dom";
-import Public from "./pages/Public";
-import Login from "./pages/Login";
-import Private from "./pages/Private";
-import TestCRUD from "./pages/TestCRUD";
-import NoMatch from "./pages/NoMatch";
-import PostDetail from "./pages/PostDetail";
-// import PrivateRoute from "./pages/PrivateRoute";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+// Import Pages
+import Public from "./pages/public/Public";
+import Login from "./pages/public/Login";
+import PrivateMaster from "./pages/private/PrivateMaster";
+import TestCRUD from "./pages/temp/TestCRUD";
+import NoMatch from "./pages/public/NoMatch";
+import PostDetail from "./pages/public/PostDetail";
+import EditCRUD from "./pages/temp/EditCRUD";
+import EditUser from "./pages/temp/EditUser";
+// Import Private Route
+import PrivateRoute from "./components/private/PrivateRoute";
+// Import API
 import UsersAPI from "./utils/usersAPI";
-import TextEdit from "./components/PostForm"
-import EditCRUD from "./pages/EditCRUD";
-import EditUser from "./pages/EditUser";
-
-const PrivateRoute = ({
-  component: Component,
-  path: url,
-  loggedIn,
-  handleLogout
-}) => {
-  // const loggedIn = this.props.loggedIn; // user is/is not authenticated
-  console.log("PrivateRoute.js says loggedIn is " + loggedIn);
-
-  return (
-    <Route
-      path={url}
-      render={props =>
-        loggedIn === true ? (
-          <Component handleLogout={handleLogout} {...props} />
-        ) : (
-          <Redirect to="/login" />
-        )
-      }
-    />
-  );
-};
 
 class App extends React.Component {
   constructor() {
@@ -131,7 +103,7 @@ class App extends React.Component {
             />
             <PrivateRoute
               path="/private"
-              component={Private}
+              component={PrivateMaster}
               getUser={this.getUser}
               loggedIn={this.state.loggedIn}
               handleLogout={this.handleLogout}
