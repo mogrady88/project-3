@@ -4,7 +4,7 @@ import ProjectCard from "../ProjectCard";
 import "./ProjectsSidebar.css";
 
 const ProjectsSidebar = props => (
-  <Col size="3">
+  <Col size="3" otherclasses="pSidebar">
     {props.projects.map(project => (
       <ProjectCard
         key={project._id}

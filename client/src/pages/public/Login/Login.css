@@ -5,13 +5,13 @@
   border: 5px solid #fdf0b5;
 }
 
-.signIn .card-content {
-  margin: 5px 20px 5px 20px !important;
-}
-
-.signIn .card-content .card-title {
+.signIn h4 {
   color: #fdf0b5 !important;
   text-align: center;
+}
+
+.signIn .card-content {
+  margin: 5px 20px 5px 20px !important;
 }
 
 #btn1 {

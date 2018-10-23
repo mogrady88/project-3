@@ -1,4 +1,4 @@
-@import "../../utils/variables";
+@import "../../../utils/variables";
 
 .signIn {
   padding: 20px;
@@ -6,13 +6,13 @@
   background-color: map-get($colors, third);
   border: 5px solid map-get($colors, fourth);
 
+  h4 {
+    color: map-get($colors, fourth) !important;
+    text-align: center;
+  }
+
   .card-content {
     margin: 5px 20px 5px 20px !important;
-
-    .card-title {
-      color: map-get($colors, fourth) !important;
-      text-align: center;
-    }
   }
 }
 
