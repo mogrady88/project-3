@@ -25,9 +25,15 @@
     "bcrypt": "^3.0.1",
     "bcryptjs": "^2.4.3",
     "connect-mongo": "^2.0.1",
+    "draft-js": "^0.10.5",
+    "draft-js-export-html": "^1.2.0",
+    "draft-js-import-html": "^1.2.1",
+    "draft-js-linkify-plugin": "^2.0.1",
+    "draft-js-plugins-editor": "^2.1.1",
     "express": "^4.16.3",
     "express-session": "^1.15.6",
     "if-env": "^1.0.4",
+    "immutable": "^3.8.2",
     "jwt-decode": "^2.2.0",
     "mongoose": "^5.0.17",
     "mongoose-validator": "^2.1.0",
@@ -35,6 +41,7 @@
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "react-materialize": "^2.4.6",
+    "react-render-html": "^0.6.0",
     "react-scripts": "^2.0.4",
     "react-select": "^2.1.0"
   }

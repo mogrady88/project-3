@@ -22,8 +22,10 @@ class PrivateMaster extends Component {
         projectIsLoaded: false,
         projectSubpage: "tasks",
         userSubpage: "view",
-        currentThreadIndex: 0,
-        currentUser: null
+        currentThreadIndex: 0
+      },
+      user: {
+        username: null
       },
       projects: [],
       currentProject: {},
@@ -32,6 +34,9 @@ class PrivateMaster extends Component {
         "Project summary text. Cras felis mauris, cursus ac lorem iaculis, rutrum facilisis nisl. Quisque quis odio sem. Nulla vehicula lectus eu ullamcorper mattis. Nulla in quam erat. Duis et consequat sem. Sed quis dictum urna. Phasellus metus urna, congue at hendrerit nec, sagittis eget sapien.",
       totalFunds: 5000,
       usedFunds: 2000,
+      newFirstName: "",
+      newLastName: "",
+      newEmail: "",
       newUsername: "",
       newPassword: ""
     };
@@ -45,11 +50,11 @@ class PrivateMaster extends Component {
     this.setUser(this.props.user);
   }
 
-  setUser = user => {
+  setUser = username => {
     this.setState({
-      metadata: {
-        ...this.state.metadata,
-        currentUser: user
+      user: {
+        ...this.state.user,
+        username: username
       }
     });
   };
@@ -183,6 +188,9 @@ class PrivateMaster extends Component {
     event.preventDefault();
     console.log("handleSignUp");
     UsersAPI.signupUser({
+      firstName: this.state.newFirstName,
+      lastName: this.state.newLastName,
+      email: this.state.newEmail,
       username: this.state.newUsername,
       password: this.state.newPassword
     })
@@ -220,12 +228,14 @@ class PrivateMaster extends Component {
           handleLogout={this.props.handleLogout}
           loggedIn={this.props.loggedIn}
         />
-        <p>{this.state.metadata.currentUser}</p>
         <Row>
           {this.state.metadata.currentPage === "users" ? (
             <Users
               loadUserSubpage={this.loadUserSubpage}
               subpage={this.state.metadata.userSubpage}
+              newFirstName={this.state.newFirstName}
+              newLastName={this.state.newLastName}
+              newEmail={this.state.newEmail}
               newUsername={this.state.newUsername}
               newPassword={this.state.newPassword}
               handleInputChange={this.handleInputChange}
