@@ -5,32 +5,16 @@ import Col from "../../components/grid/Col";
 
 
 const UserList = props => {
-
-    // const userField = {
-    //     username: props.user.username, 
-    //     password: props.user.password, 
-    //     firstname: props.user.firstname,
-    //     lastname: props.user.lastname,
-    //     email: props.user.email, 
-    //     id: props.user.id
-    // }
-
     return(
         <div>
     <Row>
-        {/* {userField.map((user, i) => {
-            return(
-            <Col s={1}><input type="text" class="form-control" value={user.value} onChange={props.onChange} name={user.key}/></Col>
-            )
-        })} */}
-
         <Col s={1}>
             <label for="username">Username</label>
             <input type="text" class="form-control" name="username" value={props.user.username} onChange={props.onChange} />
         </Col>
         <Col s={1}>
             <label for="password">Password</label>
-            <input type="text" class="form-control" name="password" value={props.user.password} onChange={props.onChange} />
+            <input type="text" class="form-control" name="password" value="" placeholder="Enter new password" onChange={props.onChange} />
         </Col>
         <Col s={1}>
             <label for="firstname">Firstname</label>
@@ -44,11 +28,15 @@ const UserList = props => {
         <label for="email">Email</label>
         <input type="text" class="form-control" name="email" value={props.user.email} onChange={props.onChange} />
         </Col>
+        <Col>
+        <label for="disable">Active</label>
+        <input type="text" class="form-control" name="disable" value={props.user.isActive} />
+        </Col>
         
     </Row>
     <Row>
-    <Col><button onClick={props.onClick} name={props.user.id}>Make Changes</button></Col>
-    <Col><button onDelete={props.onDelete} name={props.user.id}>Delete User</button></Col>
+    <Col><button onClick={props.onClick} name="id" value={props.user._id}>Make Changes</button></Col>
+    <Col><button onDelete={props.onDisable} name="id" value={props.user._id}>Disable User</button></Col>
     </Row>
 </div>
 )

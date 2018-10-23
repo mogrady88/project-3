@@ -11,62 +11,15 @@ import UserList from "../../components/EditUserList/UserList";
 class ViewUsers extends Component {
 
 state = {
-        users: [{
-            username: "matt",
-            password: "123",
-            firstname: "matthew",
-            lastname: "ogrady",
-            email: "mrogrady@att.net"
-        },
-        {
-            username: "bob",
-            password: "321",
-            firstname: "bob",
-            lastname: "wilson",
-            email: "bob@bob.bob"
-        }],
-        username: "",
-        password: "",
-        firstname: "",
-        lastname: "",
-        email: ""
-}
-
-handleUsernameChange = (event) => {
-    const value = event.target.value;
-    this.setState({
-        username: value
-    });
-    console.log(this.state)
-}
-handlePasswordChange = (event) => {
-    const value = event.target.value;
-    this.setState({
-        password: value
-    });
-    console.log(this.state)
-}
-handleFirstnameChange = event => {
-    const value = event.target.value;
-    this.setState({
-      firstname: value
-    });
-    console.log(this.state)
-}
-
-handleLastnameChange = (event) => {
-    const value = event.target.value;
-    this.setState({
-        lastname: value
-    });
-    console.log(this.state)
-}
-handleEmailChange = (event) => {
-    const value = event.target.value;
-    this.setState({
-        email: value
-    });
-    console.log(this.state)
+        users: [],
+        user: {
+            id: "",
+            username: "",
+            password: "",
+            firstname: "",
+            lastname: "",
+            email: ""
+        }
 }
 
 componentDidMount(){
@@ -77,11 +30,23 @@ componentDidMount(){
     .catch(err => console.log(err));
     }
 
-updateUserInfo(){
-    UsersAPI.
+loadUsers(){
+    UsersAPI.getAllUsers()
+    .then(res => {
+        this.setState({ users: res.data })
+    })
+    .catch(err => console.log(err));
+    }
+
+
+updateUserInfo(id, data){
+    UsersAPI.updateUser(id, data)
+    .then(res => 
+        console.log("updated")
+    )
 }
 
-handleOnDelete = (event) => {
+handleOnDisable = (event) => {
     event.preventDefault();
 
     }
@@ -89,13 +54,25 @@ handleOnDelete = (event) => {
 handleOnChange = (event) => {
         event.preventDefault();
         const { name, value } = event.target;
-        this.setState({[name]: value})
-    }
+        this.setState({
+            user: {
+                ...this.state.user,
+                [name]: value
+            }
+    })
+}
 
-handleOnClick = (event) => {
-    event.preventDefault();
-
-    }
+    handleOnClick = (event) => {
+        event.preventDefault();
+        const userID = event.target.name;
+        this.setState({
+            user: {
+                id: userID
+            }
+        })
+        
+        this.updateUserInfo(this.state.user.id, this.state.user);
+    };
 
 
     render(){
@@ -113,7 +90,7 @@ handleOnClick = (event) => {
                     <Col s={2}><h5>Email</h5></Col>
                 </Row>
                 {this.state.users.map(user => (
-                <UserList user={user} onDelete={this.handleOnDelete} onChange={this.handleOnChange} onClick={this.handleOnClick}/>
+                <UserList user={user} onDisable={this.handleOnDisable} onChange={this.handleOnChange} onClick={this.handleOnClick}/>
                 ))}
                 </div>
             </Row>

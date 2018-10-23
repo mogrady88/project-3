@@ -20,7 +20,7 @@ export default {
   logoutUser: function(userData) {
     return axios.post("/api/users/logout", userData);
   },
-  updateUser: function(userData) {
-    return axios.post("/api/users/:id", userData);
+  updateUser: function(id, userData) {
+    return axios.put("/api/users/" + id, userData);
   }
 };
