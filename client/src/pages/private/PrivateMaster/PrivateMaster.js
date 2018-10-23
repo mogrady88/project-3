@@ -22,8 +22,10 @@ class PrivateMaster extends Component {
         projectIsLoaded: false,
         projectSubpage: "tasks",
         userSubpage: "view",
-        currentThreadIndex: 0,
-        currentUser: null
+        currentThreadIndex: 0
+      },
+      user: {
+        username: null
       },
       projects: [],
       currentProject: {},
@@ -45,11 +47,11 @@ class PrivateMaster extends Component {
     this.setUser(this.props.user);
   }
 
-  setUser = user => {
+  setUser = username => {
     this.setState({
-      metadata: {
-        ...this.state.metadata,
-        currentUser: user
+      user: {
+        ...this.state.user,
+        username: username
       }
     });
   };
@@ -172,6 +174,20 @@ class PrivateMaster extends Component {
       .catch(err => console.log(err));
   };
 
+  unloadCurrentProject = () => {
+    this.setState({
+      currentProject: {}
+    });
+    this.setState({
+      metadata: {
+        ...this.state.metadata,
+        projectIsLoaded: false,
+        projectSubpage: "tasks",
+        currentThreadIndex: 0
+      }
+    });
+  };
+
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({
@@ -220,7 +236,6 @@ class PrivateMaster extends Component {
           handleLogout={this.props.handleLogout}
           loggedIn={this.props.loggedIn}
         />
-        <p>{this.state.metadata.currentUser}</p>
         <Row>
           {this.state.metadata.currentPage === "users" ? (
             <Users
@@ -236,6 +251,7 @@ class PrivateMaster extends Component {
               projects={this.state.projects}
               projectIsLoaded={this.state.metadata.projectIsLoaded}
               loadCurrentProject={this.loadCurrentProject}
+              unloadCurrentProject={this.unloadCurrentProject}
               loadProjectSubpage={this.loadProjectSubpage}
               currentProject={this.state.currentProject}
               subpage={this.state.metadata.projectSubpage}
@@ -246,6 +262,7 @@ class PrivateMaster extends Component {
               projects={this.state.projects}
               projectIsLoaded={this.state.metadata.projectIsLoaded}
               loadCurrentProject={this.loadCurrentProject}
+              unloadCurrentProject={this.unloadCurrentProject}
               loadProjectSubpage={this.loadProjectSubpage}
               currentProject={this.state.currentProject}
               subpage={this.state.metadata.projectSubpage}

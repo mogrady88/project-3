@@ -5,9 +5,8 @@ import Tasks from "../Tasks";
 import Threads from "../Threads";
 import Posts from "../Posts";
 import Comments from "../Comments";
-import "./ProjectViewer.css";
 
-const ProjectContainer = props => (
+const CreateProject = props => (
   <Col size="9" otherclasses="projectMeta">
     <Row>
       <Col size="8" otherclasses="projectMetaLeft">
@@ -62,4 +61,4 @@ const ProjectContainer = props => (
   </Col>
 );
 
-export default ProjectContainer;
+export default CreateProject;
