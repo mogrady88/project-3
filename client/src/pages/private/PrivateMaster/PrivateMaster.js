@@ -111,7 +111,14 @@ class PrivateMaster extends Component {
           currentThreadIndex: threadIndex
         }
       });
-    }
+    } else if (page === "edit-user") {
+      this.setState({
+        metadata: {
+          ...this.state.metadata,
+          projectSubpage: "edit-user"
+        }
+      })
+    };
   };
 
   loadProjects = () => {
