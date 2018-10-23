@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 // Import Pages
 import Public from "./pages/public/Public";
 import Login from "./pages/public/Login";
-import PrivateMaster from "./pages/Private/PrivateMaster";
+import PrivateMaster from "./pages/private/PrivateMaster";
 import TestCRUD from "./pages/temp/TestCRUD";
 import NoMatch from "./pages/public/NoMatch";
 import PostDetail from "./pages/public/PostDetail";
@@ -107,6 +107,7 @@ class App extends React.Component {
               getUser={this.getUser}
               loggedIn={this.state.loggedIn}
               handleLogout={this.handleLogout}
+              user={this.state.username}
             />
             <Route path="/posts/:id" component={PostDetail} />
             <Route exact path="/test" component={TestCRUD} />

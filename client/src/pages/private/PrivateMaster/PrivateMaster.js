@@ -5,7 +5,6 @@ import { withRouter } from "react-router-dom";
 import Row from "../../../components/shared/grid/Row";
 // Component Imports
 import Nav from "../../../components/shared/Nav";
-import Default from "../PrivateDefault";
 import Users from "../Users";
 import Projects from "../Projects";
 //API Imports
@@ -19,11 +18,14 @@ class PrivateMaster extends Component {
     super();
     this.state = {
       metadata: {
-        currentPage: "default",
+        currentPage: "projects",
         projectIsLoaded: false,
         projectSubpage: "tasks",
         userSubpage: "view",
         currentThreadIndex: 0
+      },
+      user: {
+        username: null
       },
       projects: [],
       currentProject: {},
@@ -42,7 +44,17 @@ class PrivateMaster extends Component {
 
   componentDidMount() {
     this.loadProjects();
+    this.setUser(this.props.user);
   }
+
+  setUser = username => {
+    this.setState({
+      user: {
+        ...this.state.user,
+        username: username
+      }
+    });
+  };
 
   loadPage = page => {
     if (page === "projects") {
@@ -117,8 +129,8 @@ class PrivateMaster extends Component {
           ...this.state.metadata,
           projectSubpage: "edit-user"
         }
-      })
-    };
+      });
+    }
   };
 
   loadProjects = () => {
@@ -210,10 +222,9 @@ class PrivateMaster extends Component {
           handleLogout={this.props.handleLogout}
           loggedIn={this.props.loggedIn}
         />
+        <p>{this.state.metadata.currentUser}</p>
         <Row>
-          {this.state.metadata.currentPage === "default" ? (
-            <Default />
-          ) : this.state.metadata.currentPage === "users" ? (
+          {this.state.metadata.currentPage === "users" ? (
             <Users
               loadUserSubpage={this.loadUserSubpage}
               subpage={this.state.metadata.userSubpage}
@@ -233,44 +244,16 @@ class PrivateMaster extends Component {
               currentThreadIndex={this.state.metadata.currentThreadIndex}
             />
           ) : (
-            <Default />
+            <Projects
+              projects={this.state.projects}
+              projectIsLoaded={this.state.metadata.projectIsLoaded}
+              loadCurrentProject={this.loadCurrentProject}
+              loadProjectSubpage={this.loadProjectSubpage}
+              currentProject={this.state.currentProject}
+              subpage={this.state.metadata.projectSubpage}
+              currentThreadIndex={this.state.metadata.currentThreadIndex}
+            />
           )}
-          {/* <Col s={9} className="projectView">
-            {!this.state.metadata.addUser ? (
-              <ProjectContainer
-                project={this.state.project}
-                summary={this.state.summary}
-                totalFunds={this.state.totalFunds}
-                usedFunds={this.state.usedFunds}
-              >
-                <Navbar>
-                  <Link to={`/private/tasks`}>
-                    <NavItem>Tasks</NavItem>
-                  </Link>
-                  <Link to={`/private/threads`}>
-                    <NavItem>Threads</NavItem>
-                  </Link>
-                  <Link to={`/private/posts`}>
-                    <NavItem>Posts</NavItem>
-                  </Link>
-                </Navbar>
-                <Switch>
-                  <Route exact path={`/private/tasks`} component={Tasks} />
-                  <Route exact path={`/private/threads`} component={Threads} />
-                  <Route exact path={`/private/posts`} component={Posts} />
-                </Switch>
-              </ProjectContainer>
-            ) : (
-              <NewUserCard
-                addUser={this.state.metadata.addUser}
-                showHideUserCreate={this.showHideUserCreate}
-                newUsername={this.state.newUsername}
-                newPassword={this.state.newPassword}
-                handleInputChange={this.handleInputChange}
-                handleSignUp={this.handleSignUp}
-              />
-            )}
-          </Col> */}
         </Row>
       </div>
     );
