@@ -5,7 +5,8 @@ const PrivateRoute = ({
   component: Component,
   path: url,
   loggedIn,
-  handleLogout
+  handleLogout,
+  user
 }) => {
   // const loggedIn = this.props.loggedIn; // user is/is not authenticated
   console.log("PrivateRoute.js says loggedIn is " + loggedIn);
@@ -15,7 +16,7 @@ const PrivateRoute = ({
       path={url}
       render={props =>
         loggedIn === true ? (
-          <Component handleLogout={handleLogout} {...props} />
+          <Component handleLogout={handleLogout} user={user} {...props} />
         ) : (
           <Redirect to="/login" />
         )
