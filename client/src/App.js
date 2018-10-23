@@ -33,25 +33,21 @@ class App extends React.Component {
     this.getUser();
   }
 
-  async getUser() {
-    UsersAPI.getCurrentUser().then(async response => {
+  getUser() {
+    UsersAPI.getCurrentUser().then(response => {
       console.log("Get user response: ");
       console.log(response.data);
       if (response.data.user) {
         console.log("Get User: There is a user saved in the server session: ");
-        var loggingIn = await this.setState({
+        this.setState({
           loggedIn: true,
           username: response.data.user.username
         });
-        window.loggedIn = true;
-
-        console.log("There is a user, setting loggedIn: ", window.loggedIn);
-        window.currentUser = this.state.username;
-        console.log("window.currentUser:", window.currentUser);
+        console.log("There is a user, setting loggedIn: ", this.state.loggedIn);
         if (this.state.loggedIn) {
           console.log(
             `Current user is ${this.state.username}. LoggedIn is ${
-              window.loggedIn
+              this.state.loggedIn
             }. Redirecting to Private view.`
           );
         }
@@ -80,7 +76,6 @@ class App extends React.Component {
             loggedIn: false,
             username: null
           });
-          window.currentUser = this.state.username;
         }
       })
       .catch(error => {
