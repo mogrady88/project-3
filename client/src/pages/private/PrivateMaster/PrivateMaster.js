@@ -13,7 +13,6 @@ import ProjectsAPI from "../../../utils/projectsAPI";
 import TasksAPI from "../../../utils/tasksAPI";
 // CSS Imports
 import "./PrivateMaster.css";
-import { runInThisContext } from "vm";
 
 class PrivateMaster extends Component {
   constructor() {
@@ -232,8 +231,11 @@ class PrivateMaster extends Component {
   handleEdit = event => {
     const command = event.target.name;
     let parentId;
+    console.log(event.target);
+    console.log("command: " + command);
     if (command !== "project") {
-      parentId = event.target.id;
+      parentId = event.target.getAttribute("data-id");
+      console.log("parentID: " + parentId);
     }
     switch (command) {
       case "project":
@@ -257,7 +259,7 @@ class PrivateMaster extends Component {
             task: parentId
           }
         });
-        console.log(this.state.targetEdits.task);
+        console.log("targetEdits.task: " + this.state.targetEdits.task);
         break;
     }
   };
@@ -532,26 +534,21 @@ class PrivateMaster extends Component {
             />
           ) : this.state.metadata.currentPage === "projects" ? (
             <Projects
+              metadata={this.state.metadata}
               projects={this.state.projects}
-              projectIsLoaded={this.state.metadata.projectIsLoaded}
+              currentProject={this.state.currentProject}
+              newTask={this.state.newTask}
+              targetEdits={this.state.targetEdits}
               loadCurrentProject={this.loadCurrentProject}
               unloadCurrentProject={this.unloadCurrentProject}
               handleProjectInputChange={this.handleProjectInputChange}
               handleCreateProjectFormSubmit={this.handleCreateProjectFormSubmit}
               loadProjectSubpage={this.loadProjectSubpage}
-              currentProject={this.state.currentProject}
-              subpage={this.state.metadata.projectSubpage}
-              currentThreadIndex={this.state.metadata.currentThreadIndex}
               handleCreate={this.handleCreate}
               handleEdit={this.handleEdit}
-              editProject={this.state.metadata.editProject}
               handleEditProjectFormSubmit={this.handleEditProjectFormSubmit}
-              createTask={this.state.metadata.createTask}
-              newTask={this.state.newTask}
               handleCreateTaskInputChange={this.handleCreateTaskInputChange}
               handleCreateTaskFormSubmit={this.handleCreateTaskFormSubmit}
-              editTask={this.state.metadata.editTask}
-              targetTask={this.state.targetEdits.task}
               handleEditTaskInputChange={this.handleEditTaskInputChange}
               handleEditTaskFormSubmit={this.handleEditTaskFormSubmit}
             />
@@ -579,6 +576,10 @@ class PrivateMaster extends Component {
               targetTask={this.state.targetEdits.task}
               handleEditTaskInputChange={this.handleEditTaskInputChange}
               handleEditTaskFormSubmit={this.handleEditTaskFormSubmit}
+              createThread={this.state.metadata.createThread}
+              editThread={this.state.metadata.editThread}
+              createComment={this.state.metadata.createComment}
+              editComment={this.state.metadata.editComment}
             />
           )}
         </Row>

@@ -58,7 +58,7 @@ const Task = props => (
           <Col size="4">
             <p>Funds: ${props.funds}</p>
             <button
-              id={props.id}
+              data-id={props.id}
               name="task"
               className="btn"
               onClick={props.handleEdit}

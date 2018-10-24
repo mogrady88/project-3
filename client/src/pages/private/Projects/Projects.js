@@ -10,23 +10,27 @@ const Projects = props => (
       loadCurrentProject={props.loadCurrentProject}
       unloadCurrentProject={props.unloadCurrentProject}
     />
-    {props.projectIsLoaded ? (
+    {props.metadata.projectIsLoaded ? (
       <ProjectViewer
         currentProject={props.currentProject}
+        subpage={props.metadata.projectSubpage}
+        currentThreadIndex={props.metadata.currentThreadIndex}
+        editProject={props.metadata.editProject}
+        createTask={props.metadata.createTask}
+        editTask={props.metadata.editTask}
+        createThread={props.metadata.createThread}
+        editThread={props.metadata.editThread}
+        createComment={props.metadata.createComment}
+        editComment={props.metadata.editComment}
         loadProjectSubpage={props.loadProjectSubpage}
-        subpage={props.subpage}
-        currentThreadIndex={props.currentThreadIndex}
         handleCreate={props.handleCreate}
         handleEdit={props.handleEdit}
-        editProject={props.editProject}
         handleProjectInputChange={props.handleProjectInputChange}
         handleEditProjectFormSubmit={props.handleEditProjectFormSubmit}
-        createTask={props.createTask}
         newTask={props.newTask}
         handleCreateTaskInputChange={props.handleCreateTaskInputChange}
         handleCreateTaskFormSubmit={props.handleCreateTaskFormSubmit}
-        editTask={props.editTask}
-        targetTask={props.targetTask}
+        targetTask={props.targetEdits.targetTask}
         handleEditTaskInputChange={props.handleEditTaskInputChange}
         handleEditTaskFormSubmit={props.handleEditTaskFormSubmit}
       />
@@ -35,7 +39,7 @@ const Projects = props => (
         currentProject={props.currentProject}
         handleProjectInputChange={props.handleProjectInputChange}
         handleCreateProjectFormSubmit={props.handleCreateProjectFormSubmit}
-        editProject={props.editProject}
+        editProject={props.metadata.editProject}
       />
     )}
   </div>
