@@ -282,6 +282,7 @@ class PrivateMaster extends Component {
           loadPage={this.loadPage}
           handleLogout={this.props.handleLogout}
           loggedIn={this.props.loggedIn}
+          user={this.props.user}
         />
         <Row>
           {this.state.metadata.currentPage === "users" ? (
