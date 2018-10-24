@@ -16,12 +16,19 @@ const Projects = props => (
         loadProjectSubpage={props.loadProjectSubpage}
         subpage={props.subpage}
         currentThreadIndex={props.currentThreadIndex}
+        handleCreate={props.handleCreate}
+        handleEdit={props.handleEdit}
+        editProject={props.editProject}
+        handleProjectInputChange={props.handleProjectInputChange}
+        handleEditProjectFormSubmit={props.handleEditProjectFormSubmit}
+        createTask={props.createTask}
       />
     ) : (
       <CreateProjectForm
         currentProject={props.currentProject}
         handleProjectInputChange={props.handleProjectInputChange}
-        handleProjectFormSubmit={props.handleProjectFormSubmit}
+        handleCreateProjectFormSubmit={props.handleCreateProjectFormSubmit}
+        editProject={props.editProject}
       />
     )}
   </div>

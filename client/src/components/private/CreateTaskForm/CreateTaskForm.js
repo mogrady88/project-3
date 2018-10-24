@@ -1,8 +1,8 @@
 import React from "react";
-import Col from "../../../components/shared/grid/Col";
+import Col from "../../shared/grid/Col";
 
-const CreateProjectForm = props => (
-  <Col size="9" otherclasses="projectMeta">
+const CreateTaskForm = props => (
+  <Col size="12">
     <h5>Create Project</h5>
     <form>
       <div className="form-group">
@@ -57,10 +57,10 @@ const CreateProjectForm = props => (
         style={{ float: "right", marginBottom: 10 }}
         className="btn btn-success"
       >
-        Submit Project
+        Submit Task
       </button>
     </form>
   </Col>
 );
 
-export default CreateProjectForm;
+export default CreateTaskForm;

@@ -54,6 +54,16 @@ class Public extends Component {
     this.loadThreads();
   }
 
+  loadProjects = () => {
+    ProjectsAPI.getProjects()
+      .then(res =>
+        this.setState({
+          projects: res.data
+        })
+      )
+      .catch(err => console.log(err));
+  };
+
   //TASK APIS
   loadTasks = () => {
     TasksAPI.getTasks()
