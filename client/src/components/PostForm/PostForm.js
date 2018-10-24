@@ -16,6 +16,7 @@ class PostForm extends React.Component {
 		super(props);
 		this.state = {
       editorState: EditorState.createEmpty(),
+      url: "",
       projects: [],
       posts: [],
       project: {
@@ -120,6 +121,25 @@ class PostForm extends React.Component {
     )
   }
 
+  onLinkClick = () => {
+    const contentState = this.state.editorState.getCurrentContent();
+    const contentStateWithEntity = contentState.createEntity(
+      'LINK',
+      'MUTABLE',
+      {url: this.state.url}
+    );
+    const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
+    const newEditorState = EditorState.set(this.state.editorState, { currentContent: contentStateWithEntity });
+    this.setState({
+      editorState: RichUtils.toggleLink(
+        newEditorState,
+        newEditorState.getSelection(),
+        entityKey
+      ),
+      url:""})
+      
+  }
+
 // Post Functions
   handlePostInputChange = event => {
     const { name, value } = event.target;
@@ -130,6 +150,15 @@ class PostForm extends React.Component {
       }
     });
   };
+
+  handleUrlChange = event => {
+    const {name, value} = event.target;
+    this.setState({
+      ...this.state,
+      [name]: value
+    })
+    console.log(this.state)
+  }
 
   handlePostTagSubmit = event => {
     event.preventDefault();
@@ -208,16 +237,24 @@ class PostForm extends React.Component {
               Content:
               <div className="editorContainer">
                 <div className="toolbar">
-                <button onClick={this.onUnderlineClick}>U</button>
-                <button onClick={this.onBoldClick}>
-                  <b>B</b>
-                </button>
-                <button onClick={this.onItalicClick}>
-                  <em>I</em>
-                </button>
-                <button onClick={this.onH1Click}>H1</button>
-                <button onClick={this.onH2Click}>H2</button>
-                <button onClick={this.onH3Click}>H3</button>
+                  <button onClick={this.onUnderlineClick}>U</button>
+                  <button onClick={this.onBoldClick}>
+                    <b>B</b>
+                  </button>
+                  <button onClick={this.onItalicClick}>
+                    <em>I</em>
+                  </button>
+                  <button onClick={this.onH1Click}>H1</button>
+                  <button onClick={this.onH2Click}>H2</button>
+                  <button onClick={this.onH3Click}>H3</button>
+                  <input
+                  className="form-control"
+                  value={this.state.url}
+                  onChange={this.handleUrlChange}
+                  name="url"
+                  placeholder="https://www.yoururl.com"
+                />
+                  <button onClick={this.onLinkClick}>Add Link</button>
                 </div>
                 <div className="editors">
                   <Editor
