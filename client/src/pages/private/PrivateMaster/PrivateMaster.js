@@ -231,11 +231,8 @@ class PrivateMaster extends Component {
   handleEdit = event => {
     const command = event.target.name;
     let parentId;
-    console.log(event.target);
-    console.log("command: " + command);
     if (command !== "project") {
       parentId = event.target.getAttribute("data-id");
-      console.log("parentID: " + parentId);
     }
     switch (command) {
       case "project":
@@ -259,7 +256,6 @@ class PrivateMaster extends Component {
             task: parentId
           }
         });
-        console.log("targetEdits.task: " + this.state.targetEdits.task);
         break;
     }
   };

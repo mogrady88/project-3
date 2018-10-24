@@ -22,6 +22,7 @@ const Projects = props => (
         editThread={props.metadata.editThread}
         createComment={props.metadata.createComment}
         editComment={props.metadata.editComment}
+        targetTask={props.targetEdits.task}
         loadProjectSubpage={props.loadProjectSubpage}
         handleCreate={props.handleCreate}
         handleEdit={props.handleEdit}
@@ -30,7 +31,6 @@ const Projects = props => (
         newTask={props.newTask}
         handleCreateTaskInputChange={props.handleCreateTaskInputChange}
         handleCreateTaskFormSubmit={props.handleCreateTaskFormSubmit}
-        targetTask={props.targetEdits.targetTask}
         handleEditTaskInputChange={props.handleEditTaskInputChange}
         handleEditTaskFormSubmit={props.handleEditTaskFormSubmit}
       />
