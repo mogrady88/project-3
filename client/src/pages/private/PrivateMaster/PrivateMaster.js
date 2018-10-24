@@ -52,6 +52,7 @@ class PrivateMaster extends Component {
 
   componentDidMount() {
     this.loadProjects();
+    // this.props.getUser();
     this.setUser(this.props.user);
   }
 

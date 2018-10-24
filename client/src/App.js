@@ -54,7 +54,7 @@ class App extends React.Component {
         console.log("There is a user, setting loggedIn: ", this.state.loggedIn);
         if (this.state.loggedIn) {
           console.log(
-            `Current user is ${this.state.username}. LoggedIn is ${
+            `Current user is ${this.state.user.username}. LoggedIn is ${
               this.state.loggedIn
             }. Redirecting to Private view.`
           );
@@ -109,6 +109,7 @@ class App extends React.Component {
               component={PrivateMaster}
               loggedIn={this.state.loggedIn}
               handleLogout={this.handleLogout}
+              getUser={this.getUser}
               user={this.state.user}
             />
             <Route path="/posts/:id" component={PostDetail} />
