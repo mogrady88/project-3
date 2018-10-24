@@ -27,8 +27,13 @@ const ProjectContainer = props => (
           <h5>
             <strong>{props.currentProject.title}</strong>
           </h5>
-          <p>{props.currentProject.summary}</p>
-          <button name="editProject" onClick={props.handleEdit}>
+          <div className="statusDiv">
+            <p>Status: {props.currentProject.status}</p>
+          </div>
+          <div className="summaryDiv">
+            <p>Project Description: {props.currentProject.summary}</p>
+          </div>
+          <button name="project" onClick={props.handleEdit}>
             Edit Project
           </button>
         </Col>
@@ -45,7 +50,7 @@ const ProjectContainer = props => (
 
     <nav id="projectNav">
       <div>
-        <ul id="nav-mobile" class="hide-on-med-and-down">
+        <ul id="nav-mobile" className="hide-on-med-and-down">
           <li>
             <a onClick={() => props.loadProjectSubpage("tasks", 0)}>Tasks</a>
           </li>
@@ -62,7 +67,11 @@ const ProjectContainer = props => (
     </nav>
     <br />
     {props.subpage === "tasks" ? (
-      <Tasks tasks={props.currentProject.tasks} />
+      <Tasks
+        tasks={props.currentProject.tasks}
+        handleCreate={props.handleCreate}
+        createTask={props.createTask}
+      />
     ) : props.subpage === "threads" ? (
       <Threads
         threads={props.currentProject.threads}

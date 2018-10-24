@@ -23,7 +23,8 @@ class PrivateMaster extends Component {
         projectSubpage: "tasks",
         userSubpage: "view",
         currentThreadIndex: 0,
-        editProject: false
+        editProject: false,
+        createTask: false
       },
       user: {
         username: null
@@ -41,7 +42,8 @@ class PrivateMaster extends Component {
         status: "",
         summary: "",
         funds: ""
-      }
+      },
+      newTask: {}
     };
     this.componentDidMount = this.componentDidMount.bind(this);
     this.handleInputChange = this.handleUserInputChange.bind(this);
@@ -199,10 +201,24 @@ class PrivateMaster extends Component {
     });
   };
 
+  handleCreate = event => {
+    const command = event.target.name;
+    switch (command) {
+      case "task":
+        this.setState({
+          metadata: {
+            ...this.state.metadata,
+            createTask: true
+          }
+        });
+        break;
+    }
+  };
+
   handleEdit = event => {
-    const name = event.target.name;
-    switch (name) {
-      case "editProject":
+    const command = event.target.name;
+    switch (command) {
+      case "project":
         this.setState({
           metadata: {
             ...this.state.metadata,
@@ -210,7 +226,12 @@ class PrivateMaster extends Component {
           }
         });
         break;
-      case "updateProject":
+    }
+  };
+
+  handleUpdate = command => {
+    switch (command) {
+      case "project":
         this.setState({
           metadata: {
             ...this.state.metadata,
@@ -232,7 +253,9 @@ class PrivateMaster extends Component {
   };
 
   handleProjectInputChange = event => {
-    const { name, value } = event.target;
+    const target = event.target;
+    const value = target.type === "checkbox" ? target.checked : target.value;
+    const name = target.name;
     this.setState({
       currentProject: {
         ...this.state.currentProject,
@@ -257,6 +280,7 @@ class PrivateMaster extends Component {
         .then(res => {
           console.log(res);
           this.loadProjects();
+          this.loadCurrentProject(res.data._id);
         })
         .catch(err => console.log(err));
     }
@@ -279,6 +303,7 @@ class PrivateMaster extends Component {
         .then(res => {
           console.log(res);
           this.loadProjects();
+          this.handleUpdate("project");
         })
         .catch(err => console.log(err));
     }
@@ -364,9 +389,11 @@ class PrivateMaster extends Component {
               currentProject={this.state.currentProject}
               subpage={this.state.metadata.projectSubpage}
               currentThreadIndex={this.state.metadata.currentThreadIndex}
+              handleCreate={this.handleCreate}
               handleEdit={this.handleEdit}
               editProject={this.state.metadata.editProject}
               handleEditProjectFormSubmit={this.handleEditProjectFormSubmit}
+              createTask={this.state.metadata.createTask}
             />
           ) : (
             <Projects
@@ -380,9 +407,11 @@ class PrivateMaster extends Component {
               currentProject={this.state.currentProject}
               subpage={this.state.metadata.projectSubpage}
               currentThreadIndex={this.state.metadata.currentThreadIndex}
+              handleCreate={this.handleCreate}
               handleEdit={this.handleEdit}
               editProject={this.state.metadata.editProject}
               handleEditProjectFormSubmit={this.handleEditProjectFormSubmit}
+              createTask={this.state.metadata.createTask}
             />
           )}
         </Row>
