@@ -2,6 +2,7 @@ import React from "react";
 import Row from "../../../components/shared/grid/Row";
 import Col from "../../../components/shared/grid/Col";
 import Task from "../../../components/private/Task";
+import CreateTaskForm from "../../../components/private/CreateTaskForm";
 import "./Tasks.css";
 
 const Tasks = props => (
@@ -14,17 +15,24 @@ const Tasks = props => (
       </Col>
     </Row>
     {props.createTask ? (
-      "yolo"
+      <CreateTaskForm
+        newTask={props.newTask}
+        handleCreateTaskInputChange={props.handleCreateTaskInputChange}
+        handleCreateTaskFormSubmit={props.handleCreateTaskFormSubmit}
+      />
     ) : (
       <div>
-        {props.tasks.map(task => (
-          <Task
-            title={task.title}
-            summary={task.description}
-            status={task.isComplete ? "Complete" : "Incomplete"}
-            funds={task.funds}
-          />
-        ))}
+        {props.tasks
+          .slice(0)
+          .reverse()
+          .map(task => (
+            <Task
+              title={task.title}
+              description={task.description}
+              status={task.isComplete ? "Complete" : "Incomplete"}
+              funds={task.funds}
+            />
+          ))}
       </div>
     )}
   </div>

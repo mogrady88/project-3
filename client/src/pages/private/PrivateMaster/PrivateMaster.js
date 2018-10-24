@@ -10,8 +10,10 @@ import Projects from "../Projects";
 //API Imports
 import UsersAPI from "../../../utils/usersAPI";
 import ProjectsAPI from "../../../utils/projectsAPI";
+import TasksAPI from "../../../utils/tasksAPI";
 // CSS Imports
 import "./PrivateMaster.css";
+import { runInThisContext } from "vm";
 
 class PrivateMaster extends Component {
   constructor() {
@@ -43,7 +45,11 @@ class PrivateMaster extends Component {
         summary: "",
         funds: ""
       },
-      newTask: {}
+      newTask: {
+        title: "",
+        description: "",
+        funds: ""
+      }
     };
     this.componentDidMount = this.componentDidMount.bind(this);
     this.handleInputChange = this.handleUserInputChange.bind(this);
@@ -239,6 +245,22 @@ class PrivateMaster extends Component {
           }
         });
         break;
+      case "task":
+        this.setState({
+          metadata: {
+            ...this.state.metadata,
+            createTask: false
+          }
+        });
+        this.setState({
+          newTask: {
+            title: "",
+            description: "",
+            funds: ""
+          }
+        });
+
+        break;
     }
   };
 
@@ -304,6 +326,43 @@ class PrivateMaster extends Component {
           console.log(res);
           this.loadProjects();
           this.handleUpdate("project");
+        })
+        .catch(err => console.log(err));
+    }
+  };
+
+  handleCreateTaskInputChange = event => {
+    const { name, value } = event.target;
+    this.setState({
+      newTask: {
+        ...this.state.newTask,
+        [name]: value
+      }
+    });
+  };
+
+  handleCreateTaskFormSubmit = event => {
+    event.preventDefault();
+    if (
+      this.state.newTask.title &&
+      this.state.newTask.description &&
+      this.state.newTask.funds
+    ) {
+      TasksAPI.saveTask([
+        {
+          title: this.state.newTask.title,
+          description: this.state.newTask.description,
+          funds: parseInt(this.state.newTask.funds)
+        },
+        {
+          project: this.state.currentProject._id
+        }
+      ])
+        .then(res => {
+          console.log(res);
+          this.loadProjects();
+          this.loadCurrentProject(this.state.currentProject._id);
+          this.handleUpdate("task");
         })
         .catch(err => console.log(err));
     }
@@ -394,6 +453,9 @@ class PrivateMaster extends Component {
               editProject={this.state.metadata.editProject}
               handleEditProjectFormSubmit={this.handleEditProjectFormSubmit}
               createTask={this.state.metadata.createTask}
+              newTask={this.state.newTask}
+              handleCreateTaskInputChange={this.handleCreateTaskInputChange}
+              handleCreateTaskFormSubmit={this.handleCreateTaskFormSubmit}
             />
           ) : (
             <Projects
@@ -412,6 +474,9 @@ class PrivateMaster extends Component {
               editProject={this.state.metadata.editProject}
               handleEditProjectFormSubmit={this.handleEditProjectFormSubmit}
               createTask={this.state.metadata.createTask}
+              newTask={this.state.newTask}
+              handleCreateTaskInputChange={this.handleCreateTaskInputChange}
+              handleCreateTaskFormSubmit={this.handleCreateTaskFormSubmit}
             />
           )}
         </Row>

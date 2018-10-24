@@ -8,10 +8,9 @@ const Task = props => (
     <h5>{props.title}</h5>
     <Row>
       <Col size="8">
-        <p>{props.summary}</p>
+        <p>{props.description}</p>
       </Col>
       <Col size="4">
-        <p>Status: {props.status}</p>
         <p>Funds: ${props.funds}</p>
         <button className="btn">Edit task</button>
       </Col>
