@@ -22,7 +22,8 @@ class PrivateMaster extends Component {
         projectIsLoaded: false,
         projectSubpage: "tasks",
         userSubpage: "view",
-        currentThreadIndex: 0
+        currentThreadIndex: 0,
+        editProject: false
       },
       user: {
         username: null
@@ -198,6 +199,28 @@ class PrivateMaster extends Component {
     });
   };
 
+  handleEdit = event => {
+    const name = event.target.name;
+    switch (name) {
+      case "editProject":
+        this.setState({
+          metadata: {
+            ...this.state.metadata,
+            editProject: true
+          }
+        });
+        break;
+      case "updateProject":
+        this.setState({
+          metadata: {
+            ...this.state.metadata,
+            editProject: false
+          }
+        });
+        break;
+    }
+  };
+
   handleUserInputChange = event => {
     const { name, value } = event.target;
     this.setState({
@@ -218,7 +241,7 @@ class PrivateMaster extends Component {
     });
   };
 
-  handleProjectFormSubmit = event => {
+  handleCreateProjectFormSubmit = event => {
     event.preventDefault();
     if (
       this.state.currentProject.title &&
@@ -226,6 +249,28 @@ class PrivateMaster extends Component {
       this.state.currentProject.summary
     ) {
       ProjectsAPI.saveProject({
+        title: this.state.currentProject.title,
+        status: this.state.currentProject.status,
+        summary: this.state.currentProject.summary,
+        funds: parseInt(this.state.currentProject.funds)
+      })
+        .then(res => {
+          console.log(res);
+          this.loadProjects();
+        })
+        .catch(err => console.log(err));
+    }
+  };
+
+  handleEditProjectFormSubmit = event => {
+    event.preventDefault();
+    if (
+      this.state.currentProject.title &&
+      this.state.currentProject.status &&
+      this.state.currentProject.summary &&
+      this.state.currentProject.funds
+    ) {
+      ProjectsAPI.updateProject(this.state.currentProject._id, {
         title: this.state.currentProject.title,
         status: this.state.currentProject.status,
         summary: this.state.currentProject.summary,
@@ -313,11 +358,14 @@ class PrivateMaster extends Component {
               loadCurrentProject={this.loadCurrentProject}
               unloadCurrentProject={this.unloadCurrentProject}
               handleProjectInputChange={this.handleProjectInputChange}
-              handleProjectFormSubmit={this.handleProjectFormSubmit}
+              handleCreateProjectFormSubmit={this.handleCreateProjectFormSubmit}
               loadProjectSubpage={this.loadProjectSubpage}
               currentProject={this.state.currentProject}
               subpage={this.state.metadata.projectSubpage}
               currentThreadIndex={this.state.metadata.currentThreadIndex}
+              handleEdit={this.handleEdit}
+              editProject={this.state.metadata.editProject}
+              handleEditProjectFormSubmit={this.handleEditProjectFormSubmit}
             />
           ) : (
             <Projects
@@ -325,10 +373,15 @@ class PrivateMaster extends Component {
               projectIsLoaded={this.state.metadata.projectIsLoaded}
               loadCurrentProject={this.loadCurrentProject}
               unloadCurrentProject={this.unloadCurrentProject}
+              handleProjectInputChange={this.handleProjectInputChange}
+              handleCreateProjectFormSubmit={this.handleCreateProjectFormSubmit}
               loadProjectSubpage={this.loadProjectSubpage}
               currentProject={this.state.currentProject}
               subpage={this.state.metadata.projectSubpage}
               currentThreadIndex={this.state.metadata.currentThreadIndex}
+              handleEdit={this.handleEdit}
+              editProject={this.state.metadata.editProject}
+              handleEditProjectFormSubmit={this.handleEditProjectFormSubmit}
             />
           )}
         </Row>

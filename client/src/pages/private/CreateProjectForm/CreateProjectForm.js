@@ -49,7 +49,11 @@ const CreateProjectForm = props => (
             props.currentProject.summary
           )
         }
-        onClick={props.handleProjectFormSubmit}
+        onClick={
+          props.editProject
+            ? props.handleEditProjectFormSubmit
+            : props.handleCreateProjectFormSubmit
+        }
         style={{ float: "right", marginBottom: 10 }}
         className="btn btn-success"
       >
