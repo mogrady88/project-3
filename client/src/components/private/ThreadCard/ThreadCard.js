@@ -4,7 +4,7 @@ import Col from "../../shared/grid/Col";
 import "./ThreadCard.css";
 
 const ThreadCard = props => (
-  <div>
+  <div className="tCard">
     <Row>
       <Col size="6">
         <h5 onClick={() => props.loadProjectSubpage("comments", props.index)}>

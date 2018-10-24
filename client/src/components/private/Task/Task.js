@@ -4,7 +4,7 @@ import Col from "../../shared/grid/Col";
 import "./Task.css";
 
 const Task = props => (
-  <div>
+  <div className="taskCard">
     <h5>{props.title}</h5>
     <Row>
       <Col size="8">
@@ -13,7 +13,7 @@ const Task = props => (
       <Col size="4">
         <p>Status: {props.status}</p>
         <p>Funds: ${props.funds}</p>
-        <button>Edit task</button>
+        <button className="btn">Edit task</button>
       </Col>
     </Row>
   </div>

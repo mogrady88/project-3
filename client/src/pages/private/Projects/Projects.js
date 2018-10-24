@@ -1,5 +1,6 @@
 import React from "react";
 import ProjectsSidebar from "../../../components/private/ProjectsSidebar";
+import CreateProjectForm from "../CreateProjectForm";
 import ProjectViewer from "../ProjectViewer";
 
 const Projects = props => (
@@ -7,6 +8,7 @@ const Projects = props => (
     <ProjectsSidebar
       projects={props.projects}
       loadCurrentProject={props.loadCurrentProject}
+      unloadCurrentProject={props.unloadCurrentProject}
     />
     {props.projectIsLoaded ? (
       <ProjectViewer
@@ -16,7 +18,11 @@ const Projects = props => (
         currentThreadIndex={props.currentThreadIndex}
       />
     ) : (
-      "Project is not loaded"
+      <CreateProjectForm
+        currentProject={props.currentProject}
+        handleProjectInputChange={props.handleProjectInputChange}
+        handleProjectFormSubmit={props.handleProjectFormSubmit}
+      />
     )}
   </div>
 );
