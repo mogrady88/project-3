@@ -27,7 +27,10 @@ const Nav = props => (
     ) : (
       <div className="nav-wrapper">
         <a href="#" className="brand-logo">
-          Logged in as <strong>{window.currentUser}</strong>
+          Logged in as{" "}
+          <strong>
+            {props.user.firstName} {props.user.lastName}
+          </strong>
         </a>
         <ul id="nav-mobile" className="right hide-on-med-and-down">
           <li>

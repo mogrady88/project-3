@@ -20,7 +20,11 @@ class App extends React.Component {
     super();
     this.state = {
       loggedIn: false,
-      username: null
+      user: {
+        username: "",
+        firstName: "",
+        lastName: ""
+      }
     };
 
     this.getUser = this.getUser.bind(this);
@@ -41,7 +45,11 @@ class App extends React.Component {
         console.log("Get User: There is a user saved in the server session: ");
         this.setState({
           loggedIn: true,
-          username: response.data.user.username
+          user: {
+            username: response.data.user.username,
+            firstName: response.data.user.firstName,
+            lastName: response.data.user.lastName
+          }
         });
         console.log("There is a user, setting loggedIn: ", this.state.loggedIn);
         if (this.state.loggedIn) {
@@ -99,10 +107,9 @@ class App extends React.Component {
             <PrivateRoute
               path="/private"
               component={PrivateMaster}
-              getUser={this.getUser}
               loggedIn={this.state.loggedIn}
               handleLogout={this.handleLogout}
-              user={this.state.username}
+              user={this.state.user}
             />
             <Route path="/posts/:id" component={PostDetail} />
             <Route exact path="/test" component={TestCRUD} />
