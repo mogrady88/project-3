@@ -4,7 +4,6 @@ import "./CreateTaskForm.css";
 
 const CreateTaskForm = props => (
   <Col size="12">
-    <h5>Create Project</h5>
     <form>
       <div className="form-group">
         <input
