@@ -1,59 +1,49 @@
 import React from "react";
 import Col from "../../shared/grid/Col";
+import "./CreateTaskForm.css";
 
 const CreateTaskForm = props => (
   <Col size="12">
-    <h5>Create Project</h5>
     <form>
       <div className="form-group">
         <input
           className="form-control"
-          value={props.currentProject.title}
-          onChange={props.handleProjectInputChange}
+          value={props.newTask.title}
+          onChange={props.handleInputChange}
+          data-context="createTask"
           name="title"
-          placeholder="Title (required)"
-        />
-      </div>
-      <div className="form-group">
-        <input
-          className="form-control"
-          value={props.currentProject.status}
-          onChange={props.handleProjectInputChange}
-          name="status"
-          placeholder="Status (required)"
+          placeholder="Title"
         />
       </div>
       <div className="form-group">
         <textarea
           className="form-control"
-          value={props.currentProject.summary}
-          onChange={props.handleProjectInputChange}
-          name="summary"
-          placeholder="Summary (Optional)"
+          value={props.newTask.description}
+          onChange={props.handleInputChange}
+          data-context="createTask"
+          name="description"
+          placeholder="Description"
         />
       </div>
       <div className="form-group">
         <input
           className="form-control"
-          value={props.currentProject.funds}
-          onChange={props.handleProjectInputChange}
+          value={props.newTask.funds}
+          onChange={props.handleInputChange}
+          data-context="createTask"
           name="funds"
-          placeholder="Funds (optional)"
+          placeholder="Funds"
         />
       </div>
       <button
         disabled={
           !(
-            props.currentProject.title &&
-            props.currentProject.status &&
-            props.currentProject.summary
+            props.newTask.title &&
+            props.newTask.description &&
+            props.newTask.funds
           )
         }
-        onClick={
-          props.editProject
-            ? props.handleEditProjectFormSubmit
-            : props.handleCreateProjectFormSubmit
-        }
+        onClick={props.handleCreateTaskFormSubmit}
         style={{ float: "right", marginBottom: 10 }}
         className="btn btn-success"
       >

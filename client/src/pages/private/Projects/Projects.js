@@ -6,29 +6,43 @@ import ProjectViewer from "../ProjectViewer";
 const Projects = props => (
   <div>
     <ProjectsSidebar
-      projects={props.projects}
+      projects={props.projects} //array
+      // Functions
       loadCurrentProject={props.loadCurrentProject}
       unloadCurrentProject={props.unloadCurrentProject}
     />
-    {props.projectIsLoaded ? (
+    {props.metadata.projectIsLoaded ? (
       <ProjectViewer
-        currentProject={props.currentProject}
+        currentProject={props.currentProject} //object
+        // Unpacked metadata
+        subpage={props.metadata.projectSubpage} //string
+        currentThreadIndex={props.metadata.currentThreadIndex} //number
+        editProject={props.metadata.editProject} //bool
+        createTask={props.metadata.createTask} //bool
+        editTask={props.metadata.editTask} //bool
+        createThread={props.metadata.createThread} //bool
+        editThread={props.metadata.editThread} //bool
+        createComment={props.metadata.createComment} //bool
+        editComment={props.metadata.editComment} //bool
+        // Unpacked newData
+        newTask={props.newData.newTask} //object
+        // Unpacked targetEdits
+        targetTask={props.targetEdits.task} //id string
+        // Functions
         loadProjectSubpage={props.loadProjectSubpage}
-        subpage={props.subpage}
-        currentThreadIndex={props.currentThreadIndex}
-        handleCreate={props.handleCreate}
-        handleEdit={props.handleEdit}
-        editProject={props.editProject}
-        handleProjectInputChange={props.handleProjectInputChange}
-        handleEditProjectFormSubmit={props.handleEditProjectFormSubmit}
-        createTask={props.createTask}
+        handleCreateEditBtn={props.handleCreateEditBtn}
+        handleInputChange={props.handleInputChange} //form
+        handleEditProjectFormSubmit={props.handleEditProjectFormSubmit} //form
+        handleCreateTaskFormSubmit={props.handleCreateTaskFormSubmit} //form
+        handleEditTaskFormSubmit={props.handleEditTaskFormSubmit} //form
       />
     ) : (
       <CreateProjectForm
-        currentProject={props.currentProject}
-        handleProjectInputChange={props.handleProjectInputChange}
-        handleCreateProjectFormSubmit={props.handleCreateProjectFormSubmit}
-        editProject={props.editProject}
+        currentProject={props.currentProject} //object
+        editProject={props.metadata.editProject} //bool
+        // Functions
+        handleInputChange={props.handleInputChange} //form
+        handleCreateProjectFormSubmit={props.handleCreateProjectFormSubmit} //form
       />
     )}
   </div>

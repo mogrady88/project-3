@@ -10,6 +10,7 @@ import Projects from "../Projects";
 //API Imports
 import UsersAPI from "../../../utils/usersAPI";
 import ProjectsAPI from "../../../utils/projectsAPI";
+import TasksAPI from "../../../utils/tasksAPI";
 // CSS Imports
 import "./PrivateMaster.css";
 
@@ -24,17 +25,15 @@ class PrivateMaster extends Component {
         userSubpage: "view",
         currentThreadIndex: 0,
         editProject: false,
-        createTask: false
+        createTask: false,
+        editTask: false,
+        createThread: false,
+        editThread: false,
+        createComment: false,
+        editComment: false
       },
       user: {
         username: null
-      },
-      newUser: {
-        newFirstName: "",
-        newLastName: "",
-        newEmail: "",
-        newUsername: "",
-        newPassword: ""
       },
       projects: [],
       currentProject: {
@@ -43,10 +42,26 @@ class PrivateMaster extends Component {
         summary: "",
         funds: ""
       },
-      newTask: {}
+      newData: {
+        newUser: {
+          username: "",
+          password: "",
+          firstName: "",
+          lastName: "",
+          email: ""
+        },
+        newTask: {
+          title: "",
+          description: "",
+          funds: ""
+        }
+      },
+      targetEdits: {
+        task: ""
+      }
     };
     this.componentDidMount = this.componentDidMount.bind(this);
-    this.handleInputChange = this.handleUserInputChange.bind(this);
+    // this.handleInputChange = this.handleUserInputChange.bind(this);
     this.handleSignUp = this.handleSignUp.bind(this);
   }
 
@@ -98,6 +113,13 @@ class PrivateMaster extends Component {
           userSubpage: "add"
         }
       });
+    } else if (page === "edit-user") {
+      this.setState({
+        metadata: {
+          ...this.state.metadata,
+          projectSubpage: "edit-user"
+        }
+      });
     }
   };
 
@@ -129,13 +151,6 @@ class PrivateMaster extends Component {
           ...this.state.metadata,
           projectSubpage: "comments",
           currentThreadIndex: threadIndex
-        }
-      });
-    } else if (page === "edit-user") {
-      this.setState({
-        metadata: {
-          ...this.state.metadata,
-          projectSubpage: "edit-user"
         }
       });
     }
@@ -201,36 +216,57 @@ class PrivateMaster extends Component {
     });
   };
 
-  handleCreate = event => {
-    const command = event.target.name;
+  handleCreateEditBtn = event => {
+    const command = event.target.getAttribute("data-command");
+    const context = event.target.getAttribute("data-context");
     switch (command) {
-      case "task":
-        this.setState({
-          metadata: {
-            ...this.state.metadata,
-            createTask: true
-          }
-        });
+      case "create":
+        switch (context) {
+          case "task":
+            this.setState({
+              metadata: {
+                ...this.state.metadata,
+                createTask: true
+              }
+            });
+            break;
+        }
+        break;
+      case "edit":
+        let parentId;
+        if (command !== "project") {
+          parentId = event.target.getAttribute("data-id");
+        }
+        switch (context) {
+          case "project":
+            this.setState({
+              metadata: {
+                ...this.state.metadata,
+                editProject: true
+              }
+            });
+            break;
+          case "task":
+            this.setState({
+              metadata: {
+                ...this.state.metadata,
+                editTask: true
+              }
+            });
+            this.setState({
+              targetEdits: {
+                ...this.state.targetEdits,
+                task: parentId
+              }
+            });
+            break;
+        }
         break;
     }
   };
 
-  handleEdit = event => {
-    const command = event.target.name;
-    switch (command) {
-      case "project":
-        this.setState({
-          metadata: {
-            ...this.state.metadata,
-            editProject: true
-          }
-        });
-        break;
-    }
-  };
-
-  handleUpdate = command => {
-    switch (command) {
+  closeCreateEdit = context => {
+    switch (context) {
       case "project":
         this.setState({
           metadata: {
@@ -239,29 +275,80 @@ class PrivateMaster extends Component {
           }
         });
         break;
+      case "task":
+        this.setState({
+          metadata: {
+            ...this.state.metadata,
+            createTask: false,
+            editTask: false
+          }
+        });
+        this.setState({
+          newTask: {
+            title: "",
+            description: "",
+            funds: ""
+          }
+        });
+        this.setState({
+          targetEdits: {
+            ...this.state.targetEdits,
+            task: ""
+          }
+        });
+        break;
     }
   };
 
-  handleUserInputChange = event => {
+  handleInputChange = event => {
     const { name, value } = event.target;
-    this.setState({
-      newUser: {
-        ...this.state.newUser,
-        [name]: value
-      }
-    });
-  };
-
-  handleProjectInputChange = event => {
-    const target = event.target;
-    const value = target.type === "checkbox" ? target.checked : target.value;
-    const name = target.name;
-    this.setState({
-      currentProject: {
-        ...this.state.currentProject,
-        [name]: value
-      }
-    });
+    const context = event.target.getAttribute("data-context");
+    switch (context) {
+      case "project":
+        this.setState({
+          currentProject: {
+            ...this.state.currentProject,
+            [name]: value
+          }
+        });
+        break;
+      case "newUser":
+        this.setState({
+          newData: {
+            ...this.state.newData,
+            newUser: {
+              ...this.state.newData.newUser,
+              [name]: value
+            }
+          }
+        });
+        break;
+      case "createTask":
+        this.setState({
+          newData: {
+            ...this.state.newData,
+            newTask: {
+              ...this.state.newData.newTask,
+              [name]: value
+            }
+          }
+        });
+        break;
+      case "editTask":
+        const index = event.target.getAttribute("data-index");
+        const tasks = this.state.currentProject.tasks.slice();
+        tasks[tasks.length - 1 - parseInt(index)] = {
+          ...tasks[tasks.length - 1 - parseInt(index)],
+          [name]: value
+        };
+        this.setState({
+          currentProject: {
+            ...this.state.currentProject,
+            tasks: tasks
+          }
+        });
+        break;
+    }
   };
 
   handleCreateProjectFormSubmit = event => {
@@ -303,7 +390,73 @@ class PrivateMaster extends Component {
         .then(res => {
           console.log(res);
           this.loadProjects();
-          this.handleUpdate("project");
+          this.closeCreateEdit("project");
+        })
+        .catch(err => console.log(err));
+    }
+  };
+
+  handleCreateTaskFormSubmit = event => {
+    event.preventDefault();
+    if (
+      this.state.newData.newTask.title &&
+      this.state.newData.newTask.description &&
+      this.state.newData.newTask.funds
+    ) {
+      TasksAPI.saveTask([
+        {
+          title: this.state.newData.newTask.title,
+          description: this.state.newData.newTask.description,
+          funds: parseInt(this.state.newData.newTask.funds)
+        },
+        {
+          project: this.state.currentProject._id
+        }
+      ])
+        .then(res => {
+          console.log(res);
+          this.loadProjects();
+          this.loadCurrentProject(this.state.currentProject._id);
+          this.closeCreateEdit("task");
+        })
+        .catch(err => console.log(err));
+    }
+  };
+
+  handleEditTaskFormSubmit = event => {
+    event.preventDefault();
+    const index = event.target.getAttribute("data-index");
+    const id = event.target.getAttribute("data-id");
+
+    if (
+      this.state.currentProject.tasks[
+        this.state.currentProject.tasks.length - 1 - index
+      ].title &&
+      this.state.currentProject.tasks[
+        this.state.currentProject.tasks.length - 1 - index
+      ].description &&
+      this.state.currentProject.tasks[
+        this.state.currentProject.tasks.length - 1 - index
+      ].funds
+    ) {
+      TasksAPI.updateTask(id, {
+        title: this.state.currentProject.tasks[
+          this.state.currentProject.tasks.length - 1 - index
+        ].title,
+        description: this.state.currentProject.tasks[
+          this.state.currentProject.tasks.length - 1 - index
+        ].description,
+        funds: parseInt(
+          this.state.currentProject.tasks[
+            this.state.currentProject.tasks.length - 1 - index
+          ].funds
+        )
+      })
+        .then(res => {
+          console.log(res);
+          this.loadProjects();
+          this.loadCurrentProject(this.state.currentProject._id);
+          this.closeCreateEdit("task");
         })
         .catch(err => console.log(err));
     }
@@ -313,11 +466,11 @@ class PrivateMaster extends Component {
     event.preventDefault();
     console.log("handleSignUp");
     UsersAPI.signupUser({
-      firstName: this.state.newUser.newFirstName,
-      lastName: this.state.newUser.newLastName,
-      email: this.state.newUser.newEmail,
-      username: this.state.newUser.newUsername,
-      password: this.state.newUser.newPassword
+      firstName: this.state.newData.newUser.firstName,
+      lastName: this.state.newData.newUser.lastName,
+      email: this.state.newData.newUser.email,
+      username: this.state.newData.newUser.username,
+      password: this.state.newData.newUser.password
     })
       .then(response => {
         console.log(response);
@@ -325,24 +478,28 @@ class PrivateMaster extends Component {
           console.log("successful signup");
           alert(`Successful signup for new user: ${response.data.username}.`);
           this.setState({
-            newUser: {
-              newFirstName: "",
-              newLastName: "",
-              newEmail: "",
-              newUsername: "",
-              newPassword: ""
+            newData: {
+              newUser: {
+                firstName: "",
+                lastName: "",
+                email: "",
+                username: "",
+                password: ""
+              }
             }
           });
         } else {
           console.log("username already taken");
           alert(response.data.error);
           this.setState({
-            newUser: {
-              newFirstName: "",
-              newLastName: "",
-              newEmail: "",
-              newUsername: "",
-              newPassword: ""
+            newData: {
+              newUser: {
+                firstName: "",
+                lastName: "",
+                email: "",
+                username: "",
+                password: ""
+              }
             }
           });
         }
@@ -354,7 +511,6 @@ class PrivateMaster extends Component {
   }
 
   render() {
-    console.log(this.props.match);
     return (
       <div>
         <Nav
@@ -367,52 +523,40 @@ class PrivateMaster extends Component {
         <Row>
           {this.state.metadata.currentPage === "users" ? (
             <Users
-              loadUserSubpage={this.loadUserSubpage}
+              // State props
               subpage={this.state.metadata.userSubpage}
-              newFirstName={this.state.newUser.newFirstName}
-              newLastName={this.state.newUser.newLastName}
-              newEmail={this.state.newUser.newEmail}
-              newUsername={this.state.newUser.newUsername}
-              newPassword={this.state.newUser.newPassword}
-              handleInputChange={this.handleUserInputChange}
+              newUsername={this.state.newData.newUser.username}
+              newPassword={this.state.newData.newUser.password}
+              newFirstName={this.state.newData.newUser.firstName}
+              newLastName={this.state.newData.newUser.lastName}
+              newEmail={this.state.newData.newUser.email}
+              // Functions
+              loadUserSubpage={this.loadUserSubpage}
+              handleInputChange={this.handleInputChange}
               handleSignUp={this.handleSignUp}
             />
           ) : this.state.metadata.currentPage === "projects" ? (
             <Projects
+              // State objects
+              metadata={this.state.metadata}
               projects={this.state.projects}
-              projectIsLoaded={this.state.metadata.projectIsLoaded}
-              loadCurrentProject={this.loadCurrentProject}
-              unloadCurrentProject={this.unloadCurrentProject}
-              handleProjectInputChange={this.handleProjectInputChange}
-              handleCreateProjectFormSubmit={this.handleCreateProjectFormSubmit}
-              loadProjectSubpage={this.loadProjectSubpage}
               currentProject={this.state.currentProject}
-              subpage={this.state.metadata.projectSubpage}
-              currentThreadIndex={this.state.metadata.currentThreadIndex}
-              handleCreate={this.handleCreate}
-              handleEdit={this.handleEdit}
-              editProject={this.state.metadata.editProject}
+              newData={this.state.newData}
+              targetEdits={this.state.targetEdits}
+              // Functions
+              loadCurrentProject={this.loadCurrentProject}
+              loadProjectSubpage={this.loadProjectSubpage}
+              unloadCurrentProject={this.unloadCurrentProject}
+              handleCreateEditBtn={this.handleCreateEditBtn}
+              // Form Functions
+              handleInputChange={this.handleInputChange}
+              handleCreateProjectFormSubmit={this.handleCreateProjectFormSubmit}
               handleEditProjectFormSubmit={this.handleEditProjectFormSubmit}
-              createTask={this.state.metadata.createTask}
+              handleCreateTaskFormSubmit={this.handleCreateTaskFormSubmit}
+              handleEditTaskFormSubmit={this.handleEditTaskFormSubmit}
             />
           ) : (
-            <Projects
-              projects={this.state.projects}
-              projectIsLoaded={this.state.metadata.projectIsLoaded}
-              loadCurrentProject={this.loadCurrentProject}
-              unloadCurrentProject={this.unloadCurrentProject}
-              handleProjectInputChange={this.handleProjectInputChange}
-              handleCreateProjectFormSubmit={this.handleCreateProjectFormSubmit}
-              loadProjectSubpage={this.loadProjectSubpage}
-              currentProject={this.state.currentProject}
-              subpage={this.state.metadata.projectSubpage}
-              currentThreadIndex={this.state.metadata.currentThreadIndex}
-              handleCreate={this.handleCreate}
-              handleEdit={this.handleEdit}
-              editProject={this.state.metadata.editProject}
-              handleEditProjectFormSubmit={this.handleEditProjectFormSubmit}
-              createTask={this.state.metadata.createTask}
-            />
+            "404"
           )}
         </Row>
       </div>
