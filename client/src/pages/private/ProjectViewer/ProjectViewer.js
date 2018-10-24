@@ -59,16 +59,6 @@ const ProjectContainer = props => (
     ) : (
       <Tasks />
     )}
-    {/* <Switch>
-      <Route exact path={`/private/tasks`} component={Tasks} />
-      <Route exact path={`/private/threads`} component={Threads} />
-      <Route
-        exact
-        path={`/private/posts`}
-        component={Posts}
-        posts={props.currentProject.posts}
-      />
-    </Switch> */}
   </Col>
 );
 
