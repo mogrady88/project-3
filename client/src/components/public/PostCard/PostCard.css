@@ -1,1 +1,20 @@
-/* No CSS *//*# sourceMappingURL=PostCard.css.map */
+.postcard {
+  background-color: #80aebd;
+  border: 5px solid #323433;
+  margin: 10px;
+  padding: 20px;
+}
+
+.postcard .row {
+  margin-bottom: 5px;
+}
+
+.postcard .postcardRight {
+  text-align: center;
+}
+
+.postcard .postcardRight button {
+  background-color: #fdf0b5;
+  color: #323433;
+}
+/*# sourceMappingURL=PostCard.css.map */

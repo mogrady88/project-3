@@ -10,7 +10,6 @@ const ProjectCard = props => (
       <p>
         Status: <strong>{props.status}</strong>
       </p>
-      <p>{props.summary}</p>
       <div className="card-action">
         <a className="btn" onClick={() => props.loadCurrentProject(props.id)}>
           View Project
