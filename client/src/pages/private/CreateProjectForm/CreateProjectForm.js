@@ -1,10 +1,5 @@
 import React from "react";
-import Row from "../../../components/shared/grid/Row";
 import Col from "../../../components/shared/grid/Col";
-import Tasks from "../Tasks";
-import Threads from "../Threads";
-import Posts from "../Posts";
-import Comments from "../Comments";
 
 const CreateProjectForm = props => (
   <Col size="9" otherclasses="projectMeta">

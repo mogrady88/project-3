@@ -27,26 +27,23 @@ class PrivateMaster extends Component {
       user: {
         username: null
       },
+      newUser: {
+        newFirstName: "",
+        newLastName: "",
+        newEmail: "",
+        newUsername: "",
+        newPassword: ""
+      },
       projects: [],
       currentProject: {
         title: "",
         status: "",
         summary: "",
         funds: ""
-      },
-      project: "Project Name",
-      summary:
-        "Project summary text. Cras felis mauris, cursus ac lorem iaculis, rutrum facilisis nisl. Quisque quis odio sem. Nulla vehicula lectus eu ullamcorper mattis. Nulla in quam erat. Duis et consequat sem. Sed quis dictum urna. Phasellus metus urna, congue at hendrerit nec, sagittis eget sapien.",
-      totalFunds: 5000,
-      usedFunds: 2000,
-      newFirstName: "",
-      newLastName: "",
-      newEmail: "",
-      newUsername: "",
-      newPassword: ""
+      }
     };
     this.componentDidMount = this.componentDidMount.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleInputChange = this.handleUserInputChange.bind(this);
     this.handleSignUp = this.handleSignUp.bind(this);
   }
 
@@ -201,10 +198,13 @@ class PrivateMaster extends Component {
     });
   };
 
-  handleInputChange = event => {
+  handleUserInputChange = event => {
     const { name, value } = event.target;
     this.setState({
-      [name]: value
+      newUser: {
+        ...this.state.newUser,
+        [name]: value
+      }
     });
   };
 
@@ -243,11 +243,11 @@ class PrivateMaster extends Component {
     event.preventDefault();
     console.log("handleSignUp");
     UsersAPI.signupUser({
-      firstName: this.state.newFirstName,
-      lastName: this.state.newLastName,
-      email: this.state.newEmail,
-      username: this.state.newUsername,
-      password: this.state.newPassword
+      firstName: this.state.newUser.newFirstName,
+      lastName: this.state.newUser.newLastName,
+      email: this.state.newUser.newEmail,
+      username: this.state.newUser.newUsername,
+      password: this.state.newUser.newPassword
     })
       .then(response => {
         console.log(response);
@@ -255,15 +255,25 @@ class PrivateMaster extends Component {
           console.log("successful signup");
           alert(`Successful signup for new user: ${response.data.username}.`);
           this.setState({
-            newUsername: "",
-            newPassword: ""
+            newUser: {
+              newFirstName: "",
+              newLastName: "",
+              newEmail: "",
+              newUsername: "",
+              newPassword: ""
+            }
           });
         } else {
           console.log("username already taken");
           alert(response.data.error);
           this.setState({
-            newUsername: "",
-            newPassword: ""
+            newUser: {
+              newFirstName: "",
+              newLastName: "",
+              newEmail: "",
+              newUsername: "",
+              newPassword: ""
+            }
           });
         }
       })
@@ -288,12 +298,12 @@ class PrivateMaster extends Component {
             <Users
               loadUserSubpage={this.loadUserSubpage}
               subpage={this.state.metadata.userSubpage}
-              newFirstName={this.state.newFirstName}
-              newLastName={this.state.newLastName}
-              newEmail={this.state.newEmail}
-              newUsername={this.state.newUsername}
-              newPassword={this.state.newPassword}
-              handleInputChange={this.handleInputChange}
+              newFirstName={this.state.newUser.newFirstName}
+              newLastName={this.state.newUser.newLastName}
+              newEmail={this.state.newUser.newEmail}
+              newUsername={this.state.newUser.newUsername}
+              newPassword={this.state.newUser.newPassword}
+              handleInputChange={this.handleUserInputChange}
               handleSignUp={this.handleSignUp}
             />
           ) : this.state.metadata.currentPage === "projects" ? (
