@@ -25,6 +25,10 @@ const Projects = props => (
         newTask={props.newTask}
         handleCreateTaskInputChange={props.handleCreateTaskInputChange}
         handleCreateTaskFormSubmit={props.handleCreateTaskFormSubmit}
+        editTask={props.editTask}
+        targetTask={props.targetTask}
+        handleEditTaskInputChange={props.handleEditTaskInputChange}
+        handleEditTaskFormSubmit={props.handleEditTaskFormSubmit}
       />
     ) : (
       <CreateProjectForm

@@ -26,7 +26,12 @@ class PrivateMaster extends Component {
         userSubpage: "view",
         currentThreadIndex: 0,
         editProject: false,
-        createTask: false
+        createTask: false,
+        editTask: false,
+        createThread: false,
+        editThread: false,
+        createComment: false,
+        editComment: false
       },
       user: {
         username: null
@@ -49,6 +54,9 @@ class PrivateMaster extends Component {
         title: "",
         description: "",
         funds: ""
+      },
+      targetEdits: {
+        task: ""
       }
     };
     this.componentDidMount = this.componentDidMount.bind(this);
@@ -223,6 +231,10 @@ class PrivateMaster extends Component {
 
   handleEdit = event => {
     const command = event.target.name;
+    let parentId;
+    if (command !== "project") {
+      parentId = event.target.id;
+    }
     switch (command) {
       case "project":
         this.setState({
@@ -231,6 +243,21 @@ class PrivateMaster extends Component {
             editProject: true
           }
         });
+        break;
+      case "task":
+        this.setState({
+          metadata: {
+            ...this.state.metadata,
+            editTask: true
+          }
+        });
+        this.setState({
+          targetEdits: {
+            ...this.state.targetEdits,
+            task: parentId
+          }
+        });
+        console.log(this.state.targetEdits.task);
         break;
     }
   };
@@ -249,7 +276,8 @@ class PrivateMaster extends Component {
         this.setState({
           metadata: {
             ...this.state.metadata,
-            createTask: false
+            createTask: false,
+            editTask: false
           }
         });
         this.setState({
@@ -259,7 +287,12 @@ class PrivateMaster extends Component {
             funds: ""
           }
         });
-
+        this.setState({
+          targetEdits: {
+            ...this.state.targetEdits,
+            task: ""
+          }
+        });
         break;
     }
   };
@@ -368,6 +401,67 @@ class PrivateMaster extends Component {
     }
   };
 
+  handleEditTaskInputChange = event => {
+    console.log(event.target);
+    console.log(this.state.currentProject);
+    const { name, value } = event.target;
+    const index = event.target.getAttribute("data-index");
+
+    const tasks = this.state.currentProject.tasks.slice(); //copy the array
+    tasks[tasks.length - 1 - parseInt(index)] = {
+      ...tasks[tasks.length - 1 - parseInt(index)],
+      [name]: value
+    }; //execute the manipulations
+
+    console.log(tasks[tasks.length - 1 - index]);
+    console.log(tasks);
+    this.setState({
+      currentProject: {
+        ...this.state.currentProject,
+        tasks: tasks
+      }
+    });
+  };
+
+  handleEditTaskFormSubmit = event => {
+    event.preventDefault();
+    const index = event.target.getAttribute("data-index");
+    const id = event.target.getAttribute("data-id");
+
+    if (
+      this.state.currentProject.tasks[
+        this.state.currentProject.tasks.length - 1 - index
+      ].title &&
+      this.state.currentProject.tasks[
+        this.state.currentProject.tasks.length - 1 - index
+      ].description &&
+      this.state.currentProject.tasks[
+        this.state.currentProject.tasks.length - 1 - index
+      ].funds
+    ) {
+      TasksAPI.updateTask(id, {
+        title: this.state.currentProject.tasks[
+          this.state.currentProject.tasks.length - 1 - index
+        ].title,
+        description: this.state.currentProject.tasks[
+          this.state.currentProject.tasks.length - 1 - index
+        ].description,
+        funds: parseInt(
+          this.state.currentProject.tasks[
+            this.state.currentProject.tasks.length - 1 - index
+          ].funds
+        )
+      })
+        .then(res => {
+          console.log(res);
+          this.loadProjects();
+          this.loadCurrentProject(this.state.currentProject._id);
+          this.handleUpdate("task");
+        })
+        .catch(err => console.log(err));
+    }
+  };
+
   handleSignUp(event) {
     event.preventDefault();
     console.log("handleSignUp");
@@ -456,6 +550,10 @@ class PrivateMaster extends Component {
               newTask={this.state.newTask}
               handleCreateTaskInputChange={this.handleCreateTaskInputChange}
               handleCreateTaskFormSubmit={this.handleCreateTaskFormSubmit}
+              editTask={this.state.metadata.editTask}
+              targetTask={this.state.targetEdits.task}
+              handleEditTaskInputChange={this.handleEditTaskInputChange}
+              handleEditTaskFormSubmit={this.handleEditTaskFormSubmit}
             />
           ) : (
             <Projects
@@ -477,6 +575,10 @@ class PrivateMaster extends Component {
               newTask={this.state.newTask}
               handleCreateTaskInputChange={this.handleCreateTaskInputChange}
               handleCreateTaskFormSubmit={this.handleCreateTaskFormSubmit}
+              editTask={this.state.metadata.editTask}
+              targetTask={this.state.targetEdits.task}
+              handleEditTaskInputChange={this.handleEditTaskInputChange}
+              handleEditTaskFormSubmit={this.handleEditTaskFormSubmit}
             />
           )}
         </Row>

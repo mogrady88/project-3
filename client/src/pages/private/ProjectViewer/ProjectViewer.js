@@ -74,6 +74,11 @@ const ProjectContainer = props => (
         newTask={props.newTask}
         handleCreateTaskInputChange={props.handleCreateTaskInputChange}
         handleCreateTaskFormSubmit={props.handleCreateTaskFormSubmit}
+        handleEdit={props.handleEdit}
+        editTask={props.editTask}
+        targetTask={props.targetTask}
+        handleEditTaskInputChange={props.handleEditTaskInputChange}
+        handleEditTaskFormSubmit={props.handleEditTaskFormSubmit}
       />
     ) : props.subpage === "threads" ? (
       <Threads

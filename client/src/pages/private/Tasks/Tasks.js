@@ -25,12 +25,20 @@ const Tasks = props => (
         {props.tasks
           .slice(0)
           .reverse()
-          .map(task => (
+          .map((task, index) => (
             <Task
+              id={task._id}
+              key={task._id}
+              index={index}
               title={task.title}
               description={task.description}
               status={task.isComplete ? "Complete" : "Incomplete"}
               funds={task.funds}
+              handleEdit={props.handleEdit}
+              editTask={props.editTask}
+              targetTask={props.targetTask}
+              handleEditTaskInputChange={props.handleEditTaskInputChange}
+              handleEditTaskFormSubmit={props.handleEditTaskFormSubmit}
             />
           ))}
       </div>
