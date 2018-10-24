@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "AAEA,AAAA,YAAY,CAAC;EACX,UAAU,EAAE,MAAM;EAClB,gBAAgB,EAAE,KAAK;EACvB,UAAU,EAAE,KAAK;CAKlB",
+    "sources": [
+        "Jumbo.scss",
+        "../../../utils/_variables.scss"
+    ],
+    "names": [],
+    "file": "Jumbo.css"
+}
