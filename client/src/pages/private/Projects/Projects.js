@@ -1,6 +1,6 @@
 import React from "react";
 import ProjectsSidebar from "../../../components/private/ProjectsSidebar";
-import CreateProject from "../CreateProject";
+import CreateProjectForm from "../CreateProjectForm";
 import ProjectViewer from "../ProjectViewer";
 
 const Projects = props => (
@@ -18,7 +18,11 @@ const Projects = props => (
         currentThreadIndex={props.currentThreadIndex}
       />
     ) : (
-      <CreateProject />
+      <CreateProjectForm
+        currentProject={props.currentProject}
+        handleProjectInputChange={props.handleProjectInputChange}
+        handleProjectFormSubmit={props.handleProjectFormSubmit}
+      />
     )}
   </div>
 );

@@ -6,7 +6,7 @@ import "./ProjectsSidebar.css";
 
 const ProjectsSidebar = props => (
   <Col size="3">
-    <CreateProject />
+    <CreateProject unloadCurrentProject={props.unloadCurrentProject} />
     {props.projects.map(project => (
       <ProjectCard
         key={project._id}

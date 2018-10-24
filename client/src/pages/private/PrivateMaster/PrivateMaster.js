@@ -28,7 +28,12 @@ class PrivateMaster extends Component {
         username: null
       },
       projects: [],
-      currentProject: {},
+      currentProject: {
+        title: "",
+        status: "",
+        summary: "",
+        funds: ""
+      },
       project: "Project Name",
       summary:
         "Project summary text. Cras felis mauris, cursus ac lorem iaculis, rutrum facilisis nisl. Quisque quis odio sem. Nulla vehicula lectus eu ullamcorper mattis. Nulla in quam erat. Duis et consequat sem. Sed quis dictum urna. Phasellus metus urna, congue at hendrerit nec, sagittis eget sapien.",
@@ -179,7 +184,12 @@ class PrivateMaster extends Component {
 
   unloadCurrentProject = () => {
     this.setState({
-      currentProject: {}
+      currentProject: {
+        title: "",
+        status: "",
+        summary: "",
+        funds: ""
+      }
     });
     this.setState({
       metadata: {
@@ -196,6 +206,37 @@ class PrivateMaster extends Component {
     this.setState({
       [name]: value
     });
+  };
+
+  handleProjectInputChange = event => {
+    const { name, value } = event.target;
+    this.setState({
+      currentProject: {
+        ...this.state.currentProject,
+        [name]: value
+      }
+    });
+  };
+
+  handleProjectFormSubmit = event => {
+    event.preventDefault();
+    if (
+      this.state.currentProject.title &&
+      this.state.currentProject.status &&
+      this.state.currentProject.summary
+    ) {
+      ProjectsAPI.saveProject({
+        title: this.state.currentProject.title,
+        status: this.state.currentProject.status,
+        summary: this.state.currentProject.summary,
+        funds: parseInt(this.state.currentProject.funds)
+      })
+        .then(res => {
+          console.log(res);
+          this.loadProjects();
+        })
+        .catch(err => console.log(err));
+    }
   };
 
   handleSignUp(event) {
@@ -261,6 +302,8 @@ class PrivateMaster extends Component {
               projectIsLoaded={this.state.metadata.projectIsLoaded}
               loadCurrentProject={this.loadCurrentProject}
               unloadCurrentProject={this.unloadCurrentProject}
+              handleProjectInputChange={this.handleProjectInputChange}
+              handleProjectFormSubmit={this.handleProjectFormSubmit}
               loadProjectSubpage={this.loadProjectSubpage}
               currentProject={this.state.currentProject}
               subpage={this.state.metadata.projectSubpage}
