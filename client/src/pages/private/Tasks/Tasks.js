@@ -9,36 +9,45 @@ const Tasks = props => (
   <div>
     <Row>
       <Col size="4">
-        <a className="btn" name="task" onClick={props.handleCreate}>
+        <a
+          className="btn"
+          data-command="create"
+          data-context="task"
+          onClick={props.handleCreateEditBtn}
+        >
           Create Task
         </a>
       </Col>
     </Row>
     {props.createTask ? (
       <CreateTaskForm
-        newTask={props.newTask}
-        handleCreateTaskInputChange={props.handleCreateTaskInputChange}
+        newTask={props.newTask} //object
+        //Functions
+        handleInputChange={props.handleInputChange}
         handleCreateTaskFormSubmit={props.handleCreateTaskFormSubmit}
       />
     ) : (
       <div>
         {props.tasks
           .slice(0)
-          .reverse()
+          .reverse() // display new tasks at top
           .map((task, index) => (
             <Task
+              // task data
+              index={index}
               id={task._id}
               key={task._id}
-              index={index}
               title={task.title}
               description={task.description}
               status={task.isComplete ? "Complete" : "Incomplete"}
               funds={task.funds}
-              handleEdit={props.handleEdit}
-              editTask={props.editTask}
-              targetTask={props.targetTask}
-              handleEditTaskInputChange={props.handleEditTaskInputChange}
-              handleEditTaskFormSubmit={props.handleEditTaskFormSubmit}
+              // props
+              editTask={props.editTask} //bool
+              targetTask={props.targetTask} //id string
+              // functions
+              handleCreateEditBtn={props.handleCreateEditBtn}
+              handleInputChange={props.handleInputChange} //form
+              handleEditTaskFormSubmit={props.handleEditTaskFormSubmit} //form
             />
           ))}
       </div>

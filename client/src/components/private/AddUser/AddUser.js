@@ -8,36 +8,40 @@ const AddUser = props => (
       <input
         type="text"
         id="firstName"
-        name="newFirstName"
+        name="firstName"
         placeholder="First Name (required)"
         value={props.newFirstName}
+        data-context="newUser"
         onChange={props.handleInputChange}
       />
       <label htmlFor="lastName">Last Name:</label>
       <input
         type="text"
         id="lastName"
-        name="newLastName"
+        name="lastName"
         placeholder="Last Name (required)"
         value={props.newLastName}
+        data-context="newUser"
         onChange={props.handleInputChange}
       />
       <label htmlFor="email">Email:</label>
       <input
         type="text"
         id="email"
-        name="newEmail"
+        name="email"
         placeholder="Email (optional)"
         value={props.newEmail}
+        data-context="newUser"
         onChange={props.handleInputChange}
       />
       <label htmlFor="username">Username:</label>
       <input
         type="text"
         id="username"
-        name="newUsername"
+        name="username"
         placeholder="Username"
         value={props.newUsername}
+        data-context="newUser"
         onChange={props.handleInputChange}
       />
       <label htmlFor="password">Password:</label>
@@ -45,8 +49,9 @@ const AddUser = props => (
         placeholder="Password"
         id="password"
         type="password"
-        name="newPassword"
+        name="password"
         value={props.newPassword}
+        data-context="newUser"
         onChange={props.handleInputChange}
       />
       <button

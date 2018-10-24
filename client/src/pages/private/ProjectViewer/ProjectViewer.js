@@ -15,7 +15,7 @@ const ProjectContainer = props => (
         <Col size="12">
           <CreateProjectForm
             currentProject={props.currentProject}
-            handleProjectInputChange={props.handleProjectInputChange}
+            handleInputChange={props.handleInputChange}
             handleEditProjectFormSubmit={props.handleEditProjectFormSubmit}
             editProject={props.editProject}
           />
@@ -33,7 +33,11 @@ const ProjectContainer = props => (
           <div className="summaryDiv">
             <p>Project Description: {props.currentProject.summary}</p>
           </div>
-          <button name="project" onClick={props.handleEdit}>
+          <button
+            data-command="edit"
+            data-context="project"
+            onClick={props.handleCreateEditBtn}
+          >
             Edit Project
           </button>
         </Col>
@@ -68,31 +72,37 @@ const ProjectContainer = props => (
     <br />
     {props.subpage === "tasks" ? (
       <Tasks
-        tasks={props.currentProject.tasks}
-        handleCreate={props.handleCreate}
-        createTask={props.createTask}
-        newTask={props.newTask}
-        handleCreateTaskInputChange={props.handleCreateTaskInputChange}
+        // State props
+        tasks={props.currentProject.tasks} //array
+        newTask={props.newTask} //object
+        targetTask={props.targetTask} //id string
+        createTask={props.createTask} //bool
+        editTask={props.editTask} //bool
+        // Functions
+        handleCreateEditBtn={props.handleCreateEditBtn}
+        handleInputChange={props.handleInputChange}
         handleCreateTaskFormSubmit={props.handleCreateTaskFormSubmit}
-        handleEdit={props.handleEdit}
-        editTask={props.editTask}
-        targetTask={props.targetTask}
-        handleEditTaskInputChange={props.handleEditTaskInputChange}
         handleEditTaskFormSubmit={props.handleEditTaskFormSubmit}
       />
     ) : props.subpage === "threads" ? (
       <Threads
+        // State props
         threads={props.currentProject.threads}
+        // Functions
         loadProjectSubpage={props.loadProjectSubpage}
       />
     ) : props.subpage === "posts" ? (
-      <Posts posts={props.currentProject.posts} />
+      <Posts
+        // State props
+        posts={props.currentProject.posts}
+      />
     ) : props.subpage === "comments" ? (
       <Comments
+        // State props
         thread={props.currentProject.threads[props.currentThreadIndex]}
       />
     ) : (
-      <Tasks />
+      "404"
     )}
   </Col>
 );

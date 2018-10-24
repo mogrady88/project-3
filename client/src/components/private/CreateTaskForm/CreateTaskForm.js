@@ -9,7 +9,8 @@ const CreateTaskForm = props => (
         <input
           className="form-control"
           value={props.newTask.title}
-          onChange={props.handleCreateTaskInputChange}
+          onChange={props.handleInputChange}
+          data-context="createTask"
           name="title"
           placeholder="Title"
         />
@@ -18,7 +19,8 @@ const CreateTaskForm = props => (
         <textarea
           className="form-control"
           value={props.newTask.description}
-          onChange={props.handleCreateTaskInputChange}
+          onChange={props.handleInputChange}
+          data-context="createTask"
           name="description"
           placeholder="Description"
         />
@@ -27,7 +29,8 @@ const CreateTaskForm = props => (
         <input
           className="form-control"
           value={props.newTask.funds}
-          onChange={props.handleCreateTaskInputChange}
+          onChange={props.handleInputChange}
+          data-context="createTask"
           name="funds"
           placeholder="Funds"
         />

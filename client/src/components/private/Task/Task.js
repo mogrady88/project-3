@@ -11,7 +11,8 @@ const Task = props => (
           <input
             className="form-control"
             value={props.title}
-            onChange={props.handleEditTaskInputChange}
+            onChange={props.handleInputChange}
+            data-context="editTask"
             name="title"
             data-index={props.index}
             placeholder="Title"
@@ -21,7 +22,8 @@ const Task = props => (
           <textarea
             className="form-control"
             value={props.description}
-            onChange={props.handleEditTaskInputChange}
+            onChange={props.handleInputChange}
+            data-context="editTask"
             name="description"
             data-index={props.index}
             placeholder="Description"
@@ -31,7 +33,8 @@ const Task = props => (
           <input
             className="form-control"
             value={props.funds}
-            onChange={props.handleEditTaskInputChange}
+            onChange={props.handleInputChange}
+            data-context="editTask"
             name="funds"
             data-index={props.index}
             placeholder="Funds"
@@ -59,9 +62,10 @@ const Task = props => (
             <p>Funds: ${props.funds}</p>
             <button
               data-id={props.id}
-              name="task"
+              data-command="edit"
+              data-context="task"
               className="btn"
-              onClick={props.handleEdit}
+              onClick={props.handleCreateEditBtn}
             >
               Edit task
             </button>
