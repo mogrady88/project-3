@@ -40,12 +40,22 @@ userSchema.pre("save", function(next) {
 
 // Define hooks for pre-findOneAndUpdate
 userSchema.pre("findOneAndUpdate", function(next) {
+<<<<<<< HEAD
   console.log("PreFindONeAndUpdate this = " + this);
   // if (this.password) {
   // console.log("models/user.js hashPassword in pre findOneAndUpdate");
 
   // this.password = this.hashPassword(this.password);
   next();
+=======
+  console.log("This is the pre-findOneAndUpdate " + this.params);
+  // console.log("models/user.js hashPassword in pre findOneAndUpdate " + this.user.password);
+  next();
+  // if (this.password) {
+
+  //   this.password = this.hashPassword(this.password);
+    // next();
+>>>>>>> e44cbee4589992350df660c5c47e545e4d2b4ca9
   // }
 });
 
