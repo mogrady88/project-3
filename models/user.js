@@ -40,7 +40,7 @@ userSchema.pre("save", function(next) {
 
 // Define hooks for pre-findOneAndUpdate
 userSchema.pre("findOneAndUpdate", function(next) {
-  console.log("This is the pre-findOneAndUpdate " + this.);
+  // console.log("This is the pre-findOneAndUpdate " + this);
   // console.log("models/user.js hashPassword in pre findOneAndUpdate " + this.user.password);
   next();
   // if (this.password) {
