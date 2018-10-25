@@ -1,6 +1,7 @@
 import React from "react";
 import Row from "../../shared/grid/Row";
 import Col from "../../shared/grid/Col";
+import Moment from "../../shared/Moment";
 import "./ThreadCard.css";
 
 const ThreadCard = props => (
@@ -19,7 +20,9 @@ const ThreadCard = props => (
       <Col size="4">
         <h5>Last Message</h5>
         <p>{props.updatedBy}</p>
-        <p>{props.updatedAt}</p>
+        <p>
+          <Moment time={props.updatedAt} />
+        </p>
       </Col>
     </Row>
   </div>
