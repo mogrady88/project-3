@@ -112,6 +112,8 @@ class Login extends Component {
               lastName: response.data.lastName
             }
           });
+          // Setting session storage value to access on refresh
+          sessionStorage.setItem("disco-panda", response.data.id);
           console.log("Login.js Setting currentUser:", this.props.user);
           // update the state to redirect to private view
           this.setState({

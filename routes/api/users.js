@@ -12,9 +12,10 @@ router.route("/check").get(usersController.findAll);
 // Matches with "/api/users/current"
 router.route("/current").get((req, res, next) => {
   console.log("===== user!!======");
+  console.log("isAuthenticated???", req.isAuthenticated());
   console.log(req.user);
   if (req.user) {
-    res.json({ user: req.user });
+    res.json({ user: req.user, authenticated: req.isAuthenticated() });
   } else {
     res.json({ user: null });
   }
@@ -34,6 +35,7 @@ router.route("/login").post(
   (req, res) => {
     console.log("logged in", req.user);
     var userInfo = {
+      id: req.user.id,
       username: req.user.username,
       firstName: req.user.firstName,
       lastName: req.user.lastName

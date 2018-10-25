@@ -63,7 +63,7 @@ class App extends React.Component {
         console.log("Get user: no user");
         this.setState({
           loggedIn: false,
-          username: null
+          user: null
         });
       }
     });
@@ -75,6 +75,7 @@ class App extends React.Component {
 
   handleLogout(event) {
     event.preventDefault();
+    sessionStorage.removeItem("disco-panda");
     console.log("logging out");
     UsersAPI.logoutUser({ user: this.state.username })
       .then(response => {
