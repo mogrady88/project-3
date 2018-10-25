@@ -1,10 +1,10 @@
 import React from "react";
 import CommentCard from "../../../components/private/CommentCard";
-
+import "./Comments.css";
 const Comments = props => (
   <div>
     <h4>{props.thread.title}</h4>
-    <form>
+    <form className="privateComments">
       <div className="form-group">
         <textarea
           className="form-control"
