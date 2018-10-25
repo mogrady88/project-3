@@ -20,7 +20,11 @@ class App extends React.Component {
     super();
     this.state = {
       loggedIn: false,
-      username: null
+      user: {
+        username: "",
+        firstName: "",
+        lastName: ""
+      }
     };
 
     this.getUser = this.getUser.bind(this);
@@ -33,25 +37,25 @@ class App extends React.Component {
     this.getUser();
   }
 
-  async getUser() {
-    UsersAPI.getCurrentUser().then(async response => {
+  getUser() {
+    UsersAPI.getCurrentUser().then(response => {
       console.log("Get user response: ");
       console.log(response.data);
       if (response.data.user) {
         console.log("Get User: There is a user saved in the server session: ");
-        var loggingIn = await this.setState({
+        this.setState({
           loggedIn: true,
-          username: response.data.user.username
+          user: {
+            username: response.data.user.username,
+            firstName: response.data.user.firstName,
+            lastName: response.data.user.lastName
+          }
         });
-        window.loggedIn = true;
-
-        console.log("There is a user, setting loggedIn: ", window.loggedIn);
-        window.currentUser = this.state.username;
-        console.log("window.currentUser:", window.currentUser);
+        console.log("There is a user, setting loggedIn: ", this.state.loggedIn);
         if (this.state.loggedIn) {
           console.log(
-            `Current user is ${this.state.username}. LoggedIn is ${
-              window.loggedIn
+            `Current user is ${this.state.user.username}. LoggedIn is ${
+              this.state.loggedIn
             }. Redirecting to Private view.`
           );
         }
@@ -59,7 +63,7 @@ class App extends React.Component {
         console.log("Get user: no user");
         this.setState({
           loggedIn: false,
-          username: null
+          user: null
         });
       }
     });
@@ -71,6 +75,7 @@ class App extends React.Component {
 
   handleLogout(event) {
     event.preventDefault();
+    sessionStorage.removeItem("disco-panda");
     console.log("logging out");
     UsersAPI.logoutUser({ user: this.state.username })
       .then(response => {
@@ -80,7 +85,6 @@ class App extends React.Component {
             loggedIn: false,
             username: null
           });
-          window.currentUser = this.state.username;
         }
       })
       .catch(error => {
@@ -104,9 +108,10 @@ class App extends React.Component {
             <PrivateRoute
               path="/private"
               component={PrivateMaster}
-              getUser={this.getUser}
               loggedIn={this.state.loggedIn}
               handleLogout={this.handleLogout}
+              getUser={this.getUser}
+              user={this.state.user}
             />
             <Route path="/posts/:id" component={PostDetail} />
             <Route exact path="/test" component={TestCRUD} />

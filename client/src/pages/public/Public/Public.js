@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import API from "../../../utils/postsAPI";
+import Jumbo from "../../../components/public/Jumbo";
 import Nav from "../../../components/shared/Nav";
 import PostCard from "../../../components/public/PostCard";
 import Row from "../../../components/shared/grid/Row";
 import Col from "../../../components/shared/grid/Col";
+import "./Public.css";
 
 class Public extends Component {
   state = {
@@ -34,6 +36,7 @@ class Public extends Component {
         <div className="container">
           <Row>
             <Col size="12" className="grid1">
+              <Jumbo />
               {this.state.posts.map(post => (
                 <PostCard {...post} isPublic={true} />
               ))}

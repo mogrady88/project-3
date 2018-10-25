@@ -2,35 +2,56 @@ import React from "react";
 import Row from "../../../components/shared/grid/Row";
 import Col from "../../../components/shared/grid/Col";
 import Task from "../../../components/private/Task";
-import Select from "react-select";
+import CreateTaskForm from "../../../components/private/CreateTaskForm";
 import "./Tasks.css";
-
-const options = [
-  { value: "all", label: "All" },
-  { value: "complete", label: "Complete" },
-  { value: "incomplete", label: "Incomplete" },
-  { value: "assigned", label: "Assigned" },
-  { value: "unassigned", label: "Unassigned" }
-];
 
 const Tasks = props => (
   <div>
     <Row>
       <Col size="4">
-        <Select options={options} />
-      </Col>
-      <Col size="4">
-        <a className="btn">Create Task</a>
+        <a
+          className="btn"
+          data-command="create"
+          data-context="task"
+          onClick={props.handleCreateEditBtn}
+        >
+          Create Task
+        </a>
       </Col>
     </Row>
-    {props.tasks.map(task => (
-      <Task
-        title={task.title}
-        summary={task.description}
-        status={task.isComplete ? "Complete" : "Incomplete"}
-        funds={task.funds}
+    {props.createTask ? (
+      <CreateTaskForm
+        newTask={props.newTask} //object
+        //Functions
+        handleInputChange={props.handleInputChange}
+        handleCreateTaskFormSubmit={props.handleCreateTaskFormSubmit}
       />
-    ))}
+    ) : (
+      <div>
+        {props.tasks
+          .slice(0)
+          .reverse() // display new tasks at top
+          .map((task, index) => (
+            <Task
+              // task data
+              index={index}
+              id={task._id}
+              key={task._id}
+              title={task.title}
+              description={task.description}
+              status={task.isComplete ? "Complete" : "Incomplete"}
+              funds={task.funds}
+              // props
+              editTask={props.editTask} //bool
+              targetTask={props.targetTask} //id string
+              // functions
+              handleCreateEditBtn={props.handleCreateEditBtn}
+              handleInputChange={props.handleInputChange} //form
+              handleEditTaskFormSubmit={props.handleEditTaskFormSubmit} //form
+            />
+          ))}
+      </div>
+    )}
   </div>
 );
 

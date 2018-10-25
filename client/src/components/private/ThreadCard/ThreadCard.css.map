@@ -1,6 +1,6 @@
 {
     "version": 3,
-    "mappings": "",
+    "mappings": "AAEA,AAAA,MAAM,CAAC;EACL,KAAK,EAAE,KAAK;EACZ,MAAM,EAAE,GAAG,CAAC,KAAK,CCDV,OAAO;EDEd,gBAAgB,ECJT,OAAO;EDKd,OAAO,EAAE,IAAI;EACb,aAAa,EAAE,GAAG;CACnB",
     "sources": [
         "ThreadCard.scss",
         "../../../utils/_variables.scss"

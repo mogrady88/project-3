@@ -9,6 +9,9 @@ const Users = props => (
       "View Users"
     ) : props.subpage === "add" ? (
       <AddUser
+        newFirstName={props.newFirstName}
+        newLastName={props.newLastName}
+        newEmail={props.newEmail}
         newUsername={props.newUsername}
         newPassword={props.newPassword}
         handleInputChange={props.handleInputChange}

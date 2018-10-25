@@ -33,6 +33,7 @@ module.exports = {
           error: `Sorry, already a user with the username: ${req.body.username}`
         });
       } else {
+        console.log("Creating user");
         db.User.create(req.body)
           .then(dbModel => res.json(dbModel))
           .catch(err => res.status(422).json(err));
@@ -40,6 +41,7 @@ module.exports = {
     });
   },
   update: function(req, res) {
+    console.log("controller");
     db.User.findOneAndUpdate({ _id: req.params.id }, req.body)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));

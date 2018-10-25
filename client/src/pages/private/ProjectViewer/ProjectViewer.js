@@ -5,29 +5,56 @@ import Tasks from "../Tasks";
 import Threads from "../Threads";
 import Posts from "../Posts";
 import Comments from "../Comments";
+import CreateProjectForm from "../CreateProjectForm";
 import "./ProjectViewer.css";
 
 const ProjectContainer = props => (
   <Col size="9" otherclasses="projectMeta">
-    <Row>
-      <Col size="8" otherclasses="projectMetaLeft">
-        <h5>
-          <strong>{props.currentProject.title}</strong>
-        </h5>
-        <p>{props.currentProject.summary}</p>
-      </Col>
-      <Col size="4" otherclasses="projectMetaRight">
-        <p>Funds: ${props.currentProject.funds}</p>
-        <p>Used Funds: ${props.currentProject.usedFunds}</p>
-        <p>
-          Available Funds: $
-          {props.currentProject.funds - props.currentProject.usedFunds}
-        </p>
-      </Col>
-    </Row>
+    {props.editProject ? (
+      <Row>
+        <Col size="12">
+          <CreateProjectForm
+            currentProject={props.currentProject}
+            handleInputChange={props.handleInputChange}
+            handleEditProjectFormSubmit={props.handleEditProjectFormSubmit}
+            editProject={props.editProject}
+          />
+        </Col>
+      </Row>
+    ) : (
+      <Row>
+        <Col size="8" otherclasses="projectMetaLeft">
+          <h5>
+            <strong>{props.currentProject.title}</strong>
+          </h5>
+          <div className="statusDiv">
+            <p>Status: {props.currentProject.status}</p>
+          </div>
+          <div className="summaryDiv">
+            <p>Project Description: {props.currentProject.summary}</p>
+          </div>
+          <button
+            data-command="edit"
+            data-context="project"
+            onClick={props.handleCreateEditBtn}
+          >
+            Edit Project
+          </button>
+        </Col>
+        <Col size="4" otherclasses="projectMetaRight">
+          <p>Funds: ${props.currentProject.funds}</p>
+          <p>Used Funds: ${props.currentProject.usedFunds}</p>
+          <p>
+            Available Funds: $
+            {props.currentProject.funds - props.currentProject.usedFunds}
+          </p>
+        </Col>
+      </Row>
+    )}
+
     <nav id="projectNav">
       <div>
-        <ul id="nav-mobile" class="hide-on-med-and-down">
+        <ul id="nav-mobile" className="hide-on-med-and-down">
           <li>
             <a onClick={() => props.loadProjectSubpage("tasks", 0)}>Tasks</a>
           </li>
@@ -44,31 +71,49 @@ const ProjectContainer = props => (
     </nav>
     <br />
     {props.subpage === "tasks" ? (
-      <Tasks tasks={props.currentProject.tasks} />
+      <Tasks
+        // State props
+        tasks={props.currentProject.tasks} //array
+        newTask={props.newTask} //object
+        targetTask={props.targetTask} //id string
+        createTask={props.createTask} //bool
+        editTask={props.editTask} //bool
+        // Functions
+        handleCreateEditBtn={props.handleCreateEditBtn} //button
+        handleInputChange={props.handleInputChange} //form
+        handleCreateTaskFormSubmit={props.handleCreateTaskFormSubmit} //form
+        handleEditTaskFormSubmit={props.handleEditTaskFormSubmit} //form
+      />
     ) : props.subpage === "threads" ? (
       <Threads
-        threads={props.currentProject.threads}
+        // State props
+        threads={props.currentProject.threads} //array
+        newThread={props.newThread} //object
+        createThread={props.createThread} //bool
+        editThread={props.editThread} //bool
+        // Functions
         loadProjectSubpage={props.loadProjectSubpage}
+        handleCreateEditBtn={props.handleCreateEditBtn} //button
+        handleInputChange={props.handleInputChange} //form
+        handleCreateThreadFormSubmit={props.handleCreateThreadFormSubmit} //form
       />
     ) : props.subpage === "posts" ? (
-      <Posts posts={props.currentProject.posts} />
-    ) : props.subpage === "comments" ? (
-      <Comments
-        thread={props.currentProject.threads[props.currentThreadIndex]}
-      />
-    ) : (
-      <Tasks />
-    )}
-    {/* <Switch>
-      <Route exact path={`/private/tasks`} component={Tasks} />
-      <Route exact path={`/private/threads`} component={Threads} />
-      <Route
-        exact
-        path={`/private/posts`}
-        component={Posts}
+      <Posts
+        // State props
         posts={props.currentProject.posts}
       />
-    </Switch> */}
+    ) : props.subpage === "comments" ? (
+      <Comments
+        // State props
+        thread={props.currentProject.threads[props.currentThreadIndex]} //object
+        newComment={props.newComment} //object
+        // Functions
+        handleInputChange={props.handleInputChange} //form
+        handleCreateCommentFormSubmit={props.handleCreateCommentFormSubmit} //form
+      />
+    ) : (
+      "404"
+    )}
   </Col>
 );
 
