@@ -75,6 +75,7 @@ class App extends React.Component {
 
   handleLogout(event) {
     event.preventDefault();
+    // Remove user session
     sessionStorage.removeItem("disco-panda");
     console.log("logging out");
     UsersAPI.logoutUser({ user: this.state.username })
