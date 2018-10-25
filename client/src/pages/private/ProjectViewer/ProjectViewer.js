@@ -79,17 +79,23 @@ const ProjectContainer = props => (
         createTask={props.createTask} //bool
         editTask={props.editTask} //bool
         // Functions
-        handleCreateEditBtn={props.handleCreateEditBtn}
-        handleInputChange={props.handleInputChange}
-        handleCreateTaskFormSubmit={props.handleCreateTaskFormSubmit}
-        handleEditTaskFormSubmit={props.handleEditTaskFormSubmit}
+        handleCreateEditBtn={props.handleCreateEditBtn} //button
+        handleInputChange={props.handleInputChange} //form
+        handleCreateTaskFormSubmit={props.handleCreateTaskFormSubmit} //form
+        handleEditTaskFormSubmit={props.handleEditTaskFormSubmit} //form
       />
     ) : props.subpage === "threads" ? (
       <Threads
         // State props
-        threads={props.currentProject.threads}
+        threads={props.currentProject.threads} //array
+        newThread={props.newThread} //object
+        createThread={props.createThread} //bool
+        editThread={props.editThread} //bool
         // Functions
         loadProjectSubpage={props.loadProjectSubpage}
+        handleCreateEditBtn={props.handleCreateEditBtn} //button
+        handleInputChange={props.handleInputChange} //form
+        handleCreateThreadFormSubmit={props.handleCreateThreadFormSubmit} //form
       />
     ) : props.subpage === "posts" ? (
       <Posts
@@ -99,7 +105,11 @@ const ProjectContainer = props => (
     ) : props.subpage === "comments" ? (
       <Comments
         // State props
-        thread={props.currentProject.threads[props.currentThreadIndex]}
+        thread={props.currentProject.threads[props.currentThreadIndex]} //object
+        newComment={props.newComment} //object
+        // Functions
+        handleInputChange={props.handleInputChange} //form
+        handleCreateCommentFormSubmit={props.handleCreateCommentFormSubmit} //form
       />
     ) : (
       "404"

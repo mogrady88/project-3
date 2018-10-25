@@ -11,8 +11,11 @@ import Projects from "../Projects";
 import UsersAPI from "../../../utils/usersAPI";
 import ProjectsAPI from "../../../utils/projectsAPI";
 import TasksAPI from "../../../utils/tasksAPI";
+import ThreadsAPI from "../../../utils/threadsAPI";
+import CommentsAPI from "../../../utils/commentsAPI";
 // CSS Imports
 import "./PrivateMaster.css";
+import { runInThisContext } from "vm";
 
 class PrivateMaster extends Component {
   constructor() {
@@ -54,6 +57,13 @@ class PrivateMaster extends Component {
           title: "",
           description: "",
           funds: ""
+        },
+        newThread: {
+          title: "",
+          comment: ""
+        },
+        newComment: {
+          comment: ""
         }
       },
       targetEdits: {
@@ -168,6 +178,7 @@ class PrivateMaster extends Component {
   };
 
   loadCurrentProject = id => {
+    const oldId = this.state.currentProject._id;
     ProjectsAPI.getProject(id)
       .then(res => {
         this.setState({
@@ -190,10 +201,17 @@ class PrivateMaster extends Component {
           metadata: {
             ...this.state.metadata,
             projectIsLoaded: true,
-            projectSubpage: "tasks",
             currentThreadIndex: 0
           }
         });
+        if (oldId !== this.state.currentProject._id) {
+          this.setState({
+            metadata: {
+              ...this.state.metadata,
+              projectSubpage: "tasks"
+            }
+          });
+        }
       })
       .catch(err => console.log(err));
   };
@@ -228,6 +246,14 @@ class PrivateMaster extends Component {
               metadata: {
                 ...this.state.metadata,
                 createTask: true
+              }
+            });
+            break;
+          case "thread":
+            this.setState({
+              metadata: {
+                ...this.state.metadata,
+                createThread: true
               }
             });
             break;
@@ -285,16 +311,40 @@ class PrivateMaster extends Component {
           }
         });
         this.setState({
-          newTask: {
-            title: "",
-            description: "",
-            funds: ""
+          newData: {
+            ...this.state.newData,
+            newTask: {
+              ...this.state.newData.newTask,
+              title: "",
+              description: "",
+              funds: ""
+            }
           }
         });
         this.setState({
           targetEdits: {
             ...this.state.targetEdits,
             task: ""
+          }
+        });
+        break;
+      case "thread":
+        console.log("hit closeCreateEdit");
+        this.setState({
+          metadata: {
+            ...this.state.metadata,
+            createThread: false,
+            editThread: false
+          }
+        });
+        this.setState({
+          newData: {
+            ...this.state.newData,
+            newThread: {
+              ...this.state.newData.newThread,
+              title: "",
+              comment: ""
+            }
           }
         });
         break;
@@ -346,6 +396,28 @@ class PrivateMaster extends Component {
           currentProject: {
             ...this.state.currentProject,
             tasks: tasks
+          }
+        });
+        break;
+      case "createThread":
+        this.setState({
+          newData: {
+            ...this.state.newData,
+            newThread: {
+              ...this.state.newData.newThread,
+              [name]: value
+            }
+          }
+        });
+        break;
+      case "createComment":
+        this.setState({
+          newData: {
+            ...this.state.newData,
+            newComment: {
+              ...this.state.newData.newComment,
+              [name]: value
+            }
           }
         });
         break;
@@ -463,6 +535,62 @@ class PrivateMaster extends Component {
     }
   };
 
+  handleCreateThreadFormSubmit = event => {
+    event.preventDefault();
+    if (
+      this.state.newData.newThread.title &&
+      this.state.newData.newThread.comment
+    ) {
+      ThreadsAPI.saveThread([
+        {
+          title: this.state.newData.newThread.title,
+          author: this.props.user.firstName + " " + this.props.user.lastName
+        },
+        {
+          text: this.state.newData.newThread.comment,
+          author: this.props.user.firstName + " " + this.props.user.lastName
+        },
+        {
+          project: this.state.currentProject._id
+        }
+      ])
+        .then(res => {
+          this.loadProjects();
+          this.loadCurrentProject(this.state.currentProject._id);
+          this.closeCreateEdit("thread");
+        })
+        .catch(err => console.log(err));
+    }
+  };
+
+  handleCreateCommentFormSubmit = event => {
+    event.preventDefault();
+    let parentid = event.target.getAttribute("data-parentid");
+
+    console.log("parent id: " + parentid);
+    console.log("text: " + this.state.newData.newComment.comment);
+    console.log(
+      "author: " + this.props.user.firstName + " " + this.props.user.lastName
+    );
+
+    if (this.state.newData.newComment.comment) {
+      CommentsAPI.saveComment([
+        {
+          text: this.state.newData.newComment.comment,
+          author: this.props.user.firstName + " " + this.props.user.lastName
+        },
+        {
+          thread: parentid
+        }
+      ])
+        .then(res => {
+          this.loadProjects();
+          this.loadCurrentProject(this.state.currentProject._id);
+        })
+        .catch(err => console.log(err));
+    }
+  };
+
   handleSignUp(event) {
     event.preventDefault();
     console.log("handleSignUp");
@@ -555,6 +683,8 @@ class PrivateMaster extends Component {
               handleEditProjectFormSubmit={this.handleEditProjectFormSubmit}
               handleCreateTaskFormSubmit={this.handleCreateTaskFormSubmit}
               handleEditTaskFormSubmit={this.handleEditTaskFormSubmit}
+              handleCreateThreadFormSubmit={this.handleCreateThreadFormSubmit}
+              handleCreateCommentFormSubmit={this.handleCreateCommentFormSubmit}
             />
           ) : (
             "404"
