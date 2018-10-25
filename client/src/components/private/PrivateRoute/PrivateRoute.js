@@ -6,17 +6,23 @@ const PrivateRoute = ({
   path: url,
   loggedIn,
   handleLogout,
-  user
+  user,
+  getUser
 }) => {
-  // const loggedIn = this.props.loggedIn; // user is/is not authenticated
+  let session = sessionStorage.getItem("disco-panda");
+  console.log("PrivateRoute.js session: " + session);
   console.log("PrivateRoute.js says loggedIn is " + loggedIn);
-
   return (
     <Route
       path={url}
       render={props =>
-        loggedIn === true ? (
-          <Component handleLogout={handleLogout} user={user} {...props} />
+        session ? (
+          <Component
+            handleLogout={handleLogout}
+            user={user}
+            getUser={getUser}
+            {...props}
+          />
         ) : (
           <Redirect to="/login" />
         )
