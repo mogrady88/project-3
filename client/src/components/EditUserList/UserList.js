@@ -21,13 +21,15 @@ constructor(props){
     }
 
     updateUserInfo(id, data){
+        console.log("updateuser");
         UsersAPI.updateUser(id, data)
         .then(res => 
-            console.log(res.data)
+            console.log("update user response " + JSON.stringify(res.data))
         )
     }
 
     onClick = (event) => {
+        console.log("onclick");
         event.preventDefault();
         this.updateUserInfo(event.target.value, this.state.user);
     }
@@ -42,6 +44,12 @@ constructor(props){
             }   
         })
     }
+
+    // onDisable = (event) => {
+    //     event.preventDefault();
+    //     this.setState({ user})
+    //     this.updateUserInfo(event.target.value, this.state.use)
+    // }
 
 render() {
     return(
@@ -69,7 +77,7 @@ render() {
         </Col>
         <Col s={1}>
             <label for="disable">Active</label>
-            <input type="text" class="form-control" name="disable" value={this.state.user.isActive} />
+            <input type="radio" class="form-control" name="disable" value={this.state.user.isActive} />Active
         </Col> 
     </Row>
     <Row>
