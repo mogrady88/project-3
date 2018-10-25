@@ -1,8 +1,17 @@
 import React from "react";
+import Row from "../../../components/shared/grid/Row";
+import Col from "../../../components/shared/grid/Col";
 import ThreadCard from "../../../components/private/ThreadCard";
 
 const Threads = props => (
   <div>
+    <Row>
+      <Col size="4">
+        <a className="btn" name="task" onClick={props.handleCreate}>
+          Start New Thread
+        </a>
+      </Col>
+    </Row>
     {props.threads.map((thread, index) => (
       <ThreadCard
         index={index}

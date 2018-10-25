@@ -9,7 +9,8 @@ const CreateProjectForm = props => (
         <input
           className="form-control"
           value={props.currentProject.title}
-          onChange={props.handleProjectInputChange}
+          onChange={props.handleInputChange}
+          data-context="project"
           name="title"
           placeholder="Title (required)"
         />
@@ -18,7 +19,8 @@ const CreateProjectForm = props => (
         <input
           className="form-control"
           value={props.currentProject.status}
-          onChange={props.handleProjectInputChange}
+          onChange={props.handleInputChange}
+          data-context="project"
           name="status"
           placeholder="Status (required)"
         />
@@ -27,7 +29,8 @@ const CreateProjectForm = props => (
         <textarea
           className="form-control"
           value={props.currentProject.summary}
-          onChange={props.handleProjectInputChange}
+          onChange={props.handleInputChange}
+          data-context="project"
           name="summary"
           placeholder="Summary (Optional)"
         />
@@ -36,7 +39,8 @@ const CreateProjectForm = props => (
         <input
           className="form-control"
           value={props.currentProject.funds}
-          onChange={props.handleProjectInputChange}
+          onChange={props.handleInputChange}
+          data-context="project"
           name="funds"
           placeholder="Funds (optional)"
         />
