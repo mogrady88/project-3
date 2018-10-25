@@ -14,6 +14,7 @@ import EditUser from "./pages/temp/EditUser";
 import PrivateRoute from "./components/private/PrivateRoute";
 // Import API
 import UsersAPI from "./utils/usersAPI";
+import PostForm from "./components/PostForm"
 
 class App extends React.Component {
   constructor() {
@@ -117,6 +118,7 @@ class App extends React.Component {
             <Route exact path="/test" component={TestCRUD} />
             <Route exact path="/edit" component={EditCRUD} />
             <Route exact path="/edit-user" component={EditUser} />
+            <Route exact path="/testPost" component={PostForm} />
             <Route component={NoMatch} />
           </Switch>
         </Router>
