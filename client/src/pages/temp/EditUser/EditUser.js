@@ -6,18 +6,16 @@ import Nav from "../../../components/shared/Nav";
 import axios from "axios";
 import UsersAPI from "../../../utils/usersAPI";
 import UserList from "../../../components/EditUserList/UserList";
-// import "./Login.css";
 
 class ViewUsers extends Component {
 
 state = {
         users: [],
         user: {
-            id: "",
             username: "",
             password: "",
-            firstname: "",
-            lastname: "",
+            firstName: "",
+            lastName: "",
             email: ""
         }
 }
@@ -40,7 +38,6 @@ loadUsers(){
 
 
 updateUserInfo(id, data){
-  console.log(id);
     UsersAPI.updateUser(id, data)
     .then(res => 
         console.log(res.data)
@@ -65,16 +62,12 @@ handleOnChange = (event) => {
 }
 
     handleOnClick = (event) => {
+        console.log(event.target);
         event.preventDefault();
         const userID = event.target.value;
-        // console.log(userID);
-        this.setState({
-            user: {
-                id: userID
-            }
-        })
-        
-        this.updateUserInfo(this.state.user.id, this.state.user);
+        console.log(userID);
+        this.updateUserInfo(userID, this.state.user);
+  
     };
 
 
