@@ -26,6 +26,8 @@ const Projects = props => (
         editComment={props.metadata.editComment} //bool
         // Unpacked newData
         newTask={props.newData.newTask} //object
+        newThread={props.newData.newThread} //object
+        newComment={props.newData.newComment} //object
         // Unpacked targetEdits
         targetTask={props.targetEdits.task} //id string
         // Functions
@@ -35,6 +37,8 @@ const Projects = props => (
         handleEditProjectFormSubmit={props.handleEditProjectFormSubmit} //form
         handleCreateTaskFormSubmit={props.handleCreateTaskFormSubmit} //form
         handleEditTaskFormSubmit={props.handleEditTaskFormSubmit} //form
+        handleCreateThreadFormSubmit={props.handleCreateThreadFormSubmit} //form
+        handleCreateCommentFormSubmit={props.handleCreateCommentFormSubmit} //form
       />
     ) : (
       <CreateProjectForm
