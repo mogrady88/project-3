@@ -12,7 +12,7 @@ const userSchema = new Schema({
   firstName: { type: String, required: false, default: null },
   lastName: { type: String, required: false, default: null },
   title: { type: String, required: false, default: null },
-  isActive: {type: Boolean, default: true }
+  isActive: { type: Boolean, default: true }
 });
 
 // Define schema methods
@@ -36,6 +36,17 @@ userSchema.pre("save", function(next) {
     this.password = this.hashPassword(this.password);
     next();
   }
+});
+
+// Define hooks for pre-findOneAndUpdate
+userSchema.pre("findOneAndUpdate", function(next) {
+  console.log("PreFindONeAndUpdate this = " + this);
+  // if (this.password) {
+  // console.log("models/user.js hashPassword in pre findOneAndUpdate");
+
+  // this.password = this.hashPassword(this.password);
+  next();
+  // }
 });
 
 const User = mongoose.model("User", userSchema);
