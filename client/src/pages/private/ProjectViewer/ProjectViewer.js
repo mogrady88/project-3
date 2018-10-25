@@ -34,6 +34,7 @@ const ProjectContainer = props => (
             <p>Project Description: {props.currentProject.summary}</p>
           </div>
           <button
+            className="btn"
             data-command="edit"
             data-context="project"
             onClick={props.handleCreateEditBtn}

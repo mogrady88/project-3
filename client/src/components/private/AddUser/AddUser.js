@@ -1,9 +1,11 @@
 import React from "react";
 import Col from "../../shared/grid/Col";
+import "./AddUser.css";
 
 const AddUser = props => (
-  <Col size="9">
-    <form>
+  <Col size="6">
+    <form className="addUserForm">
+      <h3>Add User</h3>
       <label htmlFor="firstName">First Name:</label>
       <input
         type="text"
@@ -55,6 +57,7 @@ const AddUser = props => (
         onChange={props.handleInputChange}
       />
       <button
+        className="btn"
         disabled={
           !(
             props.newFirstName &&
