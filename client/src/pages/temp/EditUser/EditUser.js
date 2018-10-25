@@ -74,7 +74,6 @@ handleOnChange = (event) => {
     render(){
         return(
             <div className="container">
-            <Nav isPublic={true} />
             <Row>
                 <h4>Users</h4>
                 <div>
