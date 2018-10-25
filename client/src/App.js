@@ -20,7 +20,11 @@ class App extends React.Component {
     super();
     this.state = {
       loggedIn: false,
-      username: null
+      user: {
+        username: "",
+        firstName: "",
+        lastName: ""
+      }
     };
 
     this.getUser = this.getUser.bind(this);
@@ -41,12 +45,16 @@ class App extends React.Component {
         console.log("Get User: There is a user saved in the server session: ");
         this.setState({
           loggedIn: true,
-          username: response.data.user.username
+          user: {
+            username: response.data.user.username,
+            firstName: response.data.user.firstName,
+            lastName: response.data.user.lastName
+          }
         });
         console.log("There is a user, setting loggedIn: ", this.state.loggedIn);
         if (this.state.loggedIn) {
           console.log(
-            `Current user is ${this.state.username}. LoggedIn is ${
+            `Current user is ${this.state.user.username}. LoggedIn is ${
               this.state.loggedIn
             }. Redirecting to Private view.`
           );
@@ -55,7 +63,7 @@ class App extends React.Component {
         console.log("Get user: no user");
         this.setState({
           loggedIn: false,
-          username: null
+          user: null
         });
       }
     });
@@ -67,6 +75,7 @@ class App extends React.Component {
 
   handleLogout(event) {
     event.preventDefault();
+    sessionStorage.removeItem("disco-panda");
     console.log("logging out");
     UsersAPI.logoutUser({ user: this.state.username })
       .then(response => {
@@ -99,10 +108,10 @@ class App extends React.Component {
             <PrivateRoute
               path="/private"
               component={PrivateMaster}
-              getUser={this.getUser}
               loggedIn={this.state.loggedIn}
               handleLogout={this.handleLogout}
-              user={this.state.username}
+              getUser={this.getUser}
+              user={this.state.user}
             />
             <Route path="/posts/:id" component={PostDetail} />
             <Route exact path="/test" component={TestCRUD} />

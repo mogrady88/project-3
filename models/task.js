@@ -7,12 +7,6 @@ const taskSchema = new Schema({
   description: { type: String, required: false },
   funds: { type: Number, required: false },
   isComplete: { type: Boolean, default: false, required: true }
-  // assignedTo: [
-  //   {
-  //     user: Schema.Types.ObjectId,
-  //     ref: "User"
-  //   }
-  // ]
 });
 
 const Task = mongoose.model("Task", taskSchema);
