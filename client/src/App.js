@@ -54,7 +54,7 @@ class App extends React.Component {
         console.log("There is a user, setting loggedIn: ", this.state.loggedIn);
         if (this.state.loggedIn) {
           console.log(
-            `Current user is ${this.state.username}. LoggedIn is ${
+            `Current user is ${this.state.user.username}. LoggedIn is ${
               this.state.loggedIn
             }. Redirecting to Private view.`
           );
@@ -63,7 +63,7 @@ class App extends React.Component {
         console.log("Get user: no user");
         this.setState({
           loggedIn: false,
-          username: null
+          user: null
         });
       }
     });
@@ -75,6 +75,7 @@ class App extends React.Component {
 
   handleLogout(event) {
     event.preventDefault();
+    sessionStorage.removeItem("disco-panda");
     console.log("logging out");
     UsersAPI.logoutUser({ user: this.state.username })
       .then(response => {
@@ -109,6 +110,7 @@ class App extends React.Component {
               component={PrivateMaster}
               loggedIn={this.state.loggedIn}
               handleLogout={this.handleLogout}
+              getUser={this.getUser}
               user={this.state.user}
             />
             <Route path="/posts/:id" component={PostDetail} />
