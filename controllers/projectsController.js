@@ -12,9 +12,11 @@ module.exports = {
       .populate("tasks")
       .populate({
         path: "threads",
+        options: { sort: { updatedAt: -1 } },
         populate: {
           path: "comments",
-          model: "Comment"
+          model: "Comment",
+          options: { sort: { createdAt: -1 } }
         }
       })
       .populate("posts")

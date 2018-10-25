@@ -22,7 +22,7 @@ const Comments = props => (
         style={{ float: "right", marginBottom: 10 }}
         className="btn btn-success"
       >
-        Submit Thread
+        Submit Comment
       </button>
     </form>
     {props.thread.comments.map(comment => (

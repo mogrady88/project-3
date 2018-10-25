@@ -200,15 +200,15 @@ class PrivateMaster extends Component {
         this.setState({
           metadata: {
             ...this.state.metadata,
-            projectIsLoaded: true
+            projectIsLoaded: true,
+            currentThreadIndex: 0
           }
         });
         if (oldId !== this.state.currentProject._id) {
           this.setState({
             metadata: {
               ...this.state.metadata,
-              projectSubpage: "tasks",
-              currentThreadIndex: 0
+              projectSubpage: "tasks"
             }
           });
         }

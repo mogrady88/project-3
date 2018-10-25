@@ -28,25 +28,19 @@ const Threads = props => (
       />
     ) : (
       <div>
-        {props.threads
-          .sort((a, b) => {
-            let dateA = a.comments[a.comments.length - 1].createdAt;
-            let dateB = b.comments[b.comments.length - 1].createdAt;
-            return dateA - dateB;
-          })
-          .map((thread, index) => (
-            <ThreadCard
-              index={index}
-              key={thread._id}
-              id={thread._id}
-              title={thread.title}
-              author={thread.author}
-              replies={thread.comments.length}
-              updatedBy={thread.comments[thread.comments.length - 1].author}
-              updatedAt={thread.comments[thread.comments.length - 1].createdAt}
-              loadProjectSubpage={props.loadProjectSubpage}
-            />
-          ))}
+        {props.threads.map((thread, index) => (
+          <ThreadCard
+            index={index}
+            key={thread._id}
+            id={thread._id}
+            title={thread.title}
+            author={thread.author}
+            replies={thread.comments.length}
+            updatedBy={thread.comments[thread.comments.length - 1].author}
+            updatedAt={thread.comments[thread.comments.length - 1].createdAt}
+            loadProjectSubpage={props.loadProjectSubpage}
+          />
+        ))}
       </div>
     )}
   </div>

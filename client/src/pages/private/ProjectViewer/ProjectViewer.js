@@ -105,13 +105,7 @@ const ProjectContainer = props => (
     ) : props.subpage === "comments" ? (
       <Comments
         // State props
-        thread={
-          props.currentProject.threads.sort((a, b) => {
-            let dateA = a.comments[a.comments.length - 1].createdAt;
-            let dateB = b.comments[b.comments.length - 1].createdAt;
-            return dateA - dateB;
-          })[props.currentThreadIndex] //Index of thread in array sorted by last comment createdAt
-        }
+        thread={props.currentProject.threads[props.currentThreadIndex]} //object
         newComment={props.newComment} //object
         // Functions
         handleInputChange={props.handleInputChange} //form
