@@ -117,7 +117,7 @@ class App extends React.Component {
             <Route path="/posts/:id" component={PostDetail} />
             <Route exact path="/test" component={TestCRUD} />
             <Route exact path="/edit" component={EditCRUD} />
-            <Route exact path="/edit-user" component={EditUser} />
+            <Route exact path="/users" component={EditUser} />
             <Route component={NoMatch} />
           </Switch>
         </Router>
