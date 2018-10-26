@@ -27,6 +27,7 @@ userSchema.methods = {
 
 // Define hooks for pre-saving
 userSchema.pre("save", function(next) {
+  console.log("presave this = " + this);
   if (!this.password) {
     console.log("models/user.js =======NO PASSWORD PROVIDED=======");
     next();
@@ -36,27 +37,6 @@ userSchema.pre("save", function(next) {
     this.password = this.hashPassword(this.password);
     next();
   }
-});
-
-// Define hooks for pre-findOneAndUpdate
-userSchema.pre("findOneAndUpdate", function(next) {
-<<<<<<< HEAD
-  console.log("PreFindONeAndUpdate this = " + this);
-  // if (this.password) {
-  // console.log("models/user.js hashPassword in pre findOneAndUpdate");
-
-  // this.password = this.hashPassword(this.password);
-  next();
-=======
-  console.log("This is the pre-findOneAndUpdate " + this.params);
-  // console.log("models/user.js hashPassword in pre findOneAndUpdate " + this.user.password);
-  next();
-  // if (this.password) {
-
-  //   this.password = this.hashPassword(this.password);
-    // next();
->>>>>>> e44cbee4589992350df660c5c47e545e4d2b4ca9
-  // }
 });
 
 const User = mongoose.model("User", userSchema);

@@ -1,4 +1,5 @@
 const db = require("../models");
+const bcrypt = require("bcryptjs");
 
 module.exports = {
   findAll: function(req, res) {
@@ -41,7 +42,9 @@ module.exports = {
     });
   },
   update: function(req, res) {
-    console.log("password" + req.body.password);
+    // Hashes password before updating db
+    req.body.password = bcrypt.hashSync(req.body.password, 10);
+    // updates with hashed password
     db.User.findOneAndUpdate({ _id: req.params.id }, req.body)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
