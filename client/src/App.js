@@ -15,6 +15,7 @@ import AboutUs from "./pages/temp/AboutUs";
 import PrivateRoute from "./components/private/PrivateRoute";
 // Import API
 import UsersAPI from "./utils/usersAPI";
+import PostForm from "./components/PostForm"
 
 class App extends React.Component {
   constructor() {
@@ -76,6 +77,7 @@ class App extends React.Component {
 
   handleLogout(event) {
     event.preventDefault();
+    // Remove user session
     sessionStorage.removeItem("disco-panda");
     console.log("logging out");
     UsersAPI.logoutUser({ user: this.state.username })
@@ -117,6 +119,7 @@ class App extends React.Component {
             <Route path="/posts/:id" component={PostDetail} />
             <Route exact path="/test" component={TestCRUD} />
             <Route exact path="/edit" component={EditCRUD} />
+            <Route exact path="/edit-user" component={EditUser} />
             <Route exact path="/users" component={EditUser} />
             <Route exact path="/about" component={AboutUs} />
             <Route component={NoMatch} />

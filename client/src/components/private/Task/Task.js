@@ -41,6 +41,13 @@ const Task = props => (
           />
         </div>
         <button
+          data-context="task"
+          data-isedit={true}
+          onClick={props.callCloseCreateEdit}
+        >
+          Cancel
+        </button>
+        <button
           disabled={!(props.title && props.description && props.funds)}
           onClick={props.handleEditTaskFormSubmit}
           data-index={props.index}
