@@ -42,12 +42,30 @@ module.exports = {
     });
   },
   update: function(req, res) {
-    // Hashes password before updating db
-    req.body.password = bcrypt.hashSync(req.body.password, 10);
-    // updates with hashed password
-    db.User.findOneAndUpdate({ _id: req.params.id }, req.body)
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+    console.log("req.params.id " + req.params.id);
+    // ADD VALIDATION
+    db.User.findOne(
+      { username: req.body.username, _id: { $ne: req.params.id } },
+      (err, user) => {
+        if (err) {
+          console.log("User.js post error: ", err);
+        } else if (user) {
+          res.json({
+            error: `Sorry, already a user with the username: ${
+              req.body.username
+            }`
+          });
+        } else {
+          console.log("Updating user");
+          // Hashes password before updating db
+          req.body.password = bcrypt.hashSync(req.body.password, 10);
+          // updates with hashed password
+          db.User.findOneAndUpdate({ _id: req.params.id }, req.body)
+            .then(dbModel => res.json(dbModel))
+            .catch(err => res.status(422).json(err));
+        }
+      }
+    );
   },
   remove: function(req, res) {
     db.User.findById({ _id: req.params.id })
