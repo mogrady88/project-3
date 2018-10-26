@@ -1,5 +1,6 @@
 import axios from "axios";
 
+
 export default {
   getAllUsers: function() {
     return axios.get("/api/users");
@@ -21,6 +22,7 @@ export default {
     return axios.post("/api/users/logout", userData);
   },
   updateUser: function(id, userData) {
+    console.log("api hit");
     return axios.put("/api/users/" + id, userData);
   }
 };

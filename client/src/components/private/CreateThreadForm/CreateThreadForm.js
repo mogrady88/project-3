@@ -25,6 +25,13 @@ const CreateThreadForm = props => (
         />
       </div>
       <button
+        data-context="thread"
+        data-isedit={false}
+        onClick={props.callCloseCreateEdit}
+      >
+        Cancel
+      </button>
+      <button
         disabled={!(props.newThread.title && props.newThread.comment)}
         onClick={props.handleCreateThreadFormSubmit}
         style={{ float: "right", marginBottom: 10 }}

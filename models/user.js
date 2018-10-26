@@ -12,7 +12,7 @@ const userSchema = new Schema({
   firstName: { type: String, required: false, default: null },
   lastName: { type: String, required: false, default: null },
   title: { type: String, required: false, default: null },
-  isActive: {type: Boolean, default: true }
+  isActive: { type: Boolean, default: true }
 });
 
 // Define schema methods
@@ -27,6 +27,7 @@ userSchema.methods = {
 
 // Define hooks for pre-saving
 userSchema.pre("save", function(next) {
+  console.log("presave this = " + this);
   if (!this.password) {
     console.log("models/user.js =======NO PASSWORD PROVIDED=======");
     next();

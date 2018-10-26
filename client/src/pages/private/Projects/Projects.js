@@ -39,6 +39,7 @@ const Projects = props => (
         loadCurrentProject={props.loadCurrentProject}
         loadProjectSubpage={props.loadProjectSubpage}
         handleCreateEditBtn={props.handleCreateEditBtn}
+        callCloseCreateEdit={props.callCloseCreateEdit}
         handleInputChange={props.handleInputChange} //form
         handleEditProjectFormSubmit={props.handleEditProjectFormSubmit} //form
         handleCreateTaskFormSubmit={props.handleCreateTaskFormSubmit} //form

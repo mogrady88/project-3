@@ -355,7 +355,6 @@ class PrivateMaster extends Component {
         });
         break;
       case "thread":
-        console.log("hit closeCreateEdit");
         this.setState({
           metadata: {
             ...this.state.metadata,
@@ -374,6 +373,15 @@ class PrivateMaster extends Component {
           }
         });
         break;
+    }
+  };
+
+  callCloseCreateEdit = event => {
+    const context = event.target.getAttribute("data-context");
+    const isEdit = event.target.getAttribute("data-isedit");
+    this.closeCreateEdit(context);
+    if (isEdit) {
+      this.loadCurrentProject(this.state.currentProject._id);
     }
   };
 
@@ -517,6 +525,16 @@ class PrivateMaster extends Component {
           this.loadProjects();
           this.loadCurrentProject(this.state.currentProject._id);
           this.closeCreateEdit("task");
+          this.setState({
+            newData: {
+              ...this.state.newData,
+              newTask: {
+                title: "",
+                description: "",
+                funds: ""
+              }
+            }
+          });
         })
         .catch(err => console.log(err));
     }
@@ -584,6 +602,15 @@ class PrivateMaster extends Component {
           this.loadProjects();
           this.loadCurrentProject(this.state.currentProject._id);
           this.closeCreateEdit("thread");
+          this.setState({
+            newData: {
+              ...this.state.newData,
+              newThread: {
+                title: "",
+                comment: ""
+              }
+            }
+          });
         })
         .catch(err => console.log(err));
     }
@@ -612,6 +639,14 @@ class PrivateMaster extends Component {
         .then(res => {
           this.loadProjects();
           this.loadCurrentProject(this.state.currentProject._id);
+          this.setState({
+            newData: {
+              ...this.state.newData,
+              newComment: {
+                comment: ""
+              }
+            }
+          });
         })
         .catch(err => console.log(err));
     }
@@ -706,6 +741,7 @@ class PrivateMaster extends Component {
               unloadCurrentProject={this.unloadCurrentProject}
               handleCreateEditBtn={this.handleCreateEditBtn}
               closeCreateEdit={this.closeCreateEdit}
+              callCloseCreateEdit={this.callCloseCreateEdit}
               // Form Functions
               handleInputChange={this.handleInputChange}
               handleCreateProjectFormSubmit={this.handleCreateProjectFormSubmit}
