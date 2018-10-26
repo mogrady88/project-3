@@ -558,6 +558,15 @@ class PrivateMaster extends Component {
           this.loadProjects();
           this.loadCurrentProject(this.state.currentProject._id);
           this.closeCreateEdit("thread");
+          this.setState({
+            newData: {
+              ...this.state.newData,
+              newThread: {
+                title: "",
+                comment: ""
+              }
+            }
+          });
         })
         .catch(err => console.log(err));
     }
