@@ -11,7 +11,7 @@ import "./PostForm.css"
 const linkifyPlugin = createLinkifyPlugin();
 const plugins = [linkifyPlugin];
 
-class PostForm extends React.Component {
+class PostEditForm extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -42,8 +42,8 @@ class PostForm extends React.Component {
         project: ""
       }
     };
-  }
-  
+	}
+
   componentDidMount() {
     this.loadProjects();
     this.loadPosts();
@@ -110,7 +110,7 @@ class PostForm extends React.Component {
   }
   onH2Click = () => {
     const contentState = this.state.editorState.getCurrentContent();
-    console.log(this.props);
+    console.log('content state', convertToRaw(contentState));
     this.onChange(
       RichUtils.toggleBlockType(this.state.editorState, "header-two")
     )
@@ -180,7 +180,8 @@ class PostForm extends React.Component {
     if (
       this.state.post.title &&
       this.state.post.summary &&
-      contentState.hasText()
+      contentState.hasText() &&
+      this.state.post.author
     ) {
       const content = stateToHTML(contentState);
 
@@ -189,16 +190,15 @@ class PostForm extends React.Component {
           title: this.state.post.title,
           summary: this.state.post.summary,
           content: content,
-          author: this.props.userFirstName + " " + this.props.userLastName ,
+          author: this.state.post.author,
           tags: this.state.post.tags,
           isPublished: this.state.post.isPublished
         },
-        { project: this.props.projectID}
+        { project: this.state.post.project }
       ])
         .then(res => {
           console.log(res);
-          this.props.closeCreateEdit("post");
-          this.props.loadCurrentProject(this.props.projectID);
+          this.loadPosts();
         })
         .catch(err => console.log(err));
     }
@@ -214,6 +214,15 @@ class PostForm extends React.Component {
                   onChange={this.handlePostInputChange}
                   name="title"
                   placeholder="Title (required)"
+                />
+              </div>
+              <div className="form-group">
+                <input
+                  className="form-control"
+                  value={this.state.post.author}
+                  onChange={this.handlePostInputChange}
+                  name="author"
+                  placeholder="Author (required)"
                 />
               </div>
               <div className="form-group">
@@ -299,13 +308,29 @@ class PostForm extends React.Component {
                   />
                 </Row>
               </div>
+              <div className="form-group">
+                <Input
+                  s={12}
+                  type="select"
+                  label="Project Select"
+                  value={this.state.task.project}
+                  onChange={this.handlePostInputChange}
+                  name="project"
+                >
+                  {this.state.projects.map(project => (
+                    <option value={project._id} key={project._id}>
+                      {project.title}
+                    </option>
+                  ))}
+                </Input>
+              </div>
               <button
                 disabled={
                   !(
                     this.state.post.title &&
                     this.state.post.summary &&
                     this.state.editorState.getCurrentContent().hasText() &&
-                    this.props.userFirstName
+                    this.state.post.author
                   )
                 }
                 onClick={this.handlePostFormSubmit}
