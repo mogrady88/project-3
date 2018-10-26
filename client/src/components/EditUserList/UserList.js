@@ -61,7 +61,7 @@ render() {
         </Col>
         <Col s={1}>
             <label for="password">Password</label>
-            <input type="text" class="form-control" name="password" value={this.state.user.password} onChange={this.onChange} />
+            <input type="text" class="form-control" name="password" value="" placeholder="Enter new password" onChange={this.onChange} />
         </Col>
         <Col s={1}>
             <label for="firstname">Firstname</label>
@@ -82,7 +82,7 @@ render() {
     </Row>
     <Row>
     <Col><button onClick={this.onClick} name="id" value={this.props.user._id}>Make Changes</button></Col>
-    <Col><button onDelete={this.onDisable} name="id" value={this.props.user._id}>Disable User</button></Col>
+    <Col><button onDisable={this.onDisable} name="id" value={this.props.user._id}>Disable User</button></Col>
     </Row>
 </div>
 )
