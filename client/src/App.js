@@ -10,6 +10,7 @@ import NoMatch from "./pages/public/NoMatch";
 import PostDetail from "./pages/public/PostDetail";
 import EditCRUD from "./pages/temp/EditCRUD";
 import EditUser from "./pages/temp/EditUser";
+import AboutUs from "./pages/temp/AboutUs";
 // Import Private Route
 import PrivateRoute from "./components/private/PrivateRoute";
 // Import API
@@ -117,6 +118,7 @@ class App extends React.Component {
             <Route exact path="/test" component={TestCRUD} />
             <Route exact path="/edit" component={EditCRUD} />
             <Route exact path="/users" component={EditUser} />
+            <Route exact path="/about" component={AboutUs} />
             <Route component={NoMatch} />
           </Switch>
         </Router>
