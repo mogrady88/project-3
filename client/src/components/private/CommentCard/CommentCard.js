@@ -3,7 +3,7 @@ import Moment from "../../shared/Moment";
 import "./CommentCard.css";
 
 const CommentCard = props => (
-  <div>
+  <div className="cCard">
     <h5>{props.author}</h5>
     <p>{props.text}</p>
     <p>

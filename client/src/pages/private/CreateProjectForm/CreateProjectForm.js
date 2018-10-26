@@ -1,5 +1,6 @@
 import React from "react";
 import Col from "../../../components/shared/grid/Col";
+import "./CreateProjectForm.css";
 
 const CreateProjectForm = props => (
   <Col size="9" otherclasses="projectMeta">

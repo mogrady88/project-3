@@ -1,0 +1,13 @@
+.addUserForm {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #323433;
+  border: 5px solid #fdf0b5;
+}
+
+.addUserForm h3 {
+  color: #fdf0b5;
+  text-align: center;
+  margin-top: 5px;
+}
+/*# sourceMappingURL=AddUser.css.map */
