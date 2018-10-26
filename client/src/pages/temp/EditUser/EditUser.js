@@ -77,13 +77,6 @@ handleOnChange = (event) => {
             <Row>
                 <h4>Users</h4>
                 <div>
-                <Row>
-                    <Col s={2}><h5>Username</h5></Col>
-                    <Col s={2}><h5>Password</h5></Col>
-                    <Col s={2}><h5>Firstname</h5></Col>
-                    <Col s={2}><h5>Lastname</h5></Col>
-                    <Col s={2}><h5>Email</h5></Col>
-                </Row>
                 {this.state.users.map(user => (
                 <UserList user={user} onDisable={this.handleOnDisable} onChange={this.handleOnChange} onClick={this.handleOnClick}/>
                 ))}

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Row from "../../components/shared/grid/Row";
 import Col from "../../components/shared/grid/Col";
 import UsersAPI from "../../utils/usersAPI";
+import PasswordMask from 'react-password-mask';
 
 class UserList extends Component {
   constructor(props) {
@@ -33,22 +34,30 @@ class UserList extends Component {
     });
   }
 
-  onClick = event => {
-    console.log("onclick");
-    event.preventDefault();
-    this.updateUserInfo(event.target.value, this.state.user);
-  };
+    onClick = (event) => {
+        console.log("onclick");
+        event.preventDefault();
+        const username = this.state.user.username.trim();
+        const pswd = this.state.user.password;
 
-  onChange = event => {
-    event.preventDefault();
-    const { name, value } = event.target;
-    this.setState({
-      user: {
-        ...this.state.user,
-        [name]: value
-      }
-    });
-  };
+        if (!username || !pswd){
+            alert("Please enter a valid username and password");
+        }else{
+        this.updateUserInfo(event.target.value, this.state.user);
+        }
+    }
+
+    onChange = (event) => {
+        event.preventDefault();
+        const { name, value } = event.target;
+        this.setState({
+            user: {
+                ...this.state.user,
+            [name]: value
+            }   
+        })
+        console.log(this.state.user);
+    }
 
   // onDisable = (event) => {
   //     event.preventDefault();
@@ -72,15 +81,15 @@ class UserList extends Component {
           </Col>
           <Col s={1}>
             <label for="password">Password</label>
-            <input
-              type="text"
-              class="form-control"
-              name="password"
-              value={this.state.user.password}
-              onChange={this.onChange}
+            <PasswordMask
+                id="password"
+                name="password"
+                placeholder="Enter password"
+                value={this.state.user.password}
+                onChange={this.onChange.bind(this)}
             />
-          </Col>
-          <Col s={1}>
+        </Col>
+        <Col s={1}>
             <label for="firstname">Firstname</label>
             <input
               type="text"
