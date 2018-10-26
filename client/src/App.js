@@ -2,12 +2,12 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 // Import Pages
-import Public from "./pages/Public/Public";
-import Login from "./pages/Public/Login";
-import PrivateMaster from "./pages/Private/PrivateMaster";
+import Public from "./pages/public/Public";
+import Login from "./pages/public/Login";
+import PrivateMaster from "./pages/private/PrivateMaster";
 import TestCRUD from "./pages/temp/TestCRUD";
-import NoMatch from "./pages/Public/NoMatch";
-import PostDetail from "./pages/Public/PostDetail";
+import NoMatch from "./pages/public/NoMatch";
+import PostDetail from "./pages/public/PostDetail";
 import EditCRUD from "./pages/temp/EditCRUD";
 import EditUser from "./pages/temp/EditUser";
 // Import Private Route
