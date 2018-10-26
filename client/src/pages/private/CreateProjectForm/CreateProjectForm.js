@@ -1,5 +1,6 @@
 import React from "react";
 import Col from "../../../components/shared/grid/Col";
+import "./CreateProjectForm.css";
 
 const CreateProjectForm = props => (
   <Col size="9" otherclasses="projectMeta">
@@ -45,6 +46,13 @@ const CreateProjectForm = props => (
           placeholder="Funds (optional)"
         />
       </div>
+      <button
+        data-context="project"
+        data-isedit={true}
+        onClick={props.callCloseCreateEdit}
+      >
+        Cancel
+      </button>
       <button
         disabled={
           !(

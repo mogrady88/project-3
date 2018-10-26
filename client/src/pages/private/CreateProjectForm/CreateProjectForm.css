@@ -1,0 +1,13 @@
+.createProForm {
+  margin-top: 7px;
+  padding: 20px;
+  background-color: #323433;
+  border: 5px solid #fdf0b5;
+}
+
+.createProForm h4 {
+  color: #fdf0b5;
+  text-align: center;
+  margin-top: 15px;
+}
+/*# sourceMappingURL=CreateProjectForm.css.map */
