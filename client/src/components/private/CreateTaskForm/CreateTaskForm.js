@@ -36,6 +36,13 @@ const CreateTaskForm = props => (
         />
       </div>
       <button
+        data-context="task"
+        data-isedit={false}
+        onClick={props.callCloseCreateEdit}
+      >
+        Cancel
+      </button>
+      <button
         disabled={
           !(
             props.newTask.title &&
