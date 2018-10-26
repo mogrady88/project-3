@@ -33,7 +33,9 @@ class PrivateMaster extends Component {
         createThread: false,
         editThread: false,
         createComment: false,
-        editComment: false
+        editComment: false,
+        createPost: false,
+        editPost: false
       },
       user: {
         username: null
@@ -257,6 +259,14 @@ class PrivateMaster extends Component {
               }
             });
             break;
+          case "post":
+            this.setState({
+              metadata: {
+                ...this.state.metadata,
+                createPost: true
+              }
+            })
+            break;
         }
         break;
       case "edit":
@@ -287,6 +297,14 @@ class PrivateMaster extends Component {
               }
             });
             break;
+            case "post": 
+            this.setState({
+              metadata: {
+                ...this.state.metadata,
+                editPost: true
+              }
+            })
+            break;
         }
         break;
     }
@@ -302,6 +320,14 @@ class PrivateMaster extends Component {
           }
         });
         break;
+      case "post":
+        this.setState({
+          metadata: {
+            ...this.state.metadata,
+            editPost: false,
+            createPost: false
+          }
+        })
       case "task":
         this.setState({
           metadata: {
@@ -672,11 +698,14 @@ class PrivateMaster extends Component {
               currentProject={this.state.currentProject}
               newData={this.state.newData}
               targetEdits={this.state.targetEdits}
+              userFirstName={this.props.user.firstName}
+              userLastName={this.props.user.lastName}
               // Functions
               loadCurrentProject={this.loadCurrentProject}
               loadProjectSubpage={this.loadProjectSubpage}
               unloadCurrentProject={this.unloadCurrentProject}
               handleCreateEditBtn={this.handleCreateEditBtn}
+              closeCreateEdit={this.closeCreateEdit}
               // Form Functions
               handleInputChange={this.handleInputChange}
               handleCreateProjectFormSubmit={this.handleCreateProjectFormSubmit}

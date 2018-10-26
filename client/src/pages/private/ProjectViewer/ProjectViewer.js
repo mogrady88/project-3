@@ -100,7 +100,16 @@ const ProjectContainer = props => (
     ) : props.subpage === "posts" ? (
       <Posts
         // State props
+        projectID={props.currentProject._id}
         posts={props.currentProject.posts}
+        createPost={props.createPost}
+        editPost={props.editPost}
+        userFirstName={props.userFirstName}
+        userLastName={props.userLastName}
+        //Functions
+        loadCurrentProject={props.loadCurrentProject}
+        closeCreateEdit={props.closeCreateEdit}
+        handleCreateEditBtn={props.handleCreateEditBtn} //button
       />
     ) : props.subpage === "comments" ? (
       <Comments

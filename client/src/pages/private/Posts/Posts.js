@@ -1,16 +1,44 @@
 import React from "react";
 import PostCard from "../../../components/private/PostCard";
+import PostForm from "../../../components/PostForm"
+import Row from "../../../components/shared/grid/Row"
+import Col from "../../../components/shared/grid/Col"
 
 const Posts = props => (
   <div>
-    {props.posts.map(post => (
-      <PostCard
-        title={post.title}
-        tags={post.tags}
-        summary={post.summary}
-        isPublic={false}
-      />
-    ))}
+    <Row>
+      <Col size="4">
+        <a
+          className="btn"
+          data-command="create"
+          data-context="post"
+          onClick={props.handleCreateEditBtn}
+        >
+          Create Post
+        </a>
+      </Col>
+    </Row>
+    <Row>
+      {props.createPost ? 
+      <PostForm 
+      projectID = {props.projectID}
+      userFirstName={props.userFirstName}
+      userLastName={props.userLastName}
+      loadCurrentProject={props.loadCurrentProject}
+      closeCreateEdit = {props.closeCreateEdit}
+      /> :  (
+      <div>
+        {props.posts.map(post => (
+        <PostCard
+          title={post.title}
+          tags={post.tags}
+          summary={post.summary}
+        />
+      ))}
+      </div>
+
+      )}
+    </Row>
   </div>
 );
 
