@@ -23,6 +23,7 @@ const Threads = props => (
       <CreateThreadForm
         newThread={props.newThread}
         //Functions
+        callCloseCreateEdit={props.callCloseCreateEdit}
         handleInputChange={props.handleInputChange}
         handleCreateThreadFormSubmit={props.handleCreateThreadFormSubmit}
       />

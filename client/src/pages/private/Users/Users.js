@@ -1,12 +1,14 @@
 import React from "react";
 import UsersSidebar from "../../../components/private/UsersSidebar";
 import AddUser from "../../../components/private/AddUser";
+import UserList from "../../../components/EditUserList/UserList";
+import ViewUsers from "../../temp/EditUser/EditUser";
 
 const Users = props => (
   <div>
     <UsersSidebar loadUserSubpage={props.loadUserSubpage} />
     {props.subpage === "view" ? (
-      "View Users"
+     <ViewUsers />
     ) : props.subpage === "add" ? (
       <AddUser
         newFirstName={props.newFirstName}

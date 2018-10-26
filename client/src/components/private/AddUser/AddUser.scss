@@ -1,0 +1,14 @@
+@import "../../../utils/variables";
+
+.addUserForm {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: map-get($colors, third);
+  border: 5px solid map-get($colors, fourth);
+
+  h3 {
+    color: map-get($colors, fourth);
+    text-align: center;
+    margin-top: 5px;
+  }
+}

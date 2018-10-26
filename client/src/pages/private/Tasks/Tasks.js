@@ -23,6 +23,7 @@ const Tasks = props => (
       <CreateTaskForm
         newTask={props.newTask} //object
         //Functions
+        callCloseCreateEdit={props.callCloseCreateEdit}
         handleInputChange={props.handleInputChange}
         handleCreateTaskFormSubmit={props.handleCreateTaskFormSubmit}
       />
@@ -46,6 +47,7 @@ const Tasks = props => (
               targetTask={props.targetTask} //id string
               // functions
               handleCreateEditBtn={props.handleCreateEditBtn}
+              callCloseCreateEdit={props.callCloseCreateEdit}
               handleInputChange={props.handleInputChange} //form
               handleEditTaskFormSubmit={props.handleEditTaskFormSubmit} //form
             />
