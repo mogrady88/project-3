@@ -30,9 +30,9 @@ const Posts = props => (
       <div>
         {props.posts.map(post => (
         <PostCard
-          title={post.title}
-          tags={post.tags}
-          summary={post.summary}
+          {...post}
+          projectID = {props.projectID}
+          loadCurrentProject={props.loadCurrentProject}
         />
       ))}
       </div>
