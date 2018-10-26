@@ -17,6 +17,7 @@ const ProjectContainer = props => (
             currentProject={props.currentProject}
             handleInputChange={props.handleInputChange}
             handleEditProjectFormSubmit={props.handleEditProjectFormSubmit}
+            callCloseCreateEdit={props.callCloseCreateEdit}
             editProject={props.editProject}
           />
         </Col>
@@ -80,6 +81,7 @@ const ProjectContainer = props => (
         editTask={props.editTask} //bool
         // Functions
         handleCreateEditBtn={props.handleCreateEditBtn} //button
+        callCloseCreateEdit={props.callCloseCreateEdit} //button
         handleInputChange={props.handleInputChange} //form
         handleCreateTaskFormSubmit={props.handleCreateTaskFormSubmit} //form
         handleEditTaskFormSubmit={props.handleEditTaskFormSubmit} //form
@@ -94,6 +96,7 @@ const ProjectContainer = props => (
         // Functions
         loadProjectSubpage={props.loadProjectSubpage}
         handleCreateEditBtn={props.handleCreateEditBtn} //button
+        callCloseCreateEdit={props.callCloseCreateEdit} //button
         handleInputChange={props.handleInputChange} //form
         handleCreateThreadFormSubmit={props.handleCreateThreadFormSubmit} //form
       />

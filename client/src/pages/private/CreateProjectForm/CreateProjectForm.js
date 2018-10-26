@@ -46,6 +46,13 @@ const CreateProjectForm = props => (
         />
       </div>
       <button
+        data-context="project"
+        data-isedit={true}
+        onClick={props.callCloseCreateEdit}
+      >
+        Cancel
+      </button>
+      <button
         disabled={
           !(
             props.currentProject.title &&
