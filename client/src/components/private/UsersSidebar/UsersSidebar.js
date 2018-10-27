@@ -3,7 +3,7 @@ import Col from "../../../components/shared/grid/Col";
 import "./UsersSidebar.css";
 
 const UsersSidebar = props => (
-  <Col size="1">
+  <Col size="2">
     <div>
       <button
         className="btn btnUser1"

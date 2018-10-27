@@ -65,14 +65,15 @@ class UserList extends Component {
     onDisable = (event) => {
       event.preventDefault();
 
-      if (this.state.user.isActive){
+      if (this.state.user.isActive === true ){
       this.setState({ user: {
+        ...this.state.user,
         isActive: false }})
       } else {
         this.setState({ user: {
+          ...this.state.user,
           isActive: true }})
       }
-      console.log(this.state.user);
      
       this.updateUserInfo(event.target.value, this.state.user)
     }
@@ -135,11 +136,12 @@ class UserList extends Component {
           </Col>
           <Col s={1}>
             <input
-              type="radio"
+              type="checkbox"
               name="disable"
-              value= { this.state.user.isActive }
-              checked = { this.state.user.isActive }
-              readOnly= { true }
+              value = { this.state.user.isActive }
+              checked = { this.state.user.isActive === true }
+              onClick={this.onDisable}
+              readOnly = { true }
               />
             <label htmlFor="disable">Active</label>
           </Col>

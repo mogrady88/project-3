@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row } from "react-materialize";
+import Col from "../../../components/shared/grid/Col"
 import UsersAPI from "../../../utils/usersAPI";
 import UserList from "../../../components/EditUserList";
 
@@ -69,15 +69,14 @@ handleOnChange = (event) => {
 
     render(){
         return(
-            <div className="container">
-            <Row>
-                <div>
-                {this.state.users.map(user => (
+            <Col size="9">
+            
+                {this.state.users.map((user, index) => (
+                    index === 0 ? null :
                 <UserList key={this.state.user._id} user={user} onDisable={this.handleOnDisable} onChange={this.handleOnChange} onClick={this.handleOnClick}/>
                 ))}
-                </div>
-            </Row>
-            </div>
+
+            </Col>
         )
     }
 }

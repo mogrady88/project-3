@@ -3,7 +3,7 @@ import Col from "../../shared/grid/Col";
 import "./AddUser.css";
 
 const AddUser = props => (
-  <Col size="6">
+  <Col size="9">
     <form className="addUserForm">
       <h3>Add User</h3>
       <div className="form-group">
