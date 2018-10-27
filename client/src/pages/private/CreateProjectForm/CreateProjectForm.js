@@ -3,8 +3,8 @@ import Col from "../../../components/shared/grid/Col";
 import "./CreateProjectForm.css";
 
 const CreateProjectForm = props => (
-  <Col size="9" otherclasses="projectMeta">
-    <h5>Create Project</h5>
+  <Col size="6" otherclasses="createProForm">
+    <h4>Create Project</h4>
     <form>
       <div className="form-group">
         <input

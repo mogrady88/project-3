@@ -15,7 +15,8 @@ import AboutUs from "./pages/temp/AboutUs";
 import PrivateRoute from "./components/private/PrivateRoute";
 // Import API
 import UsersAPI from "./utils/usersAPI";
-import PostForm from "./components/PostForm"
+import "./App.css";
+import PostForm from "./components/PostForm";
 
 class App extends React.Component {
   constructor() {

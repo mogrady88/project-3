@@ -1,7 +1,7 @@
 @import "../../../utils/variables";
 
 .createProForm {
-  margin-top: 7px;
+  margin: 7px 0px 0px 20px !important;
   padding: 20px;
   background-color: map-get($colors, third);
   border: 5px solid map-get($colors, fourth);
