@@ -5,17 +5,14 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Public from "./pages/public/Public";
 import Login from "./pages/public/Login";
 import PrivateMaster from "./pages/private/PrivateMaster";
-import TestCRUD from "./pages/temp/TestCRUD";
 import NoMatch from "./pages/public/NoMatch";
 import PostDetail from "./pages/public/PostDetail";
-import EditCRUD from "./pages/temp/EditCRUD";
 import EditUser from "./pages/temp/EditUser";
 import AboutUs from "./pages/temp/AboutUs";
 // Import Private Route
 import PrivateRoute from "./components/private/PrivateRoute";
 // Import API
 import UsersAPI from "./utils/usersAPI";
-import PostForm from "./components/PostForm"
 
 class App extends React.Component {
   constructor() {
@@ -117,8 +114,6 @@ class App extends React.Component {
               user={this.state.user}
             />
             <Route path="/posts/:id" component={PostDetail} />
-            <Route exact path="/test" component={TestCRUD} />
-            <Route exact path="/edit" component={EditCRUD} />
             <Route exact path="/edit-user" component={EditUser} />
             <Route exact path="/users" component={EditUser} />
             <Route exact path="/about" component={AboutUs} />

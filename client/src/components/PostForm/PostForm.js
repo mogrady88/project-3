@@ -1,5 +1,5 @@
 import React from "react";
-import {EditorState, RichUtils, convertToRaw } from "draft-js";
+import {EditorState, RichUtils} from "draft-js";
 import Editor from 'draft-js-plugins-editor';
 import {stateToHTML} from 'draft-js-export-html';
 import ProjectsAPI from "../../utils/projectsAPI";
@@ -109,8 +109,6 @@ class PostForm extends React.Component {
     )
   }
   onH2Click = () => {
-    const contentState = this.state.editorState.getCurrentContent();
-    console.log(this.props);
     this.onChange(
       RichUtils.toggleBlockType(this.state.editorState, "header-two")
     )

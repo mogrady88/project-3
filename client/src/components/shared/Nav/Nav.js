@@ -1,9 +1,5 @@
 import React from "react";
 import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect,
   Link
 } from "react-router-dom";
 import "./Nav.css";
@@ -24,7 +20,7 @@ const Nav = props => (
       </div>
     ) : (
       <div className="nav-wrapper">
-        <a href="#" className="brand-logo">
+        <a href="/" className="brand-logo">
           Logged in as{" "}
           <strong>
             {props.user.firstName} {props.user.lastName}
