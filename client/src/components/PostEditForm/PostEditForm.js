@@ -244,14 +244,20 @@ class PostEditForm extends React.Component {
                   <button className="btn" onClick={this.onH1Click}>H1</button>
                   <button className="btn" onClick={this.onH2Click}>H2</button>
                   <button className="btn" onClick={this.onH3Click}>H3</button>
-                  <input
-                  className="form-control"
-                  value={this.state.url}
-                  onChange={this.handleUrlChange}
-                  name="url"
-                  placeholder="https://www.yoururl.com"
-                />
-                  <button className="btn" onClick={this.onLinkClick}>Add Link</button>
+                  <Row>
+                    <Col s={8}>
+                      <input
+                        className="form-control"
+                        value={this.state.url}
+                        onChange={this.handleUrlChange}
+                        name="url"
+                        placeholder="https://www.yoururl.com"
+                      />
+                    </Col>
+                    <Col s={4}>
+                      <button onClick={this.onLinkClick} className="btn">Add Link</button>
+                    </Col>
+                  </Row>
                 </div>
                 <div className="editors">
                   <Editor

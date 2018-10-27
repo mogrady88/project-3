@@ -210,6 +210,8 @@ class PostForm extends React.Component {
   render() {
     return (
       <div>
+        <div className="pCard">
+        <Row>
         <div className="form-group">
           <input
             className="form-control"
@@ -231,24 +233,36 @@ class PostForm extends React.Component {
         Content:
         <div className="editorContainer">
           <div className="toolbar">
-            <button onClick={this.onUnderlineClick}>U</button>
-            <button onClick={this.onBoldClick}>
+          <Row>
+            <Col s={12}>
+            <button className="btn" onClick={this.onUnderlineClick}><u>U</u></button>
+            <button className="btn" onClick={this.onBoldClick}>
               <b>B</b>
             </button>
-            <button onClick={this.onItalicClick}>
+            <button className="btn" onClick={this.onItalicClick}>
               <em>I</em>
             </button>
-            <button onClick={this.onH1Click}>H1</button>
-            <button onClick={this.onH2Click}>H2</button>
-            <button onClick={this.onH3Click}>H3</button>
-            <input
-              className="form-control"
-              value={this.state.url}
-              onChange={this.handleUrlChange}
-              name="url"
-              placeholder="https://www.yoururl.com"
-            />
-            <button onClick={this.onLinkClick}>Add Link</button>
+            <button className="btn" onClick={this.onH1Click}>H1</button>
+            <button className="btn" onClick={this.onH2Click}>H2</button>
+            <button className="btn" onClick={this.onH3Click}>H3</button>
+            </Col>
+          </Row>
+            <Row>
+              <Col s={8}>
+                <input
+                  className="form-control"
+                  value={this.state.url}
+                  onChange={this.handleUrlChange}
+                  name="url"
+                  placeholder="https://www.yoururl.com"
+                />
+              </Col>
+              <Col s={4}>
+                <button className="btn" onClick={this.onLinkClick}>Add Link</button>
+              </Col>
+            </Row>
+            
+            
           </div>
           <div className="editors">
             <Editor
@@ -326,6 +340,8 @@ class PostForm extends React.Component {
         >
           Cancel
         </button>
+        </Row>
+        </div>
       </div>
     );
   }
