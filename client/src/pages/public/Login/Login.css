@@ -5,7 +5,13 @@
   border: 5px solid #fdf0b5;
 }
 
+.signIn input,
+.signIn textarea {
+  color: white;
+}
+
 .signIn h4 {
+  font-family: "Righteous", cursive;
   color: #fdf0b5 !important;
   text-align: center;
 }
@@ -26,10 +32,10 @@
 }
 
 #btn1:hover {
-  color: #80aebd;
+  color: #eaeaea;
 }
 
 #btn2:hover {
-  color: #80aebd;
+  color: #eaeaea;
 }
 /*# sourceMappingURL=Login.css.map */

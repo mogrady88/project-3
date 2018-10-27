@@ -24,14 +24,11 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   create: function(req, res) {
-    console.log(req.body);
     db.Project.create(req.body)
       .then(dbModel => {
-        console.log(dbModel);
         res.json(dbModel);
       })
       .catch(err => {
-        console.log(err);
         res.status(422).json(err);
       });
   },

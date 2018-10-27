@@ -10,8 +10,6 @@ const PrivateRoute = ({
   getUser
 }) => {
   let session = sessionStorage.getItem("disco-panda");
-  console.log("PrivateRoute.js session: " + session);
-  console.log("PrivateRoute.js says loggedIn is " + loggedIn);
   return (
     <Route
       path={url}

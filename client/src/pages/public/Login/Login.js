@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-// import API from "../../utils/API";
 import Row from "../../../components/shared/grid/Row";
 import Col from "../../../components/shared/grid/Col";
 import { Redirect } from "react-router-dom";
@@ -33,13 +32,9 @@ class Login extends Component {
   checkForUsers() {
     UsersAPI.checkForUsers().then(response => {
       if (response.data.length === 0) {
-        console.log("Checking if user exists: ", response);
         this.setState({ userExists: false });
-        console.log("Does a user exist? ", this.state.userExists);
       } else {
-        console.log("Checking if user exists: ", response);
         this.setState({ userExists: true });
-        console.log("Does a user exist? ", this.state.userExists);
       }
     });
   }
@@ -52,7 +47,6 @@ class Login extends Component {
 
   handleSignUp(event) {
     event.preventDefault();
-    console.log("handleSignUp");
     UsersAPI.signupUser({
       firstName: this.state.firstName,
       lastName: this.state.lastName,
@@ -61,9 +55,7 @@ class Login extends Component {
       password: this.state.password
     })
       .then(response => {
-        console.log(response);
         if (!response.data.error) {
-          console.log("successful signup");
           alert(`Successful signup for new user: ${response.data.username}.`);
           this.setState({
             firstName: "",
@@ -74,7 +66,6 @@ class Login extends Component {
             userExists: true
           });
         } else {
-          console.log("username already taken");
           alert(response.data.error);
           this.setState({
             firstName: "",
@@ -86,13 +77,11 @@ class Login extends Component {
         }
       })
       .catch(error => {
-        console.log("signup error: ");
         console.log(error);
       });
   }
   handleLogin(event) {
     event.preventDefault();
-    console.log("handleLogin");
 
     UsersAPI.loginUser({
       username: this.state.username,
@@ -100,10 +89,8 @@ class Login extends Component {
     })
       .then(response => {
         document.getElementById("loginForm").reset();
-        console.log("login response: ");
-        console.log(response);
         if (response.status === 200) {
-          // update App.js state
+          // Udate App.js state
           this.props.updateUser({
             loggedIn: true,
             user: {
@@ -114,18 +101,13 @@ class Login extends Component {
           });
           // Setting session storage value to access on refresh
           sessionStorage.setItem("disco-panda", response.data.id);
-          console.log("Login.js Setting currentUser:", this.props.user);
           // update the state to redirect to private view
           this.setState({
             redirectTo: "/private"
           });
-          console.log(
-            "Login.js this.state.redirectTo: " + this.state.redirectTo
-          );
         }
       })
       .catch(error => {
-        console.log("login error: ");
         console.log(error);
         alert("Incorrect username or password");
       });
@@ -144,7 +126,6 @@ class Login extends Component {
               <div className="signIn">
                 <h4>Administrator Login</h4>
                 <form id="loginForm">
-                  <label htmlFor="username">Username:</label>
                   <input
                     type="text"
                     id="username"
@@ -153,7 +134,7 @@ class Login extends Component {
                     value={this.state.username}
                     onChange={this.handleChange}
                   />
-                  <label htmlFor="password">Password:</label>
+
                   <input
                     placeholder="Password"
                     type="password"

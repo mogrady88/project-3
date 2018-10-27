@@ -43,9 +43,6 @@ app.use(passport.session()); // calls the deserializeUser
 // Add routes, both API and view
 app.use(routes);
 
-// Connect to the Mongo DB
-// mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/dialectic_DB");
-
 // Start the API server
 app.listen(PORT, function() {
   console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);

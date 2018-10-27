@@ -17,35 +17,29 @@ class UserList extends Component {
 
   componentWillMount() {
     this.setState({ user: this.props.user });
-    console.log(this.props.user);
   }
 
   updateUserInfo(id, data) {
-    console.log("updateuser");
     UsersAPI.updateUser(id, data).then(res => {
-      console.log("update user response " + JSON.stringify(res.data));
       if (!res.data.error) {
-        console.log("successful signup");
         alert(`Successfully updated user: ${res.data.username}.`);
       } else {
-        console.log("Username already taken");
         alert(res.data.error);
       }
     });
   }
 
-    onClick = (event) => {
-        console.log("onclick");
-        event.preventDefault();
-        const username = this.state.user.username.trim();
-        const pswd = this.state.user.password;
+  onClick = event => {
+    event.preventDefault();
+    const username = this.state.user.username.trim();
+    const pswd = this.state.user.password;
 
-        if (!username || !pswd){
-            alert("Please enter a valid username and password");
-        }else{
-        this.updateUserInfo(event.target.value, this.state.user);
-        }
+    if (!username || !pswd) {
+      alert("Please enter a valid username and password");
+    } else {
+      this.updateUserInfo(event.target.value, this.state.user);
     }
+  };
 
     onChange = (event) => {
         event.preventDefault();
