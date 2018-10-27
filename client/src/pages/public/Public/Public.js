@@ -37,7 +37,7 @@ class Public extends Component {
           <Row>
             <Col size="12" className="grid1">
               <Jumbo />
-              {this.state.posts.map(post => (
+              {this.state.posts.reverse().map(post => (
                 <PostCard {...post} isPublic={true} />
               ))}
             </Col>

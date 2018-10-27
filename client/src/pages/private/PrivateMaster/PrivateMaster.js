@@ -15,7 +15,6 @@ import ThreadsAPI from "../../../utils/threadsAPI";
 import CommentsAPI from "../../../utils/commentsAPI";
 // CSS Imports
 import "./PrivateMaster.css";
-import { runInThisContext } from "vm";
 
 class PrivateMaster extends Component {
   constructor() {
@@ -73,13 +72,11 @@ class PrivateMaster extends Component {
       }
     };
     this.componentDidMount = this.componentDidMount.bind(this);
-    // this.handleInputChange = this.handleUserInputChange.bind(this);
     this.handleSignUp = this.handleSignUp.bind(this);
   }
 
   componentDidMount() {
     this.loadProjects();
-    // this.props.getUser();
     this.setUser(this.props.user);
   }
 
@@ -186,7 +183,6 @@ class PrivateMaster extends Component {
         this.setState({
           currentProject: res.data
         });
-        console.log(this.state.currentProject);
         let usedFunds = 0;
         if (this.state.currentProject.tasks.length > 0) {
           this.state.currentProject.tasks.map(
@@ -265,7 +261,7 @@ class PrivateMaster extends Component {
                 ...this.state.metadata,
                 createPost: true
               }
-            })
+            });
             break;
         }
         break;
@@ -297,13 +293,13 @@ class PrivateMaster extends Component {
               }
             });
             break;
-            case "post": 
+          case "post":
             this.setState({
               metadata: {
                 ...this.state.metadata,
                 editPost: true
               }
-            })
+            });
             break;
         }
         break;
@@ -327,7 +323,7 @@ class PrivateMaster extends Component {
             editPost: false,
             createPost: false
           }
-        })
+        });
       case "task":
         this.setState({
           metadata: {
@@ -472,7 +468,6 @@ class PrivateMaster extends Component {
         funds: parseInt(this.state.currentProject.funds)
       })
         .then(res => {
-          console.log(res);
           this.loadProjects();
           this.loadCurrentProject(res.data._id);
         })
@@ -495,7 +490,6 @@ class PrivateMaster extends Component {
         funds: parseInt(this.state.currentProject.funds)
       })
         .then(res => {
-          console.log(res);
           this.loadProjects();
           this.closeCreateEdit("project");
         })
@@ -521,7 +515,6 @@ class PrivateMaster extends Component {
         }
       ])
         .then(res => {
-          console.log(res);
           this.loadProjects();
           this.loadCurrentProject(this.state.currentProject._id);
           this.closeCreateEdit("task");
@@ -570,7 +563,6 @@ class PrivateMaster extends Component {
         )
       })
         .then(res => {
-          console.log(res);
           this.loadProjects();
           this.loadCurrentProject(this.state.currentProject._id);
           this.closeCreateEdit("task");
@@ -620,12 +612,6 @@ class PrivateMaster extends Component {
     event.preventDefault();
     let parentid = event.target.getAttribute("data-parentid");
 
-    console.log("parent id: " + parentid);
-    console.log("text: " + this.state.newData.newComment.comment);
-    console.log(
-      "author: " + this.props.user.firstName + " " + this.props.user.lastName
-    );
-
     if (this.state.newData.newComment.comment) {
       CommentsAPI.saveComment([
         {
@@ -654,7 +640,6 @@ class PrivateMaster extends Component {
 
   handleSignUp(event) {
     event.preventDefault();
-    console.log("handleSignUp");
     UsersAPI.signupUser({
       firstName: this.state.newData.newUser.firstName,
       lastName: this.state.newData.newUser.lastName,
@@ -663,7 +648,6 @@ class PrivateMaster extends Component {
       password: this.state.newData.newUser.password
     })
       .then(response => {
-        console.log(response);
         if (!response.data.error) {
           console.log("successful signup");
           alert(`Successful signup for new user: ${response.data.username}.`);
@@ -679,7 +663,6 @@ class PrivateMaster extends Component {
             }
           });
         } else {
-          console.log("username already taken");
           alert(response.data.error);
           this.setState({
             newData: {
@@ -695,7 +678,6 @@ class PrivateMaster extends Component {
         }
       })
       .catch(error => {
-        console.log("signup error: ");
         console.log(error);
       });
   }
