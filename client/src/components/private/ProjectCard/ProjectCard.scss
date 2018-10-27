@@ -1,6 +1,8 @@
 @import "../../../utils/variables";
 
 .card {
+  word-wrap: break-word;
+
   .projectCard {
     border: 5px solid map-get($colors, third);
     background-color: map-get($colors, second);
