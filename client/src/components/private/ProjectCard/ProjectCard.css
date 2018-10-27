@@ -1,3 +1,7 @@
+.card {
+  word-wrap: break-word;
+}
+
 .card .projectCard {
   border: 5px solid #323433;
   background-color: #80aebd;
