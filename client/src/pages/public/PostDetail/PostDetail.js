@@ -5,6 +5,7 @@ import Col from "../../../components/shared/grid/Col";
 import API from "../../../utils/postsAPI";
 import { Link } from "react-router-dom";
 import renderHTML from "react-render-html";
+import "./PostDetail.css";
 
 class Private extends Component {
   constructor(props) {
@@ -35,7 +36,7 @@ class Private extends Component {
     return (
       <div>
         <Nav isPublic={true} />
-        <div className="container">
+        <div className="container postDeets">
           <Row>
             <Col size="12">
               <h1>{this.state.post.title}</h1>
