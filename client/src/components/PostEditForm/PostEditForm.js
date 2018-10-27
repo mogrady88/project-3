@@ -166,6 +166,10 @@ class PostEditForm extends React.Component {
       ...this.state,
       [name]: value
     });
+<<<<<<< HEAD
+    console.log(this.state);
+=======
+>>>>>>> master
   };
 
   handlePostTagSubmit = event => {

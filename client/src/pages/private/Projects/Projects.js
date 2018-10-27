@@ -1,4 +1,5 @@
 import React from "react";
+import Col from "../../../components/shared/grid/Col";
 import ProjectsSidebar from "../../../components/private/ProjectsSidebar";
 import CreateProjectForm from "../CreateProjectForm";
 import ProjectViewer from "../ProjectViewer";
@@ -11,6 +12,7 @@ const Projects = props => (
       loadCurrentProject={props.loadCurrentProject}
       unloadCurrentProject={props.unloadCurrentProject}
     />
+    <Col size="1" />
     {props.metadata.projectIsLoaded ? (
       <ProjectViewer
         currentProject={props.currentProject} //object
@@ -56,6 +58,7 @@ const Projects = props => (
         handleCreateProjectFormSubmit={props.handleCreateProjectFormSubmit} //form
       />
     )}
+    <Col size="1" />
   </div>
 );
 

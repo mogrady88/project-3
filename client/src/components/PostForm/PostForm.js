@@ -286,22 +286,22 @@ class PostForm extends React.Component {
         </Row>
         <div className="form-group">
           <Row>
-            <Input
+            <input
               name="isPublished"
               type="radio"
               value={true}
               checked={this.state.post.isPublished === true}
               onChange={this.handlePostInputChange}
-              label="Published"
             />
-            <Input
+            <label>Published</label>
+            <input
               name="isPublished"
               type="radio"
               value={false}
               checked={this.state.post.isPublished === false}
               onChange={this.handlePostInputChange}
-              label="Not Published"
             />
+            <label>Not Published</label>
           </Row>
         </div>
         <button
