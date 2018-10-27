@@ -35,6 +35,7 @@ const Task = props => (
             value={props.funds}
             onChange={props.handleInputChange}
             data-context="editTask"
+            type="number"
             name="funds"
             data-index={props.index}
             placeholder="Funds"

@@ -213,129 +213,141 @@ class PostEditForm extends React.Component {
   render() {
     return (
       <div>
-              <div className="form-group">
+        <div className="form-group">
+          <input
+            className="form-control"
+            value={this.state.post.title}
+            onChange={this.handlePostInputChange}
+            name="title"
+            placeholder="Title (required)"
+          />
+        </div>
+        <div className="form-group">
+          <textarea
+            className="form-control"
+            value={this.state.post.summary}
+            onChange={this.handlePostInputChange}
+            name="summary"
+            placeholder="Summary (required)"
+          />
+        </div>
+        Content:
+        <div className="editorContainer">
+          <div className="toolbar">
+            <button className="btn" onClick={this.onUnderlineClick}>
+              <u>U</u>
+            </button>
+            <button className="btn" onClick={this.onBoldClick}>
+              <b>B</b>
+            </button>
+            <button className="btn" onClick={this.onItalicClick}>
+              <em>I</em>
+            </button>
+            <button className="btn" onClick={this.onH1Click}>
+              H1
+            </button>
+            <button className="btn" onClick={this.onH2Click}>
+              H2
+            </button>
+            <button className="btn" onClick={this.onH3Click}>
+              H3
+            </button>
+            <Row>
+              <Col s={8}>
                 <input
                   className="form-control"
-                  value={this.state.post.title}
-                  onChange={this.handlePostInputChange}
-                  name="title"
-                  placeholder="Title (required)"
+                  value={this.state.url}
+                  onChange={this.handleUrlChange}
+                  name="url"
+                  placeholder="https://www.yoururl.com"
                 />
-              </div>
-              <div className="form-group">
-                <textarea
-                  className="form-control"
-                  value={this.state.post.summary}
-                  onChange={this.handlePostInputChange}
-                  name="summary"
-                  placeholder="Summary (required)"
-                />
-              </div>
-              Content:
-              <div className="editorContainer">
-                <div className="toolbar">
-                  <button className="btn" onClick={this.onUnderlineClick}><u>U</u></button>
-                  <button className="btn" onClick={this.onBoldClick}>
-                    <b>B</b>
-                  </button>
-                  <button className="btn" onClick={this.onItalicClick}>
-                    <em>I</em>
-                  </button>
-                  <button className="btn" onClick={this.onH1Click}>H1</button>
-                  <button className="btn" onClick={this.onH2Click}>H2</button>
-                  <button className="btn" onClick={this.onH3Click}>H3</button>
-                  <Row>
-                    <Col s={8}>
-                      <input
-                        className="form-control"
-                        value={this.state.url}
-                        onChange={this.handleUrlChange}
-                        name="url"
-                        placeholder="https://www.yoururl.com"
-                      />
-                    </Col>
-                    <Col s={4}>
-                      <button onClick={this.onLinkClick} className="btn">Add Link</button>
-                    </Col>
-                  </Row>
-                </div>
-                <div className="editors">
-                  <Editor
-                    editorState={this.state.editorState}
-                    handleKeyCommand={this.handleKeyCommand}
-                    onChange={this.onChange}
-                    plugins={plugins}
-                    ref={(element) => { this.editor = element; }}
-                  />
-                </div>
-              </div>
-              <div>Tags: {this.state.post.tags.join(", ")}</div>
-              <Row>
-                <Col s={8}>
-                  <input
-                    className="form-control"
-                    value={this.state.post.currentTag}
-                    onChange={this.handlePostInputChange}
-                    name="currentTag"
-                    placeholder="Add tag (optional)"
-                  />
-                </Col>
-                <Col s={4}>
-                  <button
-                    disabled={!this.state.post.currentTag}
-                    onClick={this.handlePostTagSubmit}
-                    style={{ float: "right", marginBottom: 10 }}
-                    className="btn btn-success"
-                  >
-                    Submit Tag
-                  </button>
-                </Col>
-              </Row>
-              <div className="form-group">
-                <Row>
-                  <Input
-                    name="isPublished"
-                    type="radio"
-                    value={true}
-                    checked={this.state.post.isPublished === true}
-                    onChange={this.handlePostInputChange}
-                    label="Published"
-                  />
-                  <Input
-                    name="isPublished"
-                    type="radio"
-                    value={false}
-                    checked={this.state.post.isPublished === false}
-                    onChange={this.handlePostInputChange}
-                    label="Not Published"
-                  />
-                </Row>
-              </div>
-              <button
-                disabled={
-                  !(
-                    this.state.post.title &&
-                    this.state.post.summary &&
-                    this.state.editorState.getCurrentContent().hasText() &&
-                    this.state.post.author
-                  )
-                }
-                onClick={this.handlePostEditFormSubmit}
-                style={{ float: "right", marginBottom: 10 }}
-                className="btn btn-success"
-              >
-                Edit Post
-              </button>
-              <button
-                onClick={this.props.closeEdit}
-                style={{ float: "right", marginBottom: 10 }}
-                className="btn btn-success"
-              >
-                Cancel
-              </button>
-              </div>
-		);
-	}
+              </Col>
+              <Col s={4}>
+                <button onClick={this.onLinkClick} className="btn">
+                  Add Link
+                </button>
+              </Col>
+            </Row>
+          </div>
+          <div className="editors">
+            <Editor
+              editorState={this.state.editorState}
+              handleKeyCommand={this.handleKeyCommand}
+              onChange={this.onChange}
+              plugins={plugins}
+              ref={element => {
+                this.editor = element;
+              }}
+            />
+          </div>
+        </div>
+        <div>Tags: {this.state.post.tags.join(", ")}</div>
+        <Row>
+          <Col s={8}>
+            <input
+              className="form-control"
+              value={this.state.post.currentTag}
+              onChange={this.handlePostInputChange}
+              name="currentTag"
+              placeholder="Add tag (optional)"
+            />
+          </Col>
+          <Col s={4}>
+            <button
+              disabled={!this.state.post.currentTag}
+              onClick={this.handlePostTagSubmit}
+              style={{ float: "right", marginBottom: 10 }}
+              className="btn btn-success"
+            >
+              Submit Tag
+            </button>
+          </Col>
+        </Row>
+        <div className="form-group">
+          <Row>
+            <Input
+              name="isPublished"
+              type="radio"
+              value={true}
+              checked={this.state.post.isPublished === true}
+              onChange={this.handlePostInputChange}
+              label="Published"
+            />
+            <Input
+              name="isPublished"
+              type="radio"
+              value={false}
+              checked={this.state.post.isPublished === false}
+              onChange={this.handlePostInputChange}
+              label="Not Published"
+            />
+          </Row>
+        </div>
+        <button
+          disabled={
+            !(
+              this.state.post.title &&
+              this.state.post.summary &&
+              this.state.editorState.getCurrentContent().hasText() &&
+              this.state.post.author
+            )
+          }
+          onClick={this.handlePostEditFormSubmit}
+          style={{ float: "right", marginBottom: 10 }}
+          className="btn btn-success"
+        >
+          Edit Post
+        </button>
+        <button
+          onClick={this.props.closeEdit}
+          style={{ float: "right", marginBottom: 10 }}
+          className="btn btn-success"
+        >
+          Cancel
+        </button>
+      </div>
+    );
+  }
 }
 
 export default PostEditForm;
