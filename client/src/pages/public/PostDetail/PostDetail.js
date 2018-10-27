@@ -4,12 +4,12 @@ import Row from "../../../components/shared/grid/Row";
 import Col from "../../../components/shared/grid/Col";
 import API from "../../../utils/postsAPI";
 import { Link } from "react-router-dom";
-import renderHTML from 'react-render-html';
+import renderHTML from "react-render-html";
 
 class Private extends Component {
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
       post: {}
     };
   }
@@ -19,12 +19,16 @@ class Private extends Component {
 
   componentWillMount() {
     API.getPost(this.props.match.params.id)
-      .then(res => this.setState({ post: {
-        title: res.data.title,
-        summary: res.data.summary,
-        content: res.data.content
-      } })
-      ).catch(err => console.log(err));
+      .then(res =>
+        this.setState({
+          post: {
+            title: res.data.title,
+            summary: res.data.summary,
+            content: res.data.content
+          }
+        })
+      )
+      .catch(err => console.log(err));
   }
 
   render() {
@@ -42,7 +46,9 @@ class Private extends Component {
           <Row>
             <Col size="10">
               <article>
-              {this.state.post.content ? renderHTML(this.state.post.content) : null}
+                {this.state.post.content
+                  ? renderHTML(this.state.post.content)
+                  : null}
               </article>
             </Col>
           </Row>

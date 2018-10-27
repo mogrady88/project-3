@@ -21,10 +21,13 @@
   background-color: transparent;
   margin-bottom: 20px;
   li a {
+    color: map-get($colors, third);
+    font-size: 20px;
     margin: 2px;
   }
   li a:hover {
     background-color: transparent;
-    color: map-get($colors, fourth);
+    -webkit-text-stroke-width: 0.2px;
+    -webkit-text-stroke-color: map-get($colors, fourth);
   }
 }

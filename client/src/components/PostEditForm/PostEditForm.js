@@ -1,21 +1,21 @@
 import React from "react";
-import {EditorState, RichUtils, convertToRaw } from "draft-js";
-import Editor from 'draft-js-plugins-editor';
-import {stateToHTML} from 'draft-js-export-html';
-import {stateFromHTML} from 'draft-js-import-html';
+import { EditorState, RichUtils, convertToRaw } from "draft-js";
+import Editor from "draft-js-plugins-editor";
+import { stateToHTML } from "draft-js-export-html";
+import { stateFromHTML } from "draft-js-import-html";
 import ProjectsAPI from "../../utils/projectsAPI";
 import PostsAPI from "../../utils/postsAPI";
-import createLinkifyPlugin from 'draft-js-linkify-plugin'
+import createLinkifyPlugin from "draft-js-linkify-plugin";
 import { Row, Col, Input } from "react-materialize";
-import "./PostEditForm.css"
+import "./PostEditForm.css";
 
 const linkifyPlugin = createLinkifyPlugin();
 const plugins = [linkifyPlugin];
 
 class PostEditForm extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
+  constructor(props) {
+    super(props);
+    this.state = {
       editorState: EditorState.createEmpty(),
       url: "",
       projects: [],
@@ -43,15 +43,17 @@ class PostEditForm extends React.Component {
         project: ""
       }
     };
-	}
+  }
 
   componentDidMount() {
     this.setState({
-      post: { ...this.props
+      post: {
+        ...this.props
       },
-      editorState: EditorState.createWithContent(stateFromHTML(this.props.content))
-    })
-    console.log(this.props.content)
+      editorState: EditorState.createWithContent(
+        stateFromHTML(this.props.content)
+      )
+    });
     this.loadPosts();
   }
 
@@ -75,78 +77,79 @@ class PostEditForm extends React.Component {
       .catch(err => console.log(err));
   };
 
-	onChange = editorState => {
-		this.setState({
-			editorState
-		});
-	};
-
-	handleKeyCommand = command => {
-		const newState = RichUtils.handleKeyCommand(
-			this.state.editorState,
-			command
-		);
-		if (newState) {
-			this.onChange(newState);
-			return "handled";
-		}
-		return "not-handled";
-	};
-
-	onUnderlineClick = () => {
-		this.onChange(
-			RichUtils.toggleInlineStyle(this.state.editorState, "UNDERLINE")
-		);
-	};
-
-	onBoldClick = () => {
-		this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, "BOLD"));
-	};
-
-	onItalicClick = () => {
-		this.onChange(
-			RichUtils.toggleInlineStyle(this.state.editorState, "ITALIC")
-		);
+  onChange = editorState => {
+    this.setState({
+      editorState
+    });
   };
-  
+
+  handleKeyCommand = command => {
+    const newState = RichUtils.handleKeyCommand(
+      this.state.editorState,
+      command
+    );
+    if (newState) {
+      this.onChange(newState);
+      return "handled";
+    }
+    return "not-handled";
+  };
+
+  onUnderlineClick = () => {
+    this.onChange(
+      RichUtils.toggleInlineStyle(this.state.editorState, "UNDERLINE")
+    );
+  };
+
+  onBoldClick = () => {
+    this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, "BOLD"));
+  };
+
+  onItalicClick = () => {
+    this.onChange(
+      RichUtils.toggleInlineStyle(this.state.editorState, "ITALIC")
+    );
+  };
+
   onH1Click = () => {
     this.onChange(
       RichUtils.toggleBlockType(this.state.editorState, "header-one")
-    )
-  }
+    );
+  };
   onH2Click = () => {
     const contentState = this.state.editorState.getCurrentContent();
-    console.log('content state', convertToRaw(contentState));
     this.onChange(
       RichUtils.toggleBlockType(this.state.editorState, "header-two")
-    )
-  }
+    );
+  };
   onH3Click = () => {
     this.onChange(
       RichUtils.toggleBlockType(this.state.editorState, "header-three")
-    )
-  }
+    );
+  };
 
   onLinkClick = () => {
     const contentState = this.state.editorState.getCurrentContent();
     const contentStateWithEntity = contentState.createEntity(
-      'LINK',
-      'MUTABLE',
-      {url: this.state.url}
+      "LINK",
+      "MUTABLE",
+      { url: this.state.url }
     );
     const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
-    const newEditorState = EditorState.set(this.state.editorState, { currentContent: contentStateWithEntity });
+    const newEditorState = EditorState.set(this.state.editorState, {
+      currentContent: contentStateWithEntity
+    });
     this.setState({
       editorState: RichUtils.toggleLink(
         newEditorState,
         newEditorState.getSelection(),
         entityKey
       ),
-      url:""})
-      
-  }
+      url: ""
+    });
+  };
 
-// Post Functions
+  // Post Functions
   handlePostInputChange = event => {
     const { name, value } = event.target;
     this.setState({
@@ -158,13 +161,12 @@ class PostEditForm extends React.Component {
   };
 
   handleUrlChange = event => {
-    const {name, value} = event.target;
+    const { name, value } = event.target;
     this.setState({
       ...this.state,
       [name]: value
-    })
-    console.log(this.state)
-  }
+    });
+  };
 
   handlePostTagSubmit = event => {
     event.preventDefault();
@@ -191,7 +193,7 @@ class PostEditForm extends React.Component {
     ) {
       const content = stateToHTML(contentState);
 
-      PostsAPI.updatePost(this.props._id,{
+      PostsAPI.updatePost(this.props._id, {
         title: this.state.post.title,
         summary: this.state.post.summary,
         author: this.props.author,
@@ -200,7 +202,6 @@ class PostEditForm extends React.Component {
         isPublished: this.state.post.isPublished
       })
         .then(res => {
-          console.log(res);
           this.props.closeEdit();
           this.loadPosts();
           this.props.loadCurrentProject(this.props.projectID);
@@ -209,8 +210,8 @@ class PostEditForm extends React.Component {
     }
   };
 
-	render() {
-		return (
+  render() {
+    return (
       <div>
               <div className="form-group">
                 <input

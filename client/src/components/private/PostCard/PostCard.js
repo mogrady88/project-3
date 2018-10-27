@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import Row from "../../shared/grid/Row";
 import Col from "../../shared/grid/Col";
 import PostEditForm from "../../PostEditForm";
@@ -10,13 +10,12 @@ export default class PostCard extends Component {
   };
 
   handleEditButton = () => {
-    if (this.state.editPost === false){
-      this.setState({editPost:true})
+    if (this.state.editPost === false) {
+      this.setState({ editPost: true });
+    } else {
+      this.setState({ editPost: false });
     }
-    else{
-      this.setState({editPost:false})
-    }
-  }
+  };
 
   render() {
     return (

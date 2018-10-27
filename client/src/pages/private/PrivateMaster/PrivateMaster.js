@@ -72,13 +72,11 @@ class PrivateMaster extends Component {
       }
     };
     this.componentDidMount = this.componentDidMount.bind(this);
-    // this.handleInputChange = this.handleUserInputChange.bind(this);
     this.handleSignUp = this.handleSignUp.bind(this);
   }
 
   componentDidMount() {
     this.loadProjects();
-    // this.props.getUser();
     this.setUser(this.props.user);
   }
 
@@ -185,7 +183,6 @@ class PrivateMaster extends Component {
         this.setState({
           currentProject: res.data
         });
-        console.log(this.state.currentProject);
         let usedFunds = 0;
         if (this.state.currentProject.tasks.length > 0) {
           this.state.currentProject.tasks.map(
@@ -264,9 +261,9 @@ class PrivateMaster extends Component {
                 ...this.state.metadata,
                 createPost: true
               }
-            })
+            });
             break;
-            default:
+          default:
             break;
         }
         break;
@@ -298,21 +295,21 @@ class PrivateMaster extends Component {
               }
             });
             break;
-            case "post": 
+          case "post":
             this.setState({
               metadata: {
                 ...this.state.metadata,
                 editPost: true
               }
-            })
+            });
             break;
-            
-            default:
+
+          default:
             break;
         }
         break;
 
-        default:
+      default:
         break;
     }
   };
@@ -334,7 +331,7 @@ class PrivateMaster extends Component {
             editPost: false,
             createPost: false
           }
-        })
+        });
         break;
       case "task":
         this.setState({
@@ -382,7 +379,7 @@ class PrivateMaster extends Component {
         });
         break;
 
-        default:
+      default:
         break;
     }
   };
@@ -433,8 +430,8 @@ class PrivateMaster extends Component {
       case "editTask":
         const index = event.target.getAttribute("data-index");
         const tasks = this.state.currentProject.tasks.slice();
-        tasks[tasks.length - 1 - parseInt(index,10)] = {
-          ...tasks[tasks.length - 1 - parseInt(index,10)],
+        tasks[tasks.length - 1 - parseInt(index, 10)] = {
+          ...tasks[tasks.length - 1 - parseInt(index, 10)],
           [name]: value
         };
         this.setState({
@@ -467,7 +464,7 @@ class PrivateMaster extends Component {
         });
         break;
 
-        default:
+      default:
         break;
     }
   };
@@ -483,10 +480,9 @@ class PrivateMaster extends Component {
         title: this.state.currentProject.title,
         status: this.state.currentProject.status,
         summary: this.state.currentProject.summary,
-        funds: parseInt(this.state.currentProject.funds,10)
+        funds: parseInt(this.state.currentProject.funds, 10)
       })
         .then(res => {
-          console.log(res);
           this.loadProjects();
           this.loadCurrentProject(res.data._id);
         })
@@ -506,10 +502,9 @@ class PrivateMaster extends Component {
         title: this.state.currentProject.title,
         status: this.state.currentProject.status,
         summary: this.state.currentProject.summary,
-        funds: parseInt(this.state.currentProject.funds,10)
+        funds: parseInt(this.state.currentProject.funds, 10)
       })
         .then(res => {
-          console.log(res);
           this.loadProjects();
           this.closeCreateEdit("project");
         })
@@ -528,14 +523,13 @@ class PrivateMaster extends Component {
         {
           title: this.state.newData.newTask.title,
           description: this.state.newData.newTask.description,
-          funds: parseInt(this.state.newData.newTask.funds,10)
+          funds: parseInt(this.state.newData.newTask.funds, 10)
         },
         {
           project: this.state.currentProject._id
         }
       ])
         .then(res => {
-          console.log(res);
           this.loadProjects();
           this.loadCurrentProject(this.state.currentProject._id);
           this.closeCreateEdit("task");
@@ -580,11 +574,11 @@ class PrivateMaster extends Component {
         funds: parseInt(
           this.state.currentProject.tasks[
             this.state.currentProject.tasks.length - 1 - index
-          ].funds
-        ,10)
+          ].funds,
+          10
+        )
       })
         .then(res => {
-          console.log(res);
           this.loadProjects();
           this.loadCurrentProject(this.state.currentProject._id);
           this.closeCreateEdit("task");
@@ -634,12 +628,6 @@ class PrivateMaster extends Component {
     event.preventDefault();
     let parentid = event.target.getAttribute("data-parentid");
 
-    console.log("parent id: " + parentid);
-    console.log("text: " + this.state.newData.newComment.comment);
-    console.log(
-      "author: " + this.props.user.firstName + " " + this.props.user.lastName
-    );
-
     if (this.state.newData.newComment.comment) {
       CommentsAPI.saveComment([
         {
@@ -668,7 +656,6 @@ class PrivateMaster extends Component {
 
   handleSignUp(event) {
     event.preventDefault();
-    console.log("handleSignUp");
     UsersAPI.signupUser({
       firstName: this.state.newData.newUser.firstName,
       lastName: this.state.newData.newUser.lastName,
@@ -677,7 +664,6 @@ class PrivateMaster extends Component {
       password: this.state.newData.newUser.password
     })
       .then(response => {
-        console.log(response);
         if (!response.data.error) {
           console.log("successful signup");
           alert(`Successful signup for new user: ${response.data.username}.`);
@@ -693,7 +679,6 @@ class PrivateMaster extends Component {
             }
           });
         } else {
-          console.log("username already taken");
           alert(response.data.error);
           this.setState({
             newData: {
@@ -709,7 +694,6 @@ class PrivateMaster extends Component {
         }
       })
       .catch(error => {
-        console.log("signup error: ");
         console.log(error);
       });
   }
