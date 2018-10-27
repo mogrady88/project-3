@@ -1,6 +1,19 @@
 .publicJumbo {
   text-align: center;
-  background-color: white;
+  background-color: #323433;
   min-height: 400px;
+  padding: 20px;
+  margin-top: 20px;
+  border: 5px solid #fdf0b5;
+}
+
+.publicJumbo h1,
+.publicJumbo p {
+  font-family: "Righteous", cursive;
+  color: #fdf0b5;
+}
+
+.publicJumbo h1 {
+  font-size: 100px;
 }
 /*# sourceMappingURL=Jumbo.css.map */

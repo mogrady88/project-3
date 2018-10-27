@@ -14,6 +14,7 @@ import EditUser from "./pages/temp/EditUser";
 import PrivateRoute from "./components/private/PrivateRoute";
 // Import API
 import UsersAPI from "./utils/usersAPI";
+import "./App.css";
 
 class App extends React.Component {
   constructor() {
