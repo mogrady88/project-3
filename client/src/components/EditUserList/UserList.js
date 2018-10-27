@@ -19,10 +19,6 @@ class UserList extends Component {
     this.setState({ user: this.props.user });
   }
 
-  componentDidMount(){
-    console.log(this.state.user);
-  }
-
   updateUserInfo(id, data) {
     UsersAPI.updateUser(id, data).then(res => {
 
