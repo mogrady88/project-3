@@ -81,12 +81,19 @@ class UserList extends Component {
           </Col>
           <Col s={1}>
             <label for="password">Password</label>
-            <PasswordMask
+            {/* <PasswordMask
                 id="password"
                 name="password"
                 placeholder="Enter password"
                 value={this.state.user.password}
                 onChange={this.onChange.bind(this)}
+            /> */}
+            <input 
+                type="text"
+                class="form-control"
+                name="password"
+                placeholder="Enter new password"
+                onChange={this.onChange}
             />
         </Col>
         <Col s={1}>
