@@ -5,7 +5,7 @@ import { Redirect } from "react-router-dom";
 import Nav from "../../../components/shared/Nav";
 import axios from "axios";
 import UsersAPI from "../../../utils/usersAPI";
-import UserList from "../../../components/EditUserList/UserList";
+import UserList from "../../../components/EditUserList";
 
 class ViewUsers extends Component {
 
@@ -75,7 +75,6 @@ handleOnChange = (event) => {
         return(
             <div className="container">
             <Row>
-                <h4>Users</h4>
                 <div>
                 {this.state.users.map(user => (
                 <UserList user={user} onDisable={this.handleOnDisable} onChange={this.handleOnChange} onClick={this.handleOnClick}/>
