@@ -54,7 +54,10 @@ class PostEditForm extends React.Component {
         stateFromHTML(this.props.content)
       )
     });
+<<<<<<< HEAD
     console.log(this.props.content);
+=======
+>>>>>>> master
     this.loadPosts();
   }
 
@@ -119,7 +122,10 @@ class PostEditForm extends React.Component {
   };
   onH2Click = () => {
     const contentState = this.state.editorState.getCurrentContent();
+<<<<<<< HEAD
     console.log("content state", convertToRaw(contentState));
+=======
+>>>>>>> master
     this.onChange(
       RichUtils.toggleBlockType(this.state.editorState, "header-two")
     );
@@ -168,7 +174,10 @@ class PostEditForm extends React.Component {
       ...this.state,
       [name]: value
     });
+<<<<<<< HEAD
     console.log(this.state);
+=======
+>>>>>>> master
   };
 
   handlePostTagSubmit = event => {
@@ -205,7 +214,6 @@ class PostEditForm extends React.Component {
         isPublished: this.state.post.isPublished
       })
         .then(res => {
-          console.log(res);
           this.props.closeEdit();
           this.loadPosts();
           this.props.loadCurrentProject(this.props.projectID);
