@@ -36,8 +36,11 @@ export default class PostCard extends Component {
         </Col>
       </Row> 
       </div> :
+    <Row>
     <PostEditForm {...this.props} 
-    closeEdit={this.handleEditButton} />}
+    closeEdit={this.handleEditButton} 
+    />
+    </Row>}
      
     
     </div>

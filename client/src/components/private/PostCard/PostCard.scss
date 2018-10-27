@@ -6,4 +6,16 @@
   background-color: map-get($colors, first);
   padding: 20px;
   margin-bottom: 5px;
+  .btn{
+    margin-left: 5px;
+  }
+  .editorContainer {
+    color: black;
+    .toolbar{
+      background-color: map-get($colors,third);
+      box-shadow: 0px 0px 25px -5px;
+      padding: 10px 5px
+    }
+  }
+  
 }
