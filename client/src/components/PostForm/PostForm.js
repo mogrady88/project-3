@@ -202,6 +202,11 @@ class PostForm extends React.Component {
     }
   };
 
+  cancel = event => {
+    event.preventDefault();
+    this.props.closeCreateEdit("post");
+  };
+
   render() {
     return (
       <div>
@@ -313,6 +318,13 @@ class PostForm extends React.Component {
           className="btn btn-success"
         >
           Submit Post
+        </button>
+        <button
+          onClick={this.cancel}
+          style={{ float: "right", marginBottom: 10 }}
+          className="btn btn-success"
+        >
+          Cancel
         </button>
       </div>
     );

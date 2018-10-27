@@ -320,7 +320,7 @@ class PostEditForm extends React.Component {
           style={{ float: "right", marginBottom: 10 }}
           className="btn btn-success"
         >
-          Edit Post
+          Submit Post
         </button>
         <button
           onClick={this.props.closeEdit}
