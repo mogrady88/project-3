@@ -1,8 +1,10 @@
 @import "../../../utils/variables";
 
+$background: #323433;
+
 .publicJumbo {
   text-align: center;
-  background-color: map-get($colors, third);
+  background-color: rgba($background, 0.65);
   min-height: 400px;
   padding: 20px;
   margin-top: 20px;
@@ -11,6 +13,7 @@
   p {
     font-family: "Righteous", cursive;
     color: map-get($colors, fourth);
+    font-size: 25px;
   }
 
   h1 {
