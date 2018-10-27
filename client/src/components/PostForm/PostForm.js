@@ -109,10 +109,6 @@ class PostForm extends React.Component {
     );
   };
   onH2Click = () => {
-<<<<<<< HEAD
-    const contentState = this.state.editorState.getCurrentContent();
-=======
->>>>>>> 42dd877ecb3b4c9fd10ddec72699521071dc1c82
     this.onChange(
       RichUtils.toggleBlockType(this.state.editorState, "header-two")
     );
@@ -204,6 +200,11 @@ class PostForm extends React.Component {
         })
         .catch(err => console.log(err));
     }
+  };
+
+  cancel = event => {
+    event.preventDefault();
+    this.props.closeCreateEdit("post");
   };
 
   render() {
@@ -317,6 +318,13 @@ class PostForm extends React.Component {
           className="btn btn-success"
         >
           Submit Post
+        </button>
+        <button
+          onClick={this.cancel}
+          style={{ float: "right", marginBottom: 10 }}
+          className="btn btn-success"
+        >
+          Cancel
         </button>
       </div>
     );
