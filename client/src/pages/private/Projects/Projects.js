@@ -3,6 +3,7 @@ import Col from "../../../components/shared/grid/Col";
 import ProjectsSidebar from "../../../components/private/ProjectsSidebar";
 import CreateProjectForm from "../CreateProjectForm";
 import ProjectViewer from "../ProjectViewer";
+import Col from "../../../components/shared/grid/Col";
 
 const Projects = props => (
   <div>
