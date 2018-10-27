@@ -5,4 +5,10 @@
   padding: 20px;
   margin-bottom: 5px;
 }
+
+.tCard .titleClick:hover {
+  cursor: pointer;
+  color: #003366;
+  text-decoration: underline;
+}
 /*# sourceMappingURL=ThreadCard.css.map */

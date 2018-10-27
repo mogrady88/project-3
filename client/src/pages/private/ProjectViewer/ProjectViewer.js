@@ -9,7 +9,7 @@ import CreateProjectForm from "../CreateProjectForm";
 import "./ProjectViewer.css";
 
 const ProjectContainer = props => (
-  <Col size="9" otherclasses="projectMeta">
+  <Col size="7" otherclasses="projectMeta">
     {props.editProject ? (
       <Row>
         <Col size="12">

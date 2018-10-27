@@ -9,7 +9,7 @@ const ThreadCard = props => (
     <Row>
       <Col size="6">
         <h5 onClick={() => props.loadProjectSubpage("comments", props.index)}>
-          {props.title}
+          <span className="titleClick">{props.title}</span>
         </h5>
         <p>Created by: {props.author}</p>
       </Col>
