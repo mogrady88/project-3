@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Row from "../../components/shared/grid/Row";
 import Col from "../../components/shared/grid/Col";
 import UsersAPI from "../../utils/usersAPI";
-import PasswordMask from 'react-password-mask';
 
 class UserList extends Component {
   constructor(props) {
@@ -81,13 +80,6 @@ class UserList extends Component {
           </Col>
           <Col s={1}>
             <label for="password">Password</label>
-            {/* <PasswordMask
-                id="password"
-                name="password"
-                placeholder="Enter password"
-                value={this.state.user.password}
-                onChange={this.onChange.bind(this)}
-            /> */}
             <input 
                 type="text"
                 class="form-control"
