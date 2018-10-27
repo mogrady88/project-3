@@ -23,8 +23,6 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   create: function(req, res) {
-    console.log("usersController:", req.body);
-
     // ADD VALIDATION
     db.User.findOne({ username: req.body.username }, (err, user) => {
       if (err) {
@@ -34,7 +32,6 @@ module.exports = {
           error: `Sorry, already a user with the username: ${req.body.username}`
         });
       } else {
-        console.log("Creating user");
         db.User.create(req.body)
           .then(dbModel => res.json(dbModel))
           .catch(err => res.status(422).json(err));
@@ -42,7 +39,6 @@ module.exports = {
     });
   },
   update: function(req, res) {
-    console.log("req.params.id " + req.params.id);
     // ADD VALIDATION
     db.User.findOne(
       { username: req.body.username, _id: { $ne: req.params.id } },
@@ -56,7 +52,6 @@ module.exports = {
             }`
           });
         } else {
-          console.log("Updating user");
           // Hashes password before updating db
           req.body.password = bcrypt.hashSync(req.body.password, 10);
           // updates with hashed password
