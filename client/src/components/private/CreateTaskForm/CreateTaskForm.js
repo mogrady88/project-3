@@ -31,6 +31,7 @@ const CreateTaskForm = props => (
           value={props.newTask.funds}
           onChange={props.handleInputChange}
           data-context="createTask"
+          type="number"
           name="funds"
           placeholder="Funds"
         />

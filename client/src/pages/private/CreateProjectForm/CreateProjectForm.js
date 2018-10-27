@@ -43,6 +43,7 @@ const CreateProjectForm = props => (
             value={props.currentProject.funds}
             onChange={props.handleInputChange}
             data-context="project"
+            type="number"
             name="funds"
             placeholder="Funds (optional)"
           />
