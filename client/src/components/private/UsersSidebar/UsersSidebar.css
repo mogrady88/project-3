@@ -1,11 +1,18 @@
 .btnUser1 {
-  position: relative;
-  left: 15%;
-  margin: 6% 0% 2% 0%;
+  /* position: relative;
+  left: 10%; */
+  margin: 6% 0% 6% 0%;
 }
 
-.btnUser2 {
+/* .btnUser2 {
   position: relative;
   left: 15%;
+} */
+
+.btnUser1,.btnUser2 {
+    width: 150px;
+    position: relative;
+    left: 8%;
+
 }
 /*# sourceMappingURL=UsersSidebar.css.map */

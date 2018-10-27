@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Row from "../../components/shared/grid/Row";
 import Col from "../../components/shared/grid/Col";
 import UsersAPI from "../../utils/usersAPI";
+import "./UserList.css";
 
 class UserList extends Component {
   constructor(props) {
@@ -66,7 +67,7 @@ class UserList extends Component {
 
   render() {
     return (
-      <div>
+      <div className="userList">
         <Row>
           <Col s={1}>
             <label for="username">Username</label>
