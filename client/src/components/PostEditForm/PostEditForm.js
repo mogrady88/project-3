@@ -1,21 +1,21 @@
 import React from "react";
-import {EditorState, RichUtils, convertToRaw } from "draft-js";
-import Editor from 'draft-js-plugins-editor';
-import {stateToHTML} from 'draft-js-export-html';
-import {stateFromHTML} from 'draft-js-import-html';
+import { EditorState, RichUtils, convertToRaw } from "draft-js";
+import Editor from "draft-js-plugins-editor";
+import { stateToHTML } from "draft-js-export-html";
+import { stateFromHTML } from "draft-js-import-html";
 import ProjectsAPI from "../../utils/projectsAPI";
 import PostsAPI from "../../utils/postsAPI";
-import createLinkifyPlugin from 'draft-js-linkify-plugin'
+import createLinkifyPlugin from "draft-js-linkify-plugin";
 import { Row, Col, Input } from "react-materialize";
-import "./PostEditForm.css"
+import "./PostEditForm.css";
 
 const linkifyPlugin = createLinkifyPlugin();
 const plugins = [linkifyPlugin];
 
 class PostEditForm extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
+  constructor(props) {
+    super(props);
+    this.state = {
       editorState: EditorState.createEmpty(),
       url: "",
       projects: [],
@@ -43,15 +43,18 @@ class PostEditForm extends React.Component {
         project: ""
       }
     };
-	}
+  }
 
   componentDidMount() {
     this.setState({
-      post: { ...this.props
+      post: {
+        ...this.props
       },
-      editorState: EditorState.createWithContent(stateFromHTML(this.props.content))
-    })
-    console.log(this.props.content)
+      editorState: EditorState.createWithContent(
+        stateFromHTML(this.props.content)
+      )
+    });
+    console.log(this.props.content);
     this.loadPosts();
   }
 
@@ -75,78 +78,80 @@ class PostEditForm extends React.Component {
       .catch(err => console.log(err));
   };
 
-	onChange = editorState => {
-		this.setState({
-			editorState
-		});
-	};
-
-	handleKeyCommand = command => {
-		const newState = RichUtils.handleKeyCommand(
-			this.state.editorState,
-			command
-		);
-		if (newState) {
-			this.onChange(newState);
-			return "handled";
-		}
-		return "not-handled";
-	};
-
-	onUnderlineClick = () => {
-		this.onChange(
-			RichUtils.toggleInlineStyle(this.state.editorState, "UNDERLINE")
-		);
-	};
-
-	onBoldClick = () => {
-		this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, "BOLD"));
-	};
-
-	onItalicClick = () => {
-		this.onChange(
-			RichUtils.toggleInlineStyle(this.state.editorState, "ITALIC")
-		);
+  onChange = editorState => {
+    this.setState({
+      editorState
+    });
   };
-  
+
+  handleKeyCommand = command => {
+    const newState = RichUtils.handleKeyCommand(
+      this.state.editorState,
+      command
+    );
+    if (newState) {
+      this.onChange(newState);
+      return "handled";
+    }
+    return "not-handled";
+  };
+
+  onUnderlineClick = () => {
+    this.onChange(
+      RichUtils.toggleInlineStyle(this.state.editorState, "UNDERLINE")
+    );
+  };
+
+  onBoldClick = () => {
+    this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, "BOLD"));
+  };
+
+  onItalicClick = () => {
+    this.onChange(
+      RichUtils.toggleInlineStyle(this.state.editorState, "ITALIC")
+    );
+  };
+
   onH1Click = () => {
     this.onChange(
       RichUtils.toggleBlockType(this.state.editorState, "header-one")
-    )
-  }
+    );
+  };
   onH2Click = () => {
     const contentState = this.state.editorState.getCurrentContent();
-    console.log('content state', convertToRaw(contentState));
+    console.log("content state", convertToRaw(contentState));
     this.onChange(
       RichUtils.toggleBlockType(this.state.editorState, "header-two")
-    )
-  }
+    );
+  };
   onH3Click = () => {
     this.onChange(
       RichUtils.toggleBlockType(this.state.editorState, "header-three")
-    )
-  }
+    );
+  };
 
   onLinkClick = () => {
     const contentState = this.state.editorState.getCurrentContent();
     const contentStateWithEntity = contentState.createEntity(
-      'LINK',
-      'MUTABLE',
-      {url: this.state.url}
+      "LINK",
+      "MUTABLE",
+      { url: this.state.url }
     );
     const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
-    const newEditorState = EditorState.set(this.state.editorState, { currentContent: contentStateWithEntity });
+    const newEditorState = EditorState.set(this.state.editorState, {
+      currentContent: contentStateWithEntity
+    });
     this.setState({
       editorState: RichUtils.toggleLink(
         newEditorState,
         newEditorState.getSelection(),
         entityKey
       ),
-      url:""})
-      
-  }
+      url: ""
+    });
+  };
 
-// Post Functions
+  // Post Functions
   handlePostInputChange = event => {
     const { name, value } = event.target;
     this.setState({
@@ -158,13 +163,13 @@ class PostEditForm extends React.Component {
   };
 
   handleUrlChange = event => {
-    const {name, value} = event.target;
+    const { name, value } = event.target;
     this.setState({
       ...this.state,
       [name]: value
-    })
-    console.log(this.state)
-  }
+    });
+    console.log(this.state);
+  };
 
   handlePostTagSubmit = event => {
     event.preventDefault();
@@ -191,7 +196,7 @@ class PostEditForm extends React.Component {
     ) {
       const content = stateToHTML(contentState);
 
-      PostsAPI.updatePost(this.props._id,{
+      PostsAPI.updatePost(this.props._id, {
         title: this.state.post.title,
         summary: this.state.post.summary,
         author: this.props.author,
@@ -209,126 +214,128 @@ class PostEditForm extends React.Component {
     }
   };
 
-	render() {
-		return (
+  render() {
+    return (
       <div>
-              <div className="form-group">
-                <input
-                  className="form-control"
-                  value={this.state.post.title}
-                  onChange={this.handlePostInputChange}
-                  name="title"
-                  placeholder="Title (required)"
-                />
-              </div>
-              <div className="form-group">
-                <textarea
-                  className="form-control"
-                  value={this.state.post.summary}
-                  onChange={this.handlePostInputChange}
-                  name="summary"
-                  placeholder="Summary (required)"
-                />
-              </div>
-              Content:
-              <div className="editorContainer">
-                <div className="toolbar">
-                  <button onClick={this.onUnderlineClick}>U</button>
-                  <button onClick={this.onBoldClick}>
-                    <b>B</b>
-                  </button>
-                  <button onClick={this.onItalicClick}>
-                    <em>I</em>
-                  </button>
-                  <button onClick={this.onH1Click}>H1</button>
-                  <button onClick={this.onH2Click}>H2</button>
-                  <button onClick={this.onH3Click}>H3</button>
-                  <input
-                  className="form-control"
-                  value={this.state.url}
-                  onChange={this.handleUrlChange}
-                  name="url"
-                  placeholder="https://www.yoururl.com"
-                />
-                  <button onClick={this.onLinkClick}>Add Link</button>
-                </div>
-                <div className="editors">
-                  <Editor
-                    editorState={this.state.editorState}
-                    handleKeyCommand={this.handleKeyCommand}
-                    onChange={this.onChange}
-                    plugins={plugins}
-                    ref={(element) => { this.editor = element; }}
-                  />
-                </div>
-              </div>
-              <div>Tags: {this.state.post.tags.join(", ")}</div>
-              <Row>
-                <Col s={8}>
-                  <input
-                    className="form-control"
-                    value={this.state.post.currentTag}
-                    onChange={this.handlePostInputChange}
-                    name="currentTag"
-                    placeholder="Add tag (optional)"
-                  />
-                </Col>
-                <Col s={4}>
-                  <button
-                    disabled={!this.state.post.currentTag}
-                    onClick={this.handlePostTagSubmit}
-                    style={{ float: "right", marginBottom: 10 }}
-                    className="btn btn-success"
-                  >
-                    Submit Tag
-                  </button>
-                </Col>
-              </Row>
-              <div className="form-group">
-                <Row>
-                  <Input
-                    name="isPublished"
-                    type="radio"
-                    value={true}
-                    checked={this.state.post.isPublished === true}
-                    onChange={this.handlePostInputChange}
-                    label="Published"
-                  />
-                  <Input
-                    name="isPublished"
-                    type="radio"
-                    value={false}
-                    checked={this.state.post.isPublished === false}
-                    onChange={this.handlePostInputChange}
-                    label="Not Published"
-                  />
-                </Row>
-              </div>
-              <button
-                disabled={
-                  !(
-                    this.state.post.title &&
-                    this.state.post.summary &&
-                    this.state.editorState.getCurrentContent().hasText() &&
-                    this.state.post.author
-                  )
-                }
-                onClick={this.handlePostEditFormSubmit}
-                style={{ float: "right", marginBottom: 10 }}
-                className="btn btn-success"
-              >
-                Edit Post
-              </button>
-              <button
-                onClick={this.props.closeEdit}
-                style={{ float: "right", marginBottom: 10 }}
-                className="btn btn-success"
-              >
-                Cancel
-              </button>
-              </div>
-		);
-	}
+        <div className="form-group">
+          <input
+            className="form-control"
+            value={this.state.post.title}
+            onChange={this.handlePostInputChange}
+            name="title"
+            placeholder="Title (required)"
+          />
+        </div>
+        <div className="form-group">
+          <textarea
+            className="form-control"
+            value={this.state.post.summary}
+            onChange={this.handlePostInputChange}
+            name="summary"
+            placeholder="Summary (required)"
+          />
+        </div>
+        Content:
+        <div className="editorContainer">
+          <div className="toolbar">
+            <button onClick={this.onUnderlineClick}>U</button>
+            <button onClick={this.onBoldClick}>
+              <b>B</b>
+            </button>
+            <button onClick={this.onItalicClick}>
+              <em>I</em>
+            </button>
+            <button onClick={this.onH1Click}>H1</button>
+            <button onClick={this.onH2Click}>H2</button>
+            <button onClick={this.onH3Click}>H3</button>
+            <input
+              className="form-control"
+              value={this.state.url}
+              onChange={this.handleUrlChange}
+              name="url"
+              placeholder="https://www.yoururl.com"
+            />
+            <button onClick={this.onLinkClick}>Add Link</button>
+          </div>
+          <div className="editors">
+            <Editor
+              editorState={this.state.editorState}
+              handleKeyCommand={this.handleKeyCommand}
+              onChange={this.onChange}
+              plugins={plugins}
+              ref={element => {
+                this.editor = element;
+              }}
+            />
+          </div>
+        </div>
+        <div>Tags: {this.state.post.tags.join(", ")}</div>
+        <Row>
+          <Col s={8}>
+            <input
+              className="form-control"
+              value={this.state.post.currentTag}
+              onChange={this.handlePostInputChange}
+              name="currentTag"
+              placeholder="Add tag (optional)"
+            />
+          </Col>
+          <Col s={4}>
+            <button
+              disabled={!this.state.post.currentTag}
+              onClick={this.handlePostTagSubmit}
+              style={{ float: "right", marginBottom: 10 }}
+              className="btn btn-success"
+            >
+              Submit Tag
+            </button>
+          </Col>
+        </Row>
+        <div className="form-group">
+          <Row>
+            <Input
+              name="isPublished"
+              type="radio"
+              value={true}
+              checked={this.state.post.isPublished === true}
+              onChange={this.handlePostInputChange}
+              label="Published"
+            />
+            <Input
+              name="isPublished"
+              type="radio"
+              value={false}
+              checked={this.state.post.isPublished === false}
+              onChange={this.handlePostInputChange}
+              label="Not Published"
+            />
+          </Row>
+        </div>
+        <button
+          disabled={
+            !(
+              this.state.post.title &&
+              this.state.post.summary &&
+              this.state.editorState.getCurrentContent().hasText() &&
+              this.state.post.author
+            )
+          }
+          onClick={this.handlePostEditFormSubmit}
+          style={{ float: "right", marginBottom: 10 }}
+          className="btn btn-success"
+        >
+          Submit Post
+        </button>
+        <button
+          onClick={this.props.closeEdit}
+          style={{ float: "right", marginBottom: 10 }}
+          className="btn btn-success"
+        >
+          Cancel
+        </button>
+      </div>
+    );
+  }
 }
 
 export default PostEditForm;

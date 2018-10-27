@@ -1,8 +1,8 @@
 import React from "react";
 import PostCard from "../../../components/private/PostCard";
-import PostForm from "../../../components/PostForm"
-import Row from "../../../components/shared/grid/Row"
-import Col from "../../../components/shared/grid/Col"
+import PostForm from "../../../components/PostForm";
+import Row from "../../../components/shared/grid/Row";
+import Col from "../../../components/shared/grid/Col";
 
 const Posts = props => (
   <div>
@@ -19,24 +19,24 @@ const Posts = props => (
       </Col>
     </Row>
     <Row>
-      {props.createPost ? 
-      <PostForm 
-      projectID = {props.projectID}
-      userFirstName={props.userFirstName}
-      userLastName={props.userLastName}
-      loadCurrentProject={props.loadCurrentProject}
-      closeCreateEdit = {props.closeCreateEdit}
-      /> :  (
-      <div>
-        {props.posts.map(post => (
-        <PostCard
-          {...post}
-          projectID = {props.projectID}
+      {props.createPost ? (
+        <PostForm
+          projectID={props.projectID}
+          userFirstName={props.userFirstName}
+          userLastName={props.userLastName}
           loadCurrentProject={props.loadCurrentProject}
+          closeCreateEdit={props.closeCreateEdit}
         />
-      ))}
-      </div>
-
+      ) : (
+        <div>
+          {props.posts.reverse().map(post => (
+            <PostCard
+              {...post}
+              projectID={props.projectID}
+              loadCurrentProject={props.loadCurrentProject}
+            />
+          ))}
+        </div>
       )}
     </Row>
   </div>
