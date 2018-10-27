@@ -1,9 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { Row, Col, Card, Tabs, Tab, Input, Button } from "react-materialize";
-import { Redirect } from "react-router-dom";
-import Nav from "../../../components/shared/Nav";
-import axios from "axios";
+import { Row } from "react-materialize";
 
 class AboutUs extends Component {
 
