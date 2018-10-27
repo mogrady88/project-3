@@ -23,7 +23,6 @@
   },
   "dependencies": {
     "axios": "^0.16.2",
-    "bcrypt": "^3.0.1",
     "bcryptjs": "^2.4.3",
     "connect-mongo": "^2.0.1",
     "draft-js": "^0.10.5",

@@ -5,6 +5,7 @@
   "proxy": "http://localhost:3001/",
   "dependencies": {
     "axios": "^0.16.2",
+    "css-loader": "^1.0.0",
     "draft-js": "^0.10.5",
     "draft-js-export-html": "^1.2.0",
     "draft-js-import-html": "^1.2.1",
@@ -30,11 +31,5 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+  }
 }
