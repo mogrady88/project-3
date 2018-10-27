@@ -20,29 +20,29 @@ export default class PostCard extends Component {
   render() {
     return (
       <div className="pCard">
-        {!this.state.editPost ? (
-          <div>
-            <h5>{this.props.title}</h5>
-            <Row>
-              <Col size="8">
-                <p>Tags: {this.props.tags.join(", ")}</p>
-                <p>{this.props.summary}</p>
-              </Col>
-              <Col size="4">
-                <p>
-                  Status:{" "}
-                  {this.props.isPublished ? "Published" : "Not Published"}
-                </p>
-                <button className="btn" onClick={this.handleEditButton}>
-                  Edit Post
-                </button>
-              </Col>
-            </Row>
-          </div>
-        ) : (
-          <PostEditForm {...this.props} closeEdit={this.handleEditButton} />
-        )}
-      </div>
+      {!this.state.editPost ?  
+      <div>
+      <h5>{this.props.title}</h5>
+      <Row>
+        <Col size="12">Tags: {this.props.tags.join(", ")}</Col>
+      </Row>
+      <Row>
+        <Col size="8">
+          <p>{this.props.summary}</p>
+        </Col>
+        <Col size="4">
+          <button className="btn" onClick={this.handleEditButton}>Edit Post</button>
+        </Col>
+      </Row> 
+      </div> :
+    <Row>
+    <PostEditForm {...this.props} 
+    closeEdit={this.handleEditButton} 
+    />
+    </Row>}
+     
+    
+    </div>
     );
   }
 }
