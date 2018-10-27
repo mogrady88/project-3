@@ -5,7 +5,17 @@
   border: 5px solid #fdf0b5;
 }
 
+.createProForm form {
+  margin: 20px;
+}
+
+.createProForm input,
+.createProForm textarea {
+  color: white;
+}
+
 .createProForm h4 {
+  font-family: "Righteous", cursive;
   color: #fdf0b5;
   text-align: center;
   margin-top: 15px;

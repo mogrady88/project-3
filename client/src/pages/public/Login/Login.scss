@@ -6,7 +6,13 @@
   background-color: map-get($colors, third);
   border: 5px solid map-get($colors, fourth);
 
+  input,
+  textarea {
+    color: white;
+  }
+
   h4 {
+    font-family: "Righteous", cursive;
     color: map-get($colors, fourth) !important;
     text-align: center;
   }

@@ -126,7 +126,6 @@ class Login extends Component {
               <div className="signIn">
                 <h4>Administrator Login</h4>
                 <form id="loginForm">
-                  <label htmlFor="username">Username:</label>
                   <input
                     type="text"
                     id="username"
@@ -135,7 +134,7 @@ class Login extends Component {
                     value={this.state.username}
                     onChange={this.handleChange}
                   />
-                  <label htmlFor="password">Password:</label>
+
                   <input
                     placeholder="Password"
                     type="password"

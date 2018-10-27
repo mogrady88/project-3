@@ -4,6 +4,7 @@
 }
 
 #createProjectBtn .card-title {
+  font-family: "Righteous", cursive;
   color: #fdf0b5;
   text-align: center;
 }
