@@ -15,7 +15,6 @@ import ThreadsAPI from "../../../utils/threadsAPI";
 import CommentsAPI from "../../../utils/commentsAPI";
 // CSS Imports
 import "./PrivateMaster.css";
-import { runInThisContext } from "vm";
 
 class PrivateMaster extends Component {
   constructor() {
@@ -267,6 +266,8 @@ class PrivateMaster extends Component {
               }
             })
             break;
+            default:
+            break;
         }
         break;
       case "edit":
@@ -305,7 +306,13 @@ class PrivateMaster extends Component {
               }
             })
             break;
+            
+            default:
+            break;
         }
+        break;
+
+        default:
         break;
     }
   };
@@ -328,6 +335,7 @@ class PrivateMaster extends Component {
             createPost: false
           }
         })
+        break;
       case "task":
         this.setState({
           metadata: {
@@ -372,6 +380,9 @@ class PrivateMaster extends Component {
             }
           }
         });
+        break;
+
+        default:
         break;
     }
   };
@@ -422,8 +433,8 @@ class PrivateMaster extends Component {
       case "editTask":
         const index = event.target.getAttribute("data-index");
         const tasks = this.state.currentProject.tasks.slice();
-        tasks[tasks.length - 1 - parseInt(index)] = {
-          ...tasks[tasks.length - 1 - parseInt(index)],
+        tasks[tasks.length - 1 - parseInt(index,10)] = {
+          ...tasks[tasks.length - 1 - parseInt(index,10)],
           [name]: value
         };
         this.setState({
@@ -455,6 +466,9 @@ class PrivateMaster extends Component {
           }
         });
         break;
+
+        default:
+        break;
     }
   };
 
@@ -469,7 +483,7 @@ class PrivateMaster extends Component {
         title: this.state.currentProject.title,
         status: this.state.currentProject.status,
         summary: this.state.currentProject.summary,
-        funds: parseInt(this.state.currentProject.funds)
+        funds: parseInt(this.state.currentProject.funds,10)
       })
         .then(res => {
           console.log(res);
@@ -492,7 +506,7 @@ class PrivateMaster extends Component {
         title: this.state.currentProject.title,
         status: this.state.currentProject.status,
         summary: this.state.currentProject.summary,
-        funds: parseInt(this.state.currentProject.funds)
+        funds: parseInt(this.state.currentProject.funds,10)
       })
         .then(res => {
           console.log(res);
@@ -514,7 +528,7 @@ class PrivateMaster extends Component {
         {
           title: this.state.newData.newTask.title,
           description: this.state.newData.newTask.description,
-          funds: parseInt(this.state.newData.newTask.funds)
+          funds: parseInt(this.state.newData.newTask.funds,10)
         },
         {
           project: this.state.currentProject._id
@@ -567,7 +581,7 @@ class PrivateMaster extends Component {
           this.state.currentProject.tasks[
             this.state.currentProject.tasks.length - 1 - index
           ].funds
-        )
+        ,10)
       })
         .then(res => {
           console.log(res);

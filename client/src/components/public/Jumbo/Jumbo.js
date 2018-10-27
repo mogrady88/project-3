@@ -1,7 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import Row from "../../shared/grid/Row";
-import Col from "../../shared/grid/Col";
 import "./Jumbo.css";
 
 const Jumbo = () => (
