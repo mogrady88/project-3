@@ -4,7 +4,6 @@ import "./CreateProjectForm.css";
 
 const CreateProjectForm = props => (
   <div>
-    <Col size="1" />
     <Col size="6" otherclasses="createProForm">
       <h4>Create Project</h4>
       <form>
