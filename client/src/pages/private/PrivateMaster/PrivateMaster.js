@@ -33,7 +33,9 @@ class PrivateMaster extends Component {
         createThread: false,
         editThread: false,
         createComment: false,
-        editComment: false
+        editComment: false,
+        createPost: false,
+        editPost: false
       },
       user: {
         username: null
@@ -257,6 +259,14 @@ class PrivateMaster extends Component {
               }
             });
             break;
+          case "post":
+            this.setState({
+              metadata: {
+                ...this.state.metadata,
+                createPost: true
+              }
+            })
+            break;
         }
         break;
       case "edit":
@@ -287,6 +297,14 @@ class PrivateMaster extends Component {
               }
             });
             break;
+            case "post": 
+            this.setState({
+              metadata: {
+                ...this.state.metadata,
+                editPost: true
+              }
+            })
+            break;
         }
         break;
     }
@@ -302,6 +320,14 @@ class PrivateMaster extends Component {
           }
         });
         break;
+      case "post":
+        this.setState({
+          metadata: {
+            ...this.state.metadata,
+            editPost: false,
+            createPost: false
+          }
+        })
       case "task":
         this.setState({
           metadata: {
@@ -329,7 +355,6 @@ class PrivateMaster extends Component {
         });
         break;
       case "thread":
-        console.log("hit closeCreateEdit");
         this.setState({
           metadata: {
             ...this.state.metadata,
@@ -348,6 +373,15 @@ class PrivateMaster extends Component {
           }
         });
         break;
+    }
+  };
+
+  callCloseCreateEdit = event => {
+    const context = event.target.getAttribute("data-context");
+    const isEdit = event.target.getAttribute("data-isedit");
+    this.closeCreateEdit(context);
+    if (isEdit) {
+      this.loadCurrentProject(this.state.currentProject._id);
     }
   };
 
@@ -491,6 +525,16 @@ class PrivateMaster extends Component {
           this.loadProjects();
           this.loadCurrentProject(this.state.currentProject._id);
           this.closeCreateEdit("task");
+          this.setState({
+            newData: {
+              ...this.state.newData,
+              newTask: {
+                title: "",
+                description: "",
+                funds: ""
+              }
+            }
+          });
         })
         .catch(err => console.log(err));
     }
@@ -558,6 +602,15 @@ class PrivateMaster extends Component {
           this.loadProjects();
           this.loadCurrentProject(this.state.currentProject._id);
           this.closeCreateEdit("thread");
+          this.setState({
+            newData: {
+              ...this.state.newData,
+              newThread: {
+                title: "",
+                comment: ""
+              }
+            }
+          });
         })
         .catch(err => console.log(err));
     }
@@ -586,6 +639,14 @@ class PrivateMaster extends Component {
         .then(res => {
           this.loadProjects();
           this.loadCurrentProject(this.state.currentProject._id);
+          this.setState({
+            newData: {
+              ...this.state.newData,
+              newComment: {
+                comment: ""
+              }
+            }
+          });
         })
         .catch(err => console.log(err));
     }
@@ -672,11 +733,15 @@ class PrivateMaster extends Component {
               currentProject={this.state.currentProject}
               newData={this.state.newData}
               targetEdits={this.state.targetEdits}
+              userFirstName={this.props.user.firstName}
+              userLastName={this.props.user.lastName}
               // Functions
               loadCurrentProject={this.loadCurrentProject}
               loadProjectSubpage={this.loadProjectSubpage}
               unloadCurrentProject={this.unloadCurrentProject}
               handleCreateEditBtn={this.handleCreateEditBtn}
+              closeCreateEdit={this.closeCreateEdit}
+              callCloseCreateEdit={this.callCloseCreateEdit}
               // Form Functions
               handleInputChange={this.handleInputChange}
               handleCreateProjectFormSubmit={this.handleCreateProjectFormSubmit}

@@ -10,11 +10,13 @@ import NoMatch from "./pages/public/NoMatch";
 import PostDetail from "./pages/public/PostDetail";
 import EditCRUD from "./pages/temp/EditCRUD";
 import EditUser from "./pages/temp/EditUser";
+import AboutUs from "./pages/temp/AboutUs";
 // Import Private Route
 import PrivateRoute from "./components/private/PrivateRoute";
 // Import API
 import UsersAPI from "./utils/usersAPI";
 import "./App.css";
+import PostForm from "./components/PostForm";
 
 class App extends React.Component {
   constructor() {
@@ -76,6 +78,7 @@ class App extends React.Component {
 
   handleLogout(event) {
     event.preventDefault();
+    // Remove user session
     sessionStorage.removeItem("disco-panda");
     console.log("logging out");
     UsersAPI.logoutUser({ user: this.state.username })
@@ -117,7 +120,9 @@ class App extends React.Component {
             <Route path="/posts/:id" component={PostDetail} />
             <Route exact path="/test" component={TestCRUD} />
             <Route exact path="/edit" component={EditCRUD} />
+            <Route exact path="/edit-user" component={EditUser} />
             <Route exact path="/users" component={EditUser} />
+            <Route exact path="/about" component={AboutUs} />
             <Route component={NoMatch} />
           </Switch>
         </Router>

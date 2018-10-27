@@ -2,16 +2,17 @@ import React from "react";
 import {EditorState, RichUtils, convertToRaw } from "draft-js";
 import Editor from 'draft-js-plugins-editor';
 import {stateToHTML} from 'draft-js-export-html';
+import {stateFromHTML} from 'draft-js-import-html';
 import ProjectsAPI from "../../utils/projectsAPI";
 import PostsAPI from "../../utils/postsAPI";
 import createLinkifyPlugin from 'draft-js-linkify-plugin'
 import { Row, Col, Input } from "react-materialize";
-import "./PostForm.css"
+import "./PostEditForm.css"
 
 const linkifyPlugin = createLinkifyPlugin();
 const plugins = [linkifyPlugin];
 
-class PostForm extends React.Component {
+class PostEditForm extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -42,10 +43,15 @@ class PostForm extends React.Component {
         project: ""
       }
     };
-  }
-  
+	}
+
   componentDidMount() {
-    this.loadProjects();
+    this.setState({
+      post: { ...this.props
+      },
+      editorState: EditorState.createWithContent(stateFromHTML(this.props.content))
+    })
+    console.log(this.props.content)
     this.loadPosts();
   }
 
@@ -110,7 +116,7 @@ class PostForm extends React.Component {
   }
   onH2Click = () => {
     const contentState = this.state.editorState.getCurrentContent();
-    console.log(this.props);
+    console.log('content state', convertToRaw(contentState));
     this.onChange(
       RichUtils.toggleBlockType(this.state.editorState, "header-two")
     )
@@ -172,7 +178,7 @@ class PostForm extends React.Component {
     }
   };
 
-  handlePostFormSubmit = event => {
+  handlePostEditFormSubmit = event => {
     event.preventDefault();
 
     const contentState = this.state.editorState.getCurrentContent();
@@ -180,24 +186,23 @@ class PostForm extends React.Component {
     if (
       this.state.post.title &&
       this.state.post.summary &&
-      contentState.hasText()
+      contentState.hasText() &&
+      this.state.post.author
     ) {
       const content = stateToHTML(contentState);
 
-      PostsAPI.savePost([
-        {
-          title: this.state.post.title,
-          summary: this.state.post.summary,
-          content: content,
-          author: this.props.userFirstName + " " + this.props.userLastName ,
-          tags: this.state.post.tags,
-          isPublished: this.state.post.isPublished
-        },
-        { project: this.props.projectID}
-      ])
+      PostsAPI.updatePost(this.props._id,{
+        title: this.state.post.title,
+        summary: this.state.post.summary,
+        author: this.props.author,
+        content: content,
+        tags: this.state.post.tags,
+        isPublished: this.state.post.isPublished
+      })
         .then(res => {
           console.log(res);
-          this.props.closeCreateEdit("post");
+          this.props.closeEdit();
+          this.loadPosts();
           this.props.loadCurrentProject(this.props.projectID);
         })
         .catch(err => console.log(err));
@@ -305,18 +310,25 @@ class PostForm extends React.Component {
                     this.state.post.title &&
                     this.state.post.summary &&
                     this.state.editorState.getCurrentContent().hasText() &&
-                    this.props.userFirstName
+                    this.state.post.author
                   )
                 }
-                onClick={this.handlePostFormSubmit}
+                onClick={this.handlePostEditFormSubmit}
                 style={{ float: "right", marginBottom: 10 }}
                 className="btn btn-success"
               >
-                Submit Post
+                Edit Post
+              </button>
+              <button
+                onClick={this.props.closeEdit}
+                style={{ float: "right", marginBottom: 10 }}
+                className="btn btn-success"
+              >
+                Cancel
               </button>
               </div>
 		);
 	}
 }
 
-export default PostForm;
+export default PostEditForm;
