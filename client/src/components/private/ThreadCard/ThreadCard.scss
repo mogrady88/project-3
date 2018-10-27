@@ -6,4 +6,10 @@
   background-color: map-get($colors, first);
   padding: 20px;
   margin-bottom: 5px;
+
+  .titleClick:hover {
+    cursor: pointer;
+    color: #003366;
+    text-decoration: underline;
+  }
 }

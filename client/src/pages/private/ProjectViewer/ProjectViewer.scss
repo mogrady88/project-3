@@ -18,6 +18,8 @@
 }
 
 #projectNav {
+  border-top: 3px solid map-get($colors, third);
+  border-bottom: 3px solid map-get($colors, third);
   background-color: transparent;
   margin-bottom: 20px;
   li a {
