@@ -1,6 +1,5 @@
 import axios from "axios";
 
-
 export default {
   getAllUsers: function() {
     return axios.get("/api/users");
@@ -12,7 +11,6 @@ export default {
     return axios.get("/api/users/current");
   },
   signupUser: function(newUser) {
-    console.log("Front-end: userAPI.js:", newUser);
     return axios.post("/api/users/signup", newUser);
   },
   loginUser: function(userData) {
@@ -22,7 +20,6 @@ export default {
     return axios.post("/api/users/logout", userData);
   },
   updateUser: function(id, userData) {
-    console.log("api hit");
     return axios.put("/api/users/" + id, userData);
   }
 };
