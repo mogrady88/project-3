@@ -1,9 +1,5 @@
 import React from "react";
-<<<<<<< HEAD
-import { EditorState, RichUtils, convertToRaw } from "draft-js";
-=======
 import { EditorState, RichUtils } from "draft-js";
->>>>>>> master
 import Editor from "draft-js-plugins-editor";
 import { stateToHTML } from "draft-js-export-html";
 import ProjectsAPI from "../../utils/projectsAPI";
@@ -113,10 +109,6 @@ class PostForm extends React.Component {
     );
   };
   onH2Click = () => {
-<<<<<<< HEAD
-    const contentState = this.state.editorState.getCurrentContent();
-=======
->>>>>>> 42dd877ecb3b4c9fd10ddec72699521071dc1c82
     this.onChange(
       RichUtils.toggleBlockType(this.state.editorState, "header-two")
     );
@@ -165,10 +157,6 @@ class PostForm extends React.Component {
       ...this.state,
       [name]: value
     });
-<<<<<<< HEAD
-    console.log(this.state);
-=======
->>>>>>> master
   };
 
   handlePostTagSubmit = event => {
@@ -214,14 +202,11 @@ class PostForm extends React.Component {
     }
   };
 
-<<<<<<< HEAD
   cancel = event => {
     event.preventDefault();
     this.props.closeCreateEdit("post");
   };
 
-=======
->>>>>>> master
   render() {
     return (
       <div>
@@ -334,7 +319,6 @@ class PostForm extends React.Component {
         >
           Submit Post
         </button>
-<<<<<<< HEAD
         <button
           onClick={this.cancel}
           style={{ float: "right", marginBottom: 10 }}
@@ -342,8 +326,6 @@ class PostForm extends React.Component {
         >
           Cancel
         </button>
-=======
->>>>>>> master
       </div>
     );
   }
