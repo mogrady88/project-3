@@ -1,18 +1,15 @@
 .btnUser1 {
-  /* position: relative;
-  left: 10%; */
   margin: 6% 0% 6% 0%;
 }
-
-/* .btnUser2 {
-  position: relative;
-  left: 15%;
-} */
 
 .btnUser1,.btnUser2 {
     width: 150px;
     position: relative;
     left: 8%;
 
+}
+
+.btnUser1:hover, .btnUser2:hover {
+  color: grey;
 }
 /*# sourceMappingURL=UsersSidebar.css.map */

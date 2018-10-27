@@ -8,4 +8,11 @@
 
   button {
       color: #323433;
+      background-color: #fdf0b5;
   }
+
+  button:hover {
+      color: grey;
+  }
+
+  

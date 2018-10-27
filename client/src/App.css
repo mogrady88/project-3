@@ -1,3 +1,10 @@
 select {
   display: block;
 }
+
+[type="radio"]:not(:checked),
+  [type="radio"]:checked {
+    position: absolute;
+    opacity: 1 !important;
+    pointer-events: none;
+  }
