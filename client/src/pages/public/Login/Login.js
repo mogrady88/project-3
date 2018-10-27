@@ -90,6 +90,7 @@ class Login extends Component {
       .then(response => {
         document.getElementById("loginForm").reset();
         if (response.status === 200) {
+          console.log("response data", response.data);
           // Udate App.js state
           this.props.updateUser({
             loggedIn: true,
@@ -109,7 +110,7 @@ class Login extends Component {
       })
       .catch(error => {
         console.log(error);
-        alert("Incorrect username or password");
+        alert("Login failed");
       });
   }
 
