@@ -109,10 +109,6 @@ class PostForm extends React.Component {
     );
   };
   onH2Click = () => {
-<<<<<<< HEAD
-    const contentState = this.state.editorState.getCurrentContent();
-=======
->>>>>>> 42dd877ecb3b4c9fd10ddec72699521071dc1c82
     this.onChange(
       RichUtils.toggleBlockType(this.state.editorState, "header-two")
     );
