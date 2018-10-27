@@ -19,8 +19,13 @@ class UserList extends Component {
     this.setState({ user: this.props.user });
   }
 
+  componentDidMount(){
+    console.log(this.state.user);
+  }
+
   updateUserInfo(id, data) {
     UsersAPI.updateUser(id, data).then(res => {
+
       if (!res.data.error) {
         alert(`Successfully updated user: ${res.data.username}.`);
       } else {
@@ -58,18 +63,18 @@ class UserList extends Component {
     }
 
     onDisable = (event) => {
-      console.log("on disable");
+      event.preventDefault();
+
+      if (this.state.user.isActive){
       this.setState({ user: {
         isActive: false }})
+      } else {
+        this.setState({ user: {
+          isActive: true }})
+      }
       console.log(this.state.user);
-    //   const { name, value } = event.target;
-    //   event.preventDefault();
-    //   this.setState({ user: {
-    //       ...this.state.user,
-    //       [name]: value
-    //   }
-    // })
-    //   this.updateUserInfo(event.target.value, this.state.user)
+     
+      this.updateUserInfo(event.target.value, this.state.user)
     }
 
   render() {
@@ -132,8 +137,8 @@ class UserList extends Component {
             <input
               type="radio"
               name="disable"
-              value= { false }
-              checked = { this.state.user.isActive === true }
+              value= { this.state.user.isActive }
+              checked = { this.state.user.isActive }
               readOnly= { true }
               />
             <label htmlFor="disable">Active</label>
@@ -157,7 +162,7 @@ class UserList extends Component {
               name="id"
               value={this.props.user._id}
             >
-              Disable User
+            {this.state.user.isActive === true ? "Disable User" : "Enable User" }
             </button>
           </Col>
         </Row>

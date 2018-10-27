@@ -1,9 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { Row, Col, Card, Tabs, Tab, Input, Button } from "react-materialize";
-import { Redirect } from "react-router-dom";
-import Nav from "../../../components/shared/Nav";
-import axios from "axios";
+import { Row } from "react-materialize";
 import UsersAPI from "../../../utils/usersAPI";
 import UserList from "../../../components/EditUserList";
 
@@ -77,7 +73,7 @@ handleOnChange = (event) => {
             <Row>
                 <div>
                 {this.state.users.map(user => (
-                <UserList user={user} onDisable={this.handleOnDisable} onChange={this.handleOnChange} onClick={this.handleOnClick}/>
+                <UserList key={this.state.user._id} user={user} onDisable={this.handleOnDisable} onChange={this.handleOnChange} onClick={this.handleOnClick}/>
                 ))}
                 </div>
             </Row>
