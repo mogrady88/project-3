@@ -48,27 +48,6 @@ class Public extends Component {
             </Col>
           </Row>
         </div>
-
-        <label>
-          <input
-            name="isPublished"
-            type="radio"
-            value={true}
-            checked={true}
-            onChange={this.handlePostInputChange}
-          />
-          Published
-        </label>
-        <label>
-          <input
-            name="isPublished"
-            type="radio"
-            value={false}
-            checked={false}
-            onChange={this.handlePostInputChange}
-          />
-          Not Published
-        </label>
       </div>
     );
   }
