@@ -15,10 +15,12 @@ The private view, which requires authentication, is only viewable by members of 
 - Projects
 
 ####Users
+
 The initial administrator user is created upon first login. The app checks to see if any users exist in the database, if not, it allows only the initial user to be created from the public view. From here, only authenticated users can create new users.
 The first task on the user view is to create new users. Once the new user logs in, they can go to the second task which allows them to update their user data so long as they have the correct password.
 
 ####Projects
+
 Authenticated users can create projects which contain a task board, discussion forum, and post editor, and then assign the appropriate amount of total funds alotted for the project.
 The tasks board allows groups to break down large projects into smaller chunks and distribute funds to each task.
 The discussion forum allows all users to have a centralized portal for communication about each project. All users can update the project with who's doing what, set time expectations, or even ask general questions or clarification.
