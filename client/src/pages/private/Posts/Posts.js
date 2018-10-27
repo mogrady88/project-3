@@ -32,6 +32,7 @@ const Posts = props => (
           {props.posts.reverse().map(post => (
             <PostCard
               {...post}
+              key={props._id}
               projectID={props.projectID}
               loadCurrentProject={props.loadCurrentProject}
             />

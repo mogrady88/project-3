@@ -32,7 +32,8 @@ router.route("/login").post(
       id: req.user.id,
       username: req.user.username,
       firstName: req.user.firstName,
-      lastName: req.user.lastName
+      lastName: req.user.lastName,
+      isActive: req.user.isActive
     };
     res.send(userInfo);
   }

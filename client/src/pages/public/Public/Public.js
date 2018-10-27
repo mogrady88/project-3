@@ -42,7 +42,7 @@ class Public extends Component {
                 .map(
                   post =>
                     post.isPublished ? (
-                      <PostCard {...post} isPublic={true} />
+                      <PostCard {...post} key={this.props._id} isPublic={true} />
                     ) : null
                 )}
             </Col>
