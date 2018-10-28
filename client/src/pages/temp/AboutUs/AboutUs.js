@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import { Row, Col } from "react-materialize";
-// import { Row } from "../../../components/shared/grid/Row/index";
-// import { Col } from "../../../components/shared/grid/Col/index";
+// import { Row } from "../../../components/shared/grid/Row";
+// import { Col } from "../../../components/shared/grid/Col";
 import "./AboutUs.css";
 
 class AboutUs extends Component {
-
 
 render(){
     return(
@@ -22,7 +21,7 @@ render(){
             </Col>
             <Col s={2}>
             <img className="us-icon" placeholder="Sam" src="https://media.licdn.com/dms/image/C4E03AQEtCJdLHAfXnA/profile-displayphoto-shrink_800_800/0?e=1546473600&v=beta&t=Ow27GF2tJcttxBsK8CAtyc2X_HxAl83MX_KlS7JgXSQ" />
-            <h5>Sam Hall</h5>
+            <h5>Samuel Hall</h5>
             <ul>
                 <li>Passport</li>
                 <li>Bcrypt</li>
@@ -56,10 +55,37 @@ render(){
             </Row>
         </div>
 
-        <div className="container">
+        <div className="container project-goal">
             <Row>
-            <h3>Project Goals</h3>
-            <p>OKay, awesome</p>
+            <h3>Dialectic - Explained</h3>
+            <br></br>
+            <h5>Public View</h5>
+            <p>The initial view of this application, the public view, displays the organization's logo along with all published posts ordered by recency. Anyone is allowed to view this content. This serves as the point of contact to the public for the organization.</p>
+            <br></br>
+            <h5>Private View</h5>
+            <p>The Private view is where authenticated users can create new projects, tasks, and posts. These projects will then be populated on the Public side where anyone can view. This Private view is split up into two main sections:</p>
+            <h6><strong>Users:</strong></h6>
+            <p>
+            The initial administrator user is created upon first login. The app checks to see if any users exist in the database, if not, it allows only the initial user to be created from the public view. From here, only this authenticated user can create new users.   
+            </p>
+            <p>
+            The Users screen opens up with a page to view all users in the database. Here you can make changes to their accounts (username, password, email, etc.). On the left of this page is an option to add new users. The "Add User" form allows you input all necessary information.
+            </p>
+            <p>
+            Note: Validation is in place so that no duplicate users can be created.
+            </p>
+            <h6><strong>Projects:</strong></h6>
+            <p>
+            Authenticated users can create projects which contain a task board, discussion forum, and post editor, and then assign the appropriate amount of total funds alotted for the project.
+            The tasks board allows groups to break down large projects into smaller chunks and distribute funds to each task.
+            </p>
+            <p>
+            The discussion forum allows all users to have a centralized portal for communication about each project. All users can update the project with who's doing what, set time expectations, or even ask general questions or clarification.
+            </p>
+            <p>
+            From the post editor, users can create the public facing content as the projects move along. This allows the organization to interface with their audience as progress is made.
+            </p>
+
             </Row>
             </div>
 
