@@ -29,7 +29,7 @@ const Posts = props => (
         />
       ) : (
         <div>
-          {props.posts.reverse().map(post => (
+          {props.posts.map(post => (
             <PostCard
               {...post}
               key={props._id}

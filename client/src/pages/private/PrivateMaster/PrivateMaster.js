@@ -210,6 +210,12 @@ class PrivateMaster extends Component {
             }
           });
         }
+        this.setState({
+          currentProject: {
+            ...this.state.currentProject,
+            posts: this.state.currentProject.posts.reverse()
+          }
+        });
       })
       .catch(err => console.log(err));
   };

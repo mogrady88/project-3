@@ -1,9 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { Row, Col, Card, Tabs, Tab, Input, Button } from "react-materialize";
-import { Redirect } from "react-router-dom";
-import Nav from "../../../components/shared/Nav";
-import axios from "axios";
+import Col from "../../../components/shared/grid/Col"
 import UsersAPI from "../../../utils/usersAPI";
 import UserList from "../../../components/EditUserList";
 
@@ -73,15 +69,14 @@ handleOnChange = (event) => {
 
     render(){
         return(
-            <div className="container">
-            <Row>
-                <div>
-                {this.state.users.map(user => (
-                <UserList user={user} onDisable={this.handleOnDisable} onChange={this.handleOnChange} onClick={this.handleOnClick}/>
+            <Col size="9">
+            
+                {this.state.users.map((user, index) => (
+                    index === 0 ? null :
+                <UserList key={this.state.user._id} user={user} onDisable={this.handleOnDisable} onChange={this.handleOnChange} onClick={this.handleOnClick}/>
                 ))}
-                </div>
-            </Row>
-            </div>
+
+            </Col>
         )
     }
 }
