@@ -1,0 +1,24 @@
+.us-icon {
+    width: 125px;
+    height: auto;
+    border-radius: 100%;
+}
+
+.tech-icon {
+    width: 75px;
+    height: auto;
+    border-radius: 100%;
+}
+
+.container {
+    padding-left: 10px;
+    margin:10px auto;
+    color: white;
+    background-color: #323433;
+    border: 5px solid #fdf0b5;
+}
+
+.about-us {
+    position: relative;
+    margin: auto;
+}
