@@ -1,9 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import Col from "../../../components/shared/grid/Col";
-import { Redirect } from "react-router-dom";
-import Nav from "../../../components/shared/Nav";
-import axios from "axios";
+import Col from "../../../components/shared/grid/Col"
 import UsersAPI from "../../../utils/usersAPI";
 import UserList from "../../../components/EditUserList";
 
@@ -62,20 +58,18 @@ class ViewUsers extends Component {
     this.updateUserInfo(userID, this.state.user);
   };
 
-  render() {
-    return (
-      <Col size="9">
-        {this.state.users.map(user => (
-          <UserList
-            user={user}
-            onDisable={this.handleOnDisable}
-            onChange={this.handleOnChange}
-            onClick={this.handleOnClick}
-          />
-        ))}
-      </Col>
-    );
-  }
+    render(){
+        return(
+            <Col size="9">
+            
+                {this.state.users.map((user, index) => (
+                    index === 0 ? null :
+                <UserList key={this.state.user._id} user={user} onDisable={this.handleOnDisable} onChange={this.handleOnChange} onClick={this.handleOnClick}/>
+                ))}
+
+            </Col>
+        )
+    }
 }
 
 export default ViewUsers;
