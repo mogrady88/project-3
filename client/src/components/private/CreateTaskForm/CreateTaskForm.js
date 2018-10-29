@@ -4,7 +4,7 @@ import "./CreateTaskForm.css";
 
 const CreateTaskForm = props => (
   <Col size="12">
-    <form>
+    <form className="ctCard">
       <div className="form-group">
         <input
           className="form-control"
@@ -37,6 +37,7 @@ const CreateTaskForm = props => (
         />
       </div>
       <button
+        className="btn"
         data-context="task"
         data-isedit={false}
         onClick={props.callCloseCreateEdit}
