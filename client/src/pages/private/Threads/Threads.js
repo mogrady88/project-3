@@ -37,8 +37,8 @@ const Threads = props => (
             title={thread.title}
             author={thread.author}
             replies={thread.comments.length}
-            updatedBy={thread.comments[thread.comments.length - 1].author}
-            updatedAt={thread.comments[thread.comments.length - 1].createdAt}
+            updatedBy={thread.comments[0].author}
+            updatedAt={thread.comments[0].createdAt}
             loadProjectSubpage={props.loadProjectSubpage}
           />
         ))}
