@@ -149,7 +149,6 @@ class Login extends Component {
                     onClick={this.handleLogin}
                     type="submit"
                   >
-                    {console.log("Props", this.props)}
                     Login
                   </button>
                 </form>
