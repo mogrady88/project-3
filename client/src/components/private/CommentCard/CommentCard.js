@@ -7,7 +7,7 @@ const CommentCard = props => (
     <h5>{props.author}</h5>
     <p>{props.text}</p>
     <p>
-      <Moment time={props.updatedAt} />
+      <Moment time={props.createdAt} />
     </p>
   </div>
 );
