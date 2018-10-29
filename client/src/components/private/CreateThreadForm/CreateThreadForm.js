@@ -1,9 +1,10 @@
 import React from "react";
 import Col from "../../shared/grid/Col";
+import "./CreateThreadForm.css";
 
 const CreateThreadForm = props => (
   <Col size="12">
-    <form>
+    <form className="cthreadCard">
       <div className="form-group">
         <input
           className="form-control"
@@ -25,6 +26,7 @@ const CreateThreadForm = props => (
         />
       </div>
       <button
+        className="btn"
         data-context="thread"
         data-isedit={false}
         onClick={props.callCloseCreateEdit}

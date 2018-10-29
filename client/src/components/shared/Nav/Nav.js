@@ -10,6 +10,9 @@ const Nav = props => (
       <div className="nav-wrapper">
         <a className="brand-logo">Dialectic</a>
         <ul id="nav-mobile" className="right hide-on-med-and-down">
+        <li>
+            <Link to="/about">About</Link>
+          </li>
           <li>
             <Link to="/">Home</Link>
           </li>
