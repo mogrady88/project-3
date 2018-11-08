@@ -33,8 +33,9 @@ From the post editor, users can create the public facing content as the projects
 You can view the Deployed Project [here](https://stormy-dawn-49353.herokuapp.com/)
 
 You can view the back-end by logging in with this account information:
-   | Username | admin    |
-   | Password | password |
+
+`Username : admin`    
+`Password : password` 
 
 Or
 
